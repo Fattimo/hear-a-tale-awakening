@@ -1,4 +1,4 @@
-import urls from "../../../utils/urls";
+import urls from "../../../utils/urls"
 
 const routes = [
   {
@@ -14,16 +14,10 @@ const routes = [
     atEnd: false,
   },
   {
-    name: "Login",
-    link: urls.pages.login,
-    auth: false,
-    atEnd: true,
-  },
-  {
     name: "App Home",
     link: urls.pages.app.home,
     auth: true,
   },
-];
+]
 
-export default routes;
+export default routes

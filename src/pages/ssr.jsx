@@ -1,3 +1,3 @@
-import SSRPage from "../screens/SSR";
+import SSRPage from "../screens/SSR"
 
-export default SSRPage;
+export default SSRPage

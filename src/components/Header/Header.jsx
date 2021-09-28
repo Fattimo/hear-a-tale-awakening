@@ -1,9 +1,9 @@
-import React from "react";
-import clsx from "clsx";
-import PropTypes from "prop-types";
-import NavLink from "../NavLink";
-import routes from "./routes";
-import styles from "./Header.module.css";
+import React from "react"
+import clsx from "clsx"
+import PropTypes from "prop-types"
+import NavLink from "../NavLink"
+import routes from "./routes"
+import styles from "./Header.module.css"
 
 const Header = ({ loggedIn, currentRoute }) => (
   <div className={styles.root}>
@@ -22,11 +22,11 @@ const Header = ({ loggedIn, currentRoute }) => (
         </NavLink>
       ))}
   </div>
-);
+)
 
 Header.propTypes = {
   loggedIn: PropTypes.bool.isRequired,
   currentRoute: PropTypes.string.isRequired,
-};
+}
 
-export default Header;
+export default Header

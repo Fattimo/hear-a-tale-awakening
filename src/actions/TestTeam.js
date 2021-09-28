@@ -1,11 +1,10 @@
 import fetch from "isomorphic-unfetch"
 import urls from "../../utils/urls"
 
-export const helloWorld = () =>{
-  return fetch(urls.baseUrl + urls.api.example, {
+export const getTeamMember = (name) =>
+  fetch(urls.baseUrl + urls.api.testTeam.byName + "?name=" + name, {
     method: "get",
     mode: "same-origin",
-    credentials: "include",
   })
     .then((response) => response.json())
     .then((json) => {
@@ -17,4 +16,3 @@ export const helloWorld = () =>{
 
       return json.payload
     })
-}

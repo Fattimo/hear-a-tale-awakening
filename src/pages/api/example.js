@@ -1,4 +1,4 @@
-import { exampleAction } from "../../../server/example/actions/example";
+import { exampleAction } from "../../../server/example/actions/example"
 
 // @route   POST api/example
 // @desc    Example API
@@ -16,6 +16,6 @@ const handler = (req, res) =>
         success: false,
         message: "Failed to run action!",
       })
-    );
+    )
 
-export default handler;
+export default handler

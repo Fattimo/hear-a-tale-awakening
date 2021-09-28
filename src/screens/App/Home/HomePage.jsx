@@ -1,14 +1,14 @@
-import React from "react";
-import PropTypes from "prop-types";
-import Router from "next/router";
-import { logout } from "../../../actions/User";
-import urls from "../../../../utils/urls";
-import classes from "./HomePage.module.css";
+import React from "react"
+import PropTypes from "prop-types"
+import Router from "next/router"
+import { logout } from "../../../actions/User"
+import urls from "../../../../utils/urls"
+import classes from "./HomePage.module.css"
 
 const handleLogout = () =>
   logout()
     .then(() => Router.replace(urls.pages.index))
-    .catch(() => window.alert("An error occurred while trying to logout!"));
+    .catch(() => window.alert("An error occurred while trying to logout!"))
 
 const HomePage = ({ currentUser }) => (
   <div className={classes.root}>
@@ -23,13 +23,13 @@ const HomePage = ({ currentUser }) => (
       Logout
     </button>
   </div>
-);
+)
 
 HomePage.propTypes = {
   currentUser: PropTypes.shape({
     id: PropTypes.string.isRequired,
     username: PropTypes.string.isRequired,
   }).isRequired,
-};
+}
 
-export default HomePage;
+export default HomePage

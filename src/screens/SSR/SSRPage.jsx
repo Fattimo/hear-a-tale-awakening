@@ -1,9 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { helloWorld } from "../../actions/General";
-import classes from "./SSRPage.module.css";
+import React from "react"
+import PropTypes from "prop-types"
+import classes from "./SSRPage.module.css"
+import { helloWorld } from "../../actions/General"
+import { getTeamMember } from "../../actions/TestTeam"
 
-const SSRPage = ({ message, errorMessage }) => {
+const SSRPage = ({ message, errorMessage, member }) => {
   return (
     <>
       <h2 className={classes.CenterText}>Welcome to Next.js!</h2>
@@ -17,30 +18,33 @@ const SSRPage = ({ message, errorMessage }) => {
         <h4>SSR Error: {errorMessage}</h4>
       )}
       <p>You can tell because the text above does not flash on refresh</p>
+      {member && <p>{member.name}</p>}
     </>
-  );
-};
+  )
+}
 
 SSRPage.getInitialProps = async () => {
-  return helloWorld()
-    .then((payload) => {
-      return {
-        message: payload,
-      };
-    })
-    .catch((error) => ({
-      errorMessage: error.message,
-    }));
-};
+  try {
+    const r = await Promise.all([helloWorld(), getTeamMember("matt")])
+    return {
+      message: r[0],
+      member: r[1],
+    }
+  } catch (e) {
+    return { errorMessage: e.message }
+  }
+}
 
 SSRPage.propTypes = {
   message: PropTypes.string,
   errorMessage: PropTypes.string,
-};
+  member: PropTypes.object,
+}
 
 SSRPage.defaultProps = {
   message: null,
   errorMessage: null,
-};
+  member: null,
+}
 
-export default SSRPage;
+export default SSRPage
