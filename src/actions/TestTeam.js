@@ -2,7 +2,7 @@ import fetch from "isomorphic-unfetch"
 import urls from "../../utils/urls"
 
 export const getTeamMember = (name) =>
-  fetch(urls.baseUrl + urls.api.testTeam.byName + "?name=" + name, {
+  fetch(urls.api.testTeam.byName + "?name=" + name, {
     method: "get",
     mode: "same-origin",
   })

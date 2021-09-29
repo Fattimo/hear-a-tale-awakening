@@ -28,9 +28,6 @@ jobs:
           #   staging.angular.vercel-action.amond.dev
           #   pr-{{PR_NUMBER}}.angular.vercel-action.amond.dev
 
-      - name: Set Base URL
-        run: ${{ steps.vercel_deploy.outputs.preview-url }} | npx vercel env add BASE_URL {{ github.head_ref }}
-
       - name: Update deployment status (success)
         uses: chrnorm/deployment-status@releases/v1
         with:
