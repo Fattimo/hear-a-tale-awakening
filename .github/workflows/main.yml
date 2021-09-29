@@ -5,7 +5,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: chrnorm/deployment-action@releases/v1
+        name: Create GitHub deployment
+        id: deployment
+        with:
+          token: "${{ github.token }}"
+          target_url: http://my-app-url.com
+          environment: production
+          
       - uses: amondnet/vercel-action@v19
+        name: Deploy to Vercel
+        id: vercel_deploy
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
           github-token: ${{ secrets.GITHUB_TOKEN }} #Optional 
@@ -16,3 +26,20 @@ jobs:
           # alias-domains: | #Optional
           #   staging.angular.vercel-action.amond.dev
           #   pr-{{PR_NUMBER}}.angular.vercel-action.amond.dev
+
+      - name: Update deployment status (success)
+        uses: chrnorm/deployment-status@releases/v1
+        with:
+          token: "${{ secrets.GITHUB_TOKEN }}"
+          target_url: ${{ steps.vercel_deploy.outputs.preview_url }}
+          state: "success"
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+
+      - name: Update deployment status (failure)
+        if: always() && (job.status == 'failure' || job.status == 'cancelled')
+        uses: chrnorm/deployment-status@releases/v1
+        with:
+          token: "${{ secrets.GITHUB_TOKEN }}"
+          target_url: steps.vercel_deploy.outputs.preview_url
+          state: "failure"
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
