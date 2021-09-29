@@ -12,6 +12,7 @@ jobs:
         with:
           token: "${{ github.token }}"
           environment: Development
+          target_url: "google.com"
 
       - uses: amondnet/vercel-action@v19
         name: Deploy to Vercel
@@ -32,6 +33,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           target_url: ${{ steps.vercel_deploy.outputs.preview-url }}
+          environment_url: ${{ steps.vercel_deploy.outputs.preview-url }}
           state: "success"
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
 
@@ -41,5 +43,6 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           target_url: ${{ steps.vercel_deploy.outputs.preview-url }}
+          environment_url: ${{ steps.vercel_deploy.outputs.preview-url }}
           state: "failure"
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
