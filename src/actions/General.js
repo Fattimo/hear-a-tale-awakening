@@ -1,9 +1,8 @@
 import fetch from "isomorphic-unfetch"
 import urls from "../../utils/urls"
 
-export const helloWorld = () => {
-  console.log(process.env.NEXT_PUBLIC_VERCEL_URL)
-  return fetch(urls.baseUrl + urls.api.example, {
+export const helloWorld = () =>
+  fetch(urls.baseUrl + urls.api.example, {
     method: "get",
     mode: "same-origin",
     credentials: "include",
@@ -18,4 +17,3 @@ export const helloWorld = () => {
 
       return json.payload
     })
-  }
