@@ -10,9 +10,8 @@ jobs:
         id: deployment
         with:
           token: "${{ github.token }}"
-          target_url: http://my-app-url.com
-          environment: production
-          
+          environment: Development
+
       - uses: amondnet/vercel-action@v19
         name: Deploy to Vercel
         id: vercel_deploy
@@ -30,7 +29,7 @@ jobs:
       - name: Update deployment status (success)
         uses: chrnorm/deployment-status@releases/v1
         with:
-          token: "${{ secrets.GITHUB_TOKEN }}"
+          token: ${{ secrets.GITHUB_TOKEN }}
           target_url: ${{ steps.vercel_deploy.outputs.preview_url }}
           state: "success"
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
@@ -39,7 +38,7 @@ jobs:
         if: always() && (job.status == 'failure' || job.status == 'cancelled')
         uses: chrnorm/deployment-status@releases/v1
         with:
-          token: "${{ secrets.GITHUB_TOKEN }}"
-          target_url: steps.vercel_deploy.outputs.preview_url
+          token: ${{ secrets.GITHUB_TOKEN }}
+          target_url: ${{ steps.vercel_deploy.outputs.preview_url }}
           state: "failure"
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
