@@ -1,6 +1,6 @@
 export default {
-  baseUrl: process.env.BASE_URL
-    ? process.env.BASE_URL
+  baseUrl: process.env.VERCEL_URL
+    ? process.env.VERCEL_URL
     : "http://localhost:3000",
   dbUrl: process.env.MONGO_DB ?? "mongodb://localhost:27017",
   pages: {
