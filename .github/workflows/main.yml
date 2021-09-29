@@ -15,7 +15,7 @@ jobs:
 
       - name: Set pipeline
         id: pipeline
-        run: echo ::set-output name=pipeline::${{ github.event_name == "pull_request" && "Preview" || (github.ref == "refs/heads/production" && "Production" || "Development") }}
+        run: echo ::set-output name=pipeline::${{ github.event_name == 'pull_request' && Preview || (github.ref == 'refs/heads/production' && Production || Development) }}
 
       - uses: chrnorm/deployment-action@releases/v1
         name: Create GitHub deployment
