@@ -12,7 +12,7 @@ jobs:
         with:
           token: "${{ github.token }}"
           environment: Development
-          target_url: "google.com"
+          target_url: "https://google.com"
 
       - uses: amondnet/vercel-action@v19
         name: Deploy to Vercel
