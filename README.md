@@ -1,4 +1,4 @@
-# nextjs-starter
+# nextjs-starter 
 
 ## Stack
 
