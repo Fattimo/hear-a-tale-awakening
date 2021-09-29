@@ -5,6 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
       - uses: chrnorm/deployment-action@releases/v1
         name: Create GitHub deployment
         id: deployment
@@ -30,7 +31,7 @@ jobs:
         uses: chrnorm/deployment-status@releases/v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          target_url: ${{ steps.vercel_deploy.outputs.preview_url }}
+          target_url: ${{ steps.vercel_deploy.outputs.preview-url }}
           state: "success"
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
 
@@ -39,6 +40,6 @@ jobs:
         uses: chrnorm/deployment-status@releases/v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          target_url: ${{ steps.vercel_deploy.outputs.preview_url }}
+          target_url: ${{ steps.vercel_deploy.outputs.preview-url }}
           state: "failure"
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
