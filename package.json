@@ -23,7 +23,8 @@
     "secrets": "npm run secrets:logout && cross-env-shell BW_SESSION=`bw login psk.kd.mchen@gmail.com --raw` \"npm run secrets:sync\"",
     "secrets:logout": "(bw logout || exit 0)",
     "secrets:login": "bw login psk.kd.mchen@gmail.com",
-    "secrets:sync": "bw sync && bw get item 52e9486f-bec9-43b0-bcf6-adb0013f2329 | fx .notes > \".env\""
+    "secrets:sync": "bw sync && bw get item $BW_ITEM | fx .notes > \".env\"",
+    "secrets-staging": "BW_ITEM=52e9486f-bec9-43b0-bcf6-adb0013f2329 npm run secrets"
   },
   "husky": {
     "hooks": {
@@ -39,12 +40,10 @@
     ]
   },
   "dependencies": {
-    "bcryptjs": "^2.4.3",
     "clsx": "^1.1.1",
     "dotenv": "^10.0.0",
     "focus-visible": "^5.2.0",
     "isomorphic-unfetch": "^3.1.0",
-    "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
     "mongodb": "^4.0.0",
     "mongoose": "^5.13.2",
@@ -70,6 +69,7 @@
     "husky": "^7.0.1",
     "lint-staged": "^11.0.1",
     "prettier": "2.3.2",
-    "prettier-eslint": "^12.0.0"
+    "prettier-eslint": "^12.0.0",
+    "vercel": "^23.1.2"
   }
 }
