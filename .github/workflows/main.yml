@@ -12,7 +12,7 @@ jobs:
         with:
           token: "${{ github.token }}"
           environment: Development
-          target_url: "https://google.com"
+          target_url: ""
 
       - uses: amondnet/vercel-action@v19
         name: Deploy to Vercel
@@ -24,9 +24,12 @@ jobs:
           vercel-org-id: ${{ secrets.ORG_ID}}  #Required
           vercel-project-id: ${{ secrets.PROJECT_ID}} #Required 
           #working-directory: ./sub-directory #Your Working Directory, Optional
-          # alias-domains: | #Optional
+          # alias-domains: | #Optional, for when an actual domain is provided
           #   staging.angular.vercel-action.amond.dev
           #   pr-{{PR_NUMBER}}.angular.vercel-action.amond.dev
+
+      - name: Set Base URL
+        run: ${{ steps.vercel_deploy.outputs.preview-url }} | npx vercel env add BASE_URL {{ github.head_ref }}
 
       - name: Update deployment status (success)
         uses: chrnorm/deployment-status@releases/v1
