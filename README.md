@@ -10,8 +10,6 @@
 
 ## Setup
 
-## Chris wuz here
-
 ### Initializing Env Vars
 
 - If you are an EM setting up a project for the first time, read [the Bitwarden guide here](https://gtbitsofgood.notion.site/Secrets-Passwords-Bitwarden-74c4806a1f29485b8fb85ea29f273ab9) before continuing forward.
