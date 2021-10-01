@@ -57,7 +57,7 @@ To understand this code better, read the [Code Tour](/CODETOUR.md).
 
 1. Setup your host/vm and the necessary env vars
 2. Run `npm install`
-3. Run `npm run start`
+3. Run `npm run start
 
 ## Other Info
 
