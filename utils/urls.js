@@ -6,9 +6,6 @@ export default {
   pages: {
     index: "/",
     ssr: "/ssr",
-    app: {
-      home: "/app",
-    },
   },
   api: {
     example: "/api/example",
