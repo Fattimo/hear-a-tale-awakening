@@ -13,11 +13,6 @@ const routes = [
     auth: false,
     atEnd: false,
   },
-  {
-    name: "App Home",
-    link: urls.pages.app.home,
-    auth: true,
-  },
 ]
 
 export default routes

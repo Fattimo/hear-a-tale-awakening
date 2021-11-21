@@ -1,8 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
 import classes from "./SSRPage.module.css"
-import { helloWorld } from "../../actions/General"
-import { getTeamMember } from "../../actions/TestTeam"
 
 const SSRPage = ({ message, errorMessage, member }) => {
   return (
@@ -21,18 +19,6 @@ const SSRPage = ({ message, errorMessage, member }) => {
       {member && <p>{member.name}</p>}
     </>
   )
-}
-
-SSRPage.getInitialProps = async () => {
-  try {
-    const r = await Promise.all([helloWorld(), getTeamMember("matt")])
-    return {
-      message: r[0],
-      member: r[1],
-    }
-  } catch (e) {
-    return { errorMessage: e.message }
-  }
 }
 
 SSRPage.propTypes = {
