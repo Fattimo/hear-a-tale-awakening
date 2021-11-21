@@ -1,4 +1,9 @@
-# nextjs-starter
+# Hear A Tale -- Awakening
+
+> Team 1339: Chris Murray, Isabella Moak, Matt Chen, Victor Stevens, Joseph Lazzarini
+
+"Students with poor reading skills fail to reach their potential in school and in life -- a well-designed web-based app, compatible with small-screen devices, can provide the support that such students desperately need." We will be designing a mobile compatible web application that allows users to read Kate Chopin's *The Awakening*, integrating data tracking, audio files, and user interaction features on top of a basic reader.
+
 
 ## Stack
 
@@ -65,4 +70,4 @@ To understand this code better, read the [Code Tour](/CODETOUR.md).
 
 - By default, this repository uses Next `^9.2.0` for styles, which includes native support for global CSS and CSS modules
 - However, this version only allows global css to be in `pages/_app.js`, which can cause issues with external packages
-- If you face this error, the solution is installing [`@zeit/next-css` and adding it to `next.config.js`](https://github.com/zeit/next-plugins/tree/master/packages/next-css), however you cannot use css modules and global css together with this package (and it defaults to global).
+- If you face this error, the solution is installing [`@zeit/next-css` and adding it to `next.config.js`](https://github.com/zeit/next-plugins/tree/master/packages/next-css), however you cannot use css modules and global css together with this package (and it defaults to global). :)

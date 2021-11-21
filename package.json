@@ -23,7 +23,7 @@
     "secrets": "npm run secrets:logout && cross-env-shell BW_SESSION=`bw login psk.kd.mchen@gmail.com --raw` \"npm run secrets:sync\"",
     "secrets:logout": "(bw logout || exit 0)",
     "secrets:login": "bw login psk.kd.mchen@gmail.com",
-    "secrets:sync": "bw sync && bw get item $BW_ITEM | fx .notes > \".env\"",
+    "secrets:sync": "bw sync && bw get item 52e9486f-bec9-43b0-bcf6-adb0013f2329 | fx .notes > \".env\"",
     "secrets-staging": "BW_ITEM=52e9486f-bec9-43b0-bcf6-adb0013f2329 npm run secrets"
   },
   "husky": {
