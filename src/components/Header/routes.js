@@ -13,6 +13,12 @@ const routes = [
     auth: false,
     atEnd: false,
   },
+  {
+    name: "Reader",
+    link: urls.pages.reader,
+    auth: false,
+    atEnd: false,
+  },
 ]
 
 export default routes

@@ -1,0 +1,53 @@
+.homeContainer {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.homeSelects {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.homeSelects button {
+  height: 3.5rem;
+  width: 30vw;
+  border-radius: 75px;
+  cursor: pointer;
+  background-color:#C6FFF1;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+.homeSelects h1 {
+  margin: 0;
+}
+
+.homeChapter {
+  display: flex;
+  justify-content: space-between;
+  width: 20vw;
+  align-items: center;
+}
+
+.homeTag {
+  width: 6rem;
+  height: 1.5rem;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  color: white;
+
+  border-radius: 87px;
+}
+
+.complete {
+  display: flex;
+  background: #65D770;
+}
+
+.inprogress {
+  display: flex;
+  background: #EEE858;
+}

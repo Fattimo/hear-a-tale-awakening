@@ -6,11 +6,15 @@ export default {
   pages: {
     index: "/",
     ssr: "/ssr",
+    reader: "/reader",
   },
   api: {
     example: "/api/example",
     testTeam: {
       byName: "/api/testteam/by-name",
+    },
+    books: {
+      index: "/api/books",
     },
   },
 }

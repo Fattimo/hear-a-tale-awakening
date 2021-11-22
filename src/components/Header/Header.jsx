@@ -10,15 +10,15 @@ const Header = ({ loggedIn, currentRoute }) => (
     {routes
       .filter((route) => (loggedIn && route.auth) || (!loggedIn && !route.auth))
       .map(({ name, link, atEnd }) => (
-        <NavLink href={link} key={name}>
-          <div
-            className={clsx(
-              atEnd ? styles.endRoute : styles.route,
-              currentRoute === link && styles.selected
-            )}
-          >
-            {name}
-          </div>
+        <NavLink
+          href={link}
+          key={name}
+          className={clsx(
+            atEnd ? styles.endRoute : styles.route,
+            currentRoute === link && styles.selected
+          )}
+        >
+          {name}
         </NavLink>
       ))}
   </div>
