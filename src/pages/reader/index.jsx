@@ -10,7 +10,8 @@ export async function getServerSideProps() {
   if (book.success) props.book = JSON.parse(JSON.stringify(book.payload))
   else return { props: { errorMessage: book.message } }
   const chapters = await findChaptersServerCall({ bookId: book.payload._id })
-  if (chapters.success) props.chapters = JSON.parse(JSON.stringify(chapters.payload))
+  if (chapters.success)
+    props.chapters = JSON.parse(JSON.stringify(chapters.payload))
   else return { props: { errorMessage: chapters.message } }
   return { props }
 }
