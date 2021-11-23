@@ -1,9 +1,33 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import PropTypes from "prop-types"
+import Link from "next/link"
+
 import styles from "./ReaderHome.module.css"
 
 const ReaderHome = ({ book, chapters, errorMessage }) => {
   if (errorMessage) return <div>There was an error. {errorMessage}</div>
+  const [statuses, setStatuses] = useState({})
+
+  useEffect(() => {
+    const chapterStatuses = window.localStorage.getItem(book.title)
+    if (chapterStatuses === null) {
+      window.localStorage.setItem(book.title, JSON.stringify({}))
+      return
+    }
+    setStatuses(JSON.parse(chapterStatuses))
+  }, [])
+  /**
+   * local storage shape:
+   * key: title of book
+   * value: {
+   *  chapter number: status,
+   *  chapter number: status
+   * }
+   */
+
+  const resetLocalStorage = () =>
+    window.localStorage.setItem(book.title, JSON.stringify({}))
+
   return (
     <div className={styles.homeContainer}>
       <div className={styles.homeSelects}>
@@ -22,12 +46,16 @@ const ReaderHome = ({ book, chapters, errorMessage }) => {
             ? "No chapters found"
             : chapters.map((c) => (
                 <div key={c.number + c.name} className={styles.homeChapter}>
-                  <p>
-                    Chapter {c.number}: {c.name}
-                  </p>
-                  <CompletedTag status="complete" />
+                  <Link href={`/reader/${book._id}/${c.number}`}>
+                    <a>
+                      Chapter {c.number}: {c.name}
+                    </a>
+                  </Link>
+
+                  <CompletedTag status={statuses[c.number]} />
                 </div>
               ))}
+          <div onClick={resetLocalStorage}>Reset Local Storage</div>
         </div>
       </div>
     </div>
@@ -36,7 +64,7 @@ const ReaderHome = ({ book, chapters, errorMessage }) => {
 
 const CompletedTag = ({ status }) => (
   <div className={`${styles[status]} ${styles.homeTag}`}>
-    {status === "complete" ? "Finished" : "In Progress"}
+    <p>{status === "complete" ? "Finished" : "In Progress"}</p>
   </div>
 )
 

@@ -16,5 +16,8 @@ export default {
     books: {
       index: "/api/books",
     },
+    chapters: {
+      index: "/api/chapters",
+    },
   },
 }

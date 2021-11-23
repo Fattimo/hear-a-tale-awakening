@@ -10,14 +10,14 @@ export async function findChaptersByBook({ bookId }) {
   return chapters
 }
 
-export async function findChapterWithTextBlob({ chapterId }) {
+export async function findChapterWithTextBlob({ bookId, number }) {
   await mongodb()
 
-  const chapter = Chapter.findById(chapterId)
-  const text = TextBlob.findById(chapter.textId)
-
+  const chapter = await Chapter.findOne({ bookId, number })
+  if (!chapter) return "No Chapter Found"
+  const text = await TextBlob.findById(chapter.textId)
   return {
-    ...chapter,
+    ...chapter.toObject(),
     text: text.text,
   }
 }

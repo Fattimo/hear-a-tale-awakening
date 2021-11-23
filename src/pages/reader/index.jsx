@@ -1,33 +1,40 @@
 import React from "react"
-import ReaderHome from "../../screens/ReaderHome"
 import PropTypes from "prop-types"
-import { findBookServerCall } from "../api/books/[bookId]"
-import { findChaptersServerCall } from "../api/chapters"
+import { findBooksServerCall } from "../api/books"
+import Link from "next/link"
 
 export async function getServerSideProps() {
-  const book = await findBookServerCall()
   const props = {}
-  if (book.success) props.book = JSON.parse(JSON.stringify(book.payload))
-  else return { props: { errorMessage: book.message } }
-  const chapters = await findChaptersServerCall({ bookId: book.payload._id })
-  if (chapters.success)
-    props.chapters = JSON.parse(JSON.stringify(chapters.payload))
-  else return { props: { errorMessage: chapters.message } }
+  const books = await findBooksServerCall()
+  if (books.success) props.books = JSON.parse(JSON.stringify(books.payload))
+  else return { props: { errorMessage: books.message } }
   return { props }
 }
 
-const Reader = (props) => <ReaderHome {...props} />
+const Reader = ({ books, errorMessage }) => {
+  return (
+    <div>
+      {errorMessage && <div>Error: {errorMessage}</div>}
+      {books.map((book) => (
+        <Link
+          key={book.title + ": " + book.author}
+          href={`/reader/${book._id}`}
+        >
+          <a>{book.title}</a>
+        </Link>
+      ))}
+    </div>
+  )
+}
 
 Reader.propTypes = {
   errorMessage: PropTypes.string,
-  book: PropTypes.object,
-  chapters: PropTypes.array,
+  books: PropTypes.array,
 }
 
 Reader.defaultProps = {
   errorMessage: null,
-  book: null,
-  chapters: [],
+  books: [],
 }
 
 export default Reader

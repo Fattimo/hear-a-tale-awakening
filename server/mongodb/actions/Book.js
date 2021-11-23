@@ -17,6 +17,15 @@ export async function findBookById(id) {
   return book
 }
 
+// todo: paginate and such
+export async function findBooks() {
+  await mongoDB()
+
+  const books = await Book.find({})
+
+  return books
+}
+
 export async function findBooksByAuthor({ author }) {
   await mongoDB()
 
