@@ -116,17 +116,19 @@ const SSRPage = ({ message, errorMessage, member }) => {
       </button>
       <button onClick={() => setIsSyncing(false)}>Stop Syncing</button>
       <p>Currently: {`${isSyncing ? "" : "Not"} Syncing`}</p>
-      {isSyncing ? (
+      {isSyncing && (
         <SyncBox
           text={text}
           delimiter={delimiter}
           offset={offset}
+          mode={mode}
           setIsSyncing={setIsSyncing}
           audioPlayerRef={audioPlayerRef}
           setTimestamps={setTimestamps}
           setLabels={setLabels}
         />
-      ) : (
+      )}
+      {!isSyncing && (
         <PreviewBox
           timestamps={timestamps}
           labels={labels}
@@ -147,6 +149,7 @@ const SyncBox = ({
   setLabels,
   setTimestamps,
   offset,
+  mode,
 }) => {
   const [currentIndex, setCurrentIndexState] = useState(-1)
   const currentIndexRef = useRef(0)
@@ -155,12 +158,24 @@ const SyncBox = ({
     currentIndexRef.current = index
   }
 
-  const words = text.split(/\r?\n/).reduce((words, paragraph) => {
-    if (delimiter === "2") return [...words, paragraph]
-    else if (delimiter === "1") return [...words, ...paragraph.split(". ")]
-    else return [...words, ...paragraph.split(" ")]
-  }, [])
-  const timestamps = new Array(words.length)
+  let words, timestamps
+
+  if (mode === "json") {
+    try {
+      const j = JSON.parse(text)
+      words = j.labels
+      timestamps = j.timestamps
+    } catch (e) {
+      return <div>ERROR IN JSON</div>
+    }
+  } else {
+    words = text.split(/\r?\n/).reduce((words, paragraph) => {
+      if (delimiter === "2") return [...words, paragraph]
+      else if (delimiter === "1") return [...words, ...paragraph.split(". ")]
+      else return [...words, ...paragraph.split(" ")]
+    }, [])
+    timestamps = new Array(words.length)
+  }
 
   const sync = (e) => {
     if (e.keyCode === 32) {
@@ -179,6 +194,11 @@ const SyncBox = ({
   }
 
   useEffect(() => {
+    if (mode === "json") {
+      setTimestamps(timestamps)
+      setLabels(words)
+    }
+
     setCurrentIndex(0)
     document.addEventListener("keydown", sync)
     return () => document.removeEventListener("keydown", sync)
@@ -233,22 +253,28 @@ const PreviewBox = ({
     setCurrentIndex(timestamps.length - 1)
   }, [currentTime])
 
+  const [currs, setCurrs] = useState(timestamps)
+  const [errs, setErrs] = useState(new Array(timestamps.length).fill(false))
+  const [clickeds, setClickeds] = useState(
+    new Array(timestamps.length).fill(false)
+  )
+
   return (
     <div>
       <div>
         {labels.map((word, i) => {
-          const [clicked, setClicked] = useState(false)
-          const [err, setErr] = useState(false)
-          const [curr, setCurr] = useState(timestamps[i])
           const changeCurrent = (e) => {
-            setCurr(e.target.value)
-            if (isNaN(parseFloat(e.target.value))) setErr(true)
-            else setErr(false)
+            currs[i] = e.target.value
+            setCurrs(currs)
+            if (isNaN(parseFloat(e.target.value))) errs[i] = true
+            else errs[i] = false
+            setErrs(errs)
           }
           const acceptTs = () => {
-            timestamps[i] = curr
+            timestamps[i] = currs[i]
             setTimestamps(timestamps)
-            setClicked(false)
+            clickeds[i] = false
+            setClickeds(false)
             setDownload(
               "data:text/json;charset=utf-8," +
                 encodeURIComponent(
@@ -260,9 +286,12 @@ const PreviewBox = ({
             )
           }
           const cancelTs = () => {
-            setClicked(false)
-            setCurr(timestamps[i])
-            setErr(false)
+            clickeds[i] = false
+            errs[i] = false
+            currs[i] = timestamps[i]
+            setClickeds(clickeds)
+            setCurrs(currs)
+            setErrs(errs)
           }
           return (
             <a
@@ -278,14 +307,17 @@ const PreviewBox = ({
             >
               {word}{" "}
               <span className={classes.tooltiptext}>
-                {clicked ? (
+                {clickeds[i] ? (
                   <div style={{ display: "flex" }}>
                     <input
-                      value={curr}
+                      value={currs[i]}
                       onChange={changeCurrent}
-                      style={{ background: err ? "red" : "", width: "100%" }}
+                      style={{
+                        background: errs[i] ? "red" : "",
+                        width: "100%",
+                      }}
                     />
-                    <button disabled={err} onClick={acceptTs}>
+                    <button disabled={errs[i]} onClick={acceptTs}>
                       Y
                     </button>
                     <button onClick={cancelTs}>N</button>
@@ -293,8 +325,10 @@ const PreviewBox = ({
                 ) : (
                   <span
                     onClick={() => {
-                      setClicked(true)
-                      setCurr(timestamps[i])
+                      clickeds[i] = true
+                      currs[i] = timestamps[i]
+                      setClickeds(clickeds)
+                      setCurrs(currs)
                     }}
                   >
                     {timestamps[i]}
@@ -328,6 +362,7 @@ SyncBox.propTypes = {
   setTimestamps: PropTypes.func,
   setLabels: PropTypes.func,
   offset: PropTypes.number,
+  mode: PropTypes.string,
 }
 
 SSRPage.propTypes = {
