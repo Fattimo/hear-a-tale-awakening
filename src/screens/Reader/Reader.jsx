@@ -5,14 +5,26 @@ import Link from "next/link"
 import styles from "./Reader.module.css"
 import { getChapterWithBlob } from "../../actions/Chapters"
 import { useRouter } from "next/dist/client/router"
+import Paginator from "../../components/Reader/Paginator"
 
 const Reader = ({ initialChapter, initialText, errorMessage, bookTitle }) => {
+  const router = useRouter()
+
+  const [optionsIsOpen, setOptionsIsOpen] = useState(false)
+  const [options, setOptions] = useState({ readerMode: "page" })
+
+  const changeMode = (e) => {
+    setOptions({
+      ...options,
+      readerMode: e.target.value,
+    })
+  }
+
   const [chapters, setChapters] = useState([])
   const [loading, setLoading] = useState(false)
   const [end, setEnd] = useState(false)
   const [currChapter, setCurrentChapter] = useState(0) // index in chapters
   const chapterRange = useRef([])
-  const router = useRouter()
   useEffect(() => {
     setChapters([{ ...initialChapter, text: initialText }])
     chapterRange.current = [initialChapter.number, initialChapter.number]
@@ -31,42 +43,62 @@ const Reader = ({ initialChapter, initialText, errorMessage, bookTitle }) => {
     window.localStorage.setItem(bookTitle, JSON.stringify(statuses))
   }
 
+  const getNextChapter = async () => {
+    if (end) return
+    setLoading(true)
+    const nextChapter = await getChapterWithBlob({
+      bookId: initialChapter.bookId,
+      number: chapterRange.current[1] + 1,
+    })
+    markComplete(chapterRange.current[1])
+    if (nextChapter === "No Chapter Found") {
+      setLoading(false)
+      setEnd(true)
+      return
+    }
+    setChapters([...chapters, nextChapter])
+    markInProgress(chapterRange.current[1] + 1)
+    chapterRange.current[1] += 1
+  }
+
+  const getPrevChapter = async () => {
+    if (chapterRange.current[0] === 1) return
+    setLoading(true)
+    const prevChapter = await getChapterWithBlob({
+      bookId: initialChapter.bookId,
+      number: chapterRange.current[0] - 1,
+    })
+    setChapters([prevChapter, ...chapters])
+    const id = `${chapters[0].number}:${chapters[0].name}`
+    chapterRange.current[0] -= 1
+    markComplete(chapterRange.current[0])
+    setCurrentChapter(currChapter + 1)
+    return id
+  }
+
+  const changeQs = (isNextChapter) => {
+    const newChapter = isNextChapter
+      ? Math.min(currChapter + 1, chapters.length - 1)
+      : Math.max(currChapter - 1, 0)
+    setCurrentChapter(newChapter)
+    router.replace(
+      `/reader/${initialChapter.bookId}/${chapters[newChapter].number}`,
+      null,
+      { shallow: true }
+    )
+  }
+
   const scrollReader = async (e) => {
     changeChapter(e)
     if (loading) return
     if (
       Math.floor(e.target.scrollHeight - e.target.scrollTop) <=
       e.target.clientHeight
-    ) {
-      if (end) return
-      setLoading(true)
-      const nextChapter = await getChapterWithBlob({
-        bookId: initialChapter.bookId,
-        number: chapterRange.current[1] + 1,
-      })
-      markComplete(chapterRange.current[1])
-      if (nextChapter === "No Chapter Found") {
-        setLoading(false)
-        setEnd(true)
-        return
-      }
-      setChapters([...chapters, nextChapter])
-      markInProgress(chapterRange.current[1] + 1)
-      chapterRange.current[1] += 1
-    }
+    )
+      await getNextChapter()
     if (e.target.scrollTop === 0) {
-      if (chapterRange.current[0] === 1) return
-      setLoading(true)
-      const prevChapter = await getChapterWithBlob({
-        bookId: initialChapter.bookId,
-        number: chapterRange.current[0] - 1,
-      })
-      setChapters([prevChapter, ...chapters])
-      const id = `${chapters[0].number}:${chapters[0].name}`
-      document.getElementById(id).scrollIntoView()
-      chapterRange.current[0] -= 1
-      markComplete(chapterRange.current[0])
-      setCurrentChapter(currChapter + 1)
+      const id = await getPrevChapter()
+      if (id) document.getElementById(id).scrollIntoView()
     }
     setLoading(false)
   }
@@ -77,22 +109,8 @@ const Reader = ({ initialChapter, initialText, errorMessage, bookTitle }) => {
     const top = currElement.offsetTop
     const bottom = currElement.clientHeight + top
     const pos = e.target.scrollTop + e.target.clientHeight
-    if (pos < top) {
-      const newChapter = Math.max(currChapter - 1, 0)
-      setCurrentChapter(newChapter)
-      router.replace(
-        `/reader/${initialChapter.bookId}/${chapters[newChapter].number}`,
-        null,
-        { shallow: true }
-      )
-    } else if (pos > bottom) {
-      const newChapter = Math.min(currChapter + 1, chapters.length - 1)
-      setCurrentChapter(newChapter)
-      router.replace(
-        `/reader/${initialChapter.bookId}/${chapters[newChapter].number}`,
-        null,
-        { shallow: true }
-      )
+    if (!(pos >= top && pos <= bottom)) {
+      changeQs(pos > bottom)
     }
   }
 
@@ -116,28 +134,54 @@ const Reader = ({ initialChapter, initialText, errorMessage, bookTitle }) => {
         <h1>
           {bookTitle}: Chapter {chapters[currChapter]?.number}
         </h1>
-        <div>options</div>
-      </div>
-      <div className={styles.overflowContainer} onScroll={scrollReader}>
-        <div className={styles.textContainer} id="readerContainer">
-          {chapters.map((chapter) => (
-            <div
-              id={`${chapter.number}:${chapter.name}`}
-              key={`${chapter.number}:${chapter.name}`}
+        <div className={styles.sidebarContainer}>
+          <span onClick={() => setOptionsIsOpen(!optionsIsOpen)}>options</span>
+
+          <div
+            className={`${optionsIsOpen ? styles.open : ""} ${styles.sidebar}`}
+          >
+            <label htmlFor="pageMode">Reader Mode:</label>
+            <select
+              name="pageMode"
+              id="pageMode"
+              value={options.readerMode}
+              onChange={changeMode}
             >
-              <h2>
-                Chapter {chapter.number}: {chapter.name}
-              </h2>
-              <p className={styles.text}>{chapter.text}</p>
-            </div>
-          ))}
-          {end && (
-            <p>
-              <strong>End of Book</strong>
-            </p>
-          )}
+              <option value="page">Page</option>
+              <option value="scroll">Scroll</option>
+            </select>
+          </div>
         </div>
       </div>
+      {options.readerMode === "scroll" ? (
+        <div className={styles.overflowContainer} onScroll={scrollReader}>
+          <div className={styles.textContainer} id="readerContainer">
+            {chapters.map((chapter) => (
+              <div
+                id={`${chapter.number}:${chapter.name}`}
+                key={`${chapter.number}:${chapter.name}`}
+              >
+                <h2>
+                  Chapter {chapter.number}: {chapter.name}
+                </h2>
+                <p className={styles.text}>{chapter.text}</p>
+              </div>
+            ))}
+            {end && (
+              <p>
+                <strong>End of Book</strong>
+              </p>
+            )}
+          </div>
+        </div>
+      ) : (
+        <Paginator
+          chapter={chapters[currChapter]}
+          getNextChapter={getNextChapter}
+          getPrevChapter={getPrevChapter}
+          changeQs={changeQs}
+        />
+      )}
     </div>
   )
 }
