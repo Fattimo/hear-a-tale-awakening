@@ -137,6 +137,7 @@ const SSRPage = ({ message, errorMessage, member }) => {
           setTimestamps={setTimestamps}
           setLabels={setLabels}
           setCurrent={setCurrent}
+          initial={current}
         />
       )}
       {!isSyncing && (
@@ -162,6 +163,7 @@ const SyncBox = ({
   setTimestamps,
   offset,
   mode,
+  initial,
   setCurrent,
 }) => {
   const [currentIndex, setCurrentIndexState] = useState(-1)
@@ -206,18 +208,25 @@ const SyncBox = ({
   }
 
   useEffect(() => {
-    let currentSet = false
+    let currentDataTracker = initial
     if (mode === "json") {
       setTimestamps(timestamps)
       setLabels(words)
-      if (current && current.ts && current.label) {
-        setCurrentIndex(words.indexOf(current.label))
-        audioPlayerRef.current.currentTime = current.ts
-        currentSet = true
-      }
+      currentDataTracker = current
     }
 
-    if (!currentSet) setCurrentIndex(0)
+    if (
+      currentDataTracker &&
+      currentDataTracker.ts &&
+      currentDataTracker.label
+    ) {
+      setCurrentIndex(words.indexOf(currentDataTracker.label))
+      audioPlayerRef.current.currentTime = currentDataTracker.ts
+    } else {
+      setCurrentIndex(0)
+      audioPlayerRef.current.currentTime = 0
+    }
+
     document.addEventListener("keydown", sync)
     return () => {
       setTimestamps(timestamps)
@@ -435,6 +444,7 @@ SyncBox.propTypes = {
   offset: PropTypes.number,
   mode: PropTypes.string,
   setCurrent: PropTypes.func,
+  initial: PropTypes.object,
 }
 
 SSRPage.propTypes = {
