@@ -1,3 +1,10 @@
 import Review from "../../../screens/Review"
 
-export default Review
+export async function getServerSideProps(context) {
+    let props = {bookId: context.params.bookId}
+    return {props}
+}
+
+const R = (props) => <Review {...props}></Review>
+
+export default R
