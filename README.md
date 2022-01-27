@@ -4,12 +4,11 @@
 
 "Students with poor reading skills fail to reach their potential in school and in life -- a well-designed web-based app, compatible with small-screen devices, can provide the support that such students desperately need." We will be designing a mobile compatible web application that allows users to read Kate Chopin's *The Awakening*, integrating data tracking, audio files, and user interaction features on top of a basic reader.
 
-
 ## Stack
 
 - React.js: Front-end
 - Next.js: API routes and server-side rendering
-- MongoDB: Permanently storing info
+- MongoDB/Mongoose: Persistent storage
 - eslint: Automatically identifying and fixing code errors
 - prettier: Setting a common code style and fixing any issues. If you would like to adjust any prettier settings like quote style or include semicolons, look in `.prettierrc`
 
@@ -18,12 +17,11 @@
 ### Initializing Env Vars
 
 - If you are an EM setting up a project for the first time, read [the Bitwarden guide here](https://gtbitsofgood.notion.site/Secrets-Passwords-Bitwarden-74c4806a1f29485b8fb85ea29f273ab9) before continuing forward.
-- Run `npm run secrets` to sync development secrets from Bitwarden and save them to a local `.env` file. Contact a leadership member for the Bitwarden password.
-  - **Note**: If you are using Windows, enter `npm run secrets:login` and then `npm run secrets:sync` instead of the above script.
+- Run `npm run secrets:[windows/linux]` to sync development secrets from Bitwarden and save them to a local `.env.local` file, based on your platform. Contact Matt Chen for the Bitwarden password.
 
 ### Updating Env Vars
 
-- For dev, update `.env` and `next.config.js`
+- For dev, update `.env.local` and `next.config.js`
 - For production, add the env vars to your host, **NEVER** commit `.env` to your version control system.
 
 ### MongoDB
@@ -64,10 +62,8 @@ To understand this code better, read the [Code Tour](/CODETOUR.md).
 2. Run `npm install`
 3. Run `npm run start`
 
-## Other Info
+## Release Notes
 
-### Styling
+# Version 0.1.0
 
-- By default, this repository uses Next `^9.2.0` for styles, which includes native support for global CSS and CSS modules
-- However, this version only allows global css to be in `pages/_app.js`, which can cause issues with external packages
-- If you face this error, the solution is installing [`@zeit/next-css` and adding it to `next.config.js`](https://github.com/zeit/next-plugins/tree/master/packages/next-css), however you cannot use css modules and global css together with this package (and it defaults to global). :)
+* test

@@ -1,5 +1,5 @@
 import React from "react"
-import SSRPage from "../screens/SSR"
+import SSRPage from "src/screens/SSR"
 import PropTypes from "prop-types"
 import { exampleServerCall } from "./api/example"
 import { teamByNameServerCall } from "./api/testteam/by-name"

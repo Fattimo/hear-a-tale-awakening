@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import Link from "next/link"
 
 import styles from "./Reader.module.css"
-import { getChapterWithBlob } from "../../actions/Chapters"
+import { getChapterWithBlob } from "src/actions/Chapters"
 import { useRouter } from "next/dist/client/router"
 
 const Reader = ({ initialChapter, initialText, errorMessage, bookTitle }) => {
