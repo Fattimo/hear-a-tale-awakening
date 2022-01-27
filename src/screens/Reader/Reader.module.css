@@ -31,3 +31,22 @@
 .readerIcon {
   cursor: pointer;
 }
+
+.sidebarContainer {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.sidebar {
+  visibility: hidden;
+  background-color: lightblue;
+  position: absolute;
+  z-index: 10;
+  top: -5px;
+  right: 105%;
+}
+
+.sidebar.open {
+  visibility: visible;
+}

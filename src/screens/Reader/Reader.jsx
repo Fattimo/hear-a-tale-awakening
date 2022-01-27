@@ -5,14 +5,26 @@ import Link from "next/link"
 import styles from "./Reader.module.css"
 import { getChapterWithBlob } from "../../actions/Chapters"
 import { useRouter } from "next/dist/client/router"
+import Paginator from "../../components/Reader/Paginator"
 
 const Reader = ({ initialChapter, initialText, errorMessage, bookTitle }) => {
+  const router = useRouter()
+
+  const [optionsIsOpen, setOptionsIsOpen] = useState(false)
+  const [options, setOptions] = useState({ readerMode: "page" })
+
+  const changeMode = (e) => {
+    setOptions({
+      ...options,
+      readerMode: e.target.value,
+    })
+  }
+
   const [chapters, setChapters] = useState([])
   const [loading, setLoading] = useState(false)
   const [end, setEnd] = useState(false)
   const [currChapter, setCurrentChapter] = useState(0) // index in chapters
   const chapterRange = useRef([])
-  const router = useRouter()
   useEffect(() => {
     setChapters([{ ...initialChapter, text: initialText }])
     chapterRange.current = [initialChapter.number, initialChapter.number]
@@ -116,28 +128,49 @@ const Reader = ({ initialChapter, initialText, errorMessage, bookTitle }) => {
         <h1>
           {bookTitle}: Chapter {chapters[currChapter]?.number}
         </h1>
-        <div>options</div>
-      </div>
-      <div className={styles.overflowContainer} onScroll={scrollReader}>
-        <div className={styles.textContainer} id="readerContainer">
-          {chapters.map((chapter) => (
-            <div
-              id={`${chapter.number}:${chapter.name}`}
-              key={`${chapter.number}:${chapter.name}`}
+        <div className={styles.sidebarContainer}>
+          <span onClick={() => setOptionsIsOpen(!optionsIsOpen)}>options</span>
+
+          <div
+            className={`${optionsIsOpen ? styles.open : ""} ${styles.sidebar}`}
+          >
+            <label htmlFor="pageMode">Reader Mode:</label>
+            <select
+              name="pageMode"
+              id="pageMode"
+              value={options.readerMode}
+              onChange={changeMode}
             >
-              <h2>
-                Chapter {chapter.number}: {chapter.name}
-              </h2>
-              <p className={styles.text}>{chapter.text}</p>
-            </div>
-          ))}
-          {end && (
-            <p>
-              <strong>End of Book</strong>
-            </p>
-          )}
+              <option value="page">Page</option>
+              <option value="scroll">Scroll</option>
+            </select>
+          </div>
         </div>
       </div>
+      {options.readerMode === "scroll" ? (
+        <div className={styles.overflowContainer} onScroll={scrollReader}>
+          <div className={styles.textContainer} id="readerContainer">
+            {chapters.map((chapter) => (
+              <div
+                id={`${chapter.number}:${chapter.name}`}
+                key={`${chapter.number}:${chapter.name}`}
+              >
+                <h2>
+                  Chapter {chapter.number}: {chapter.name}
+                </h2>
+                <p className={styles.text}>{chapter.text}</p>
+              </div>
+            ))}
+            {end && (
+              <p>
+                <strong>End of Book</strong>
+              </p>
+            )}
+          </div>
+        </div>
+      ) : (
+        <Paginator chapter={chapters[currChapter]} />
+      )}
     </div>
   )
 }
