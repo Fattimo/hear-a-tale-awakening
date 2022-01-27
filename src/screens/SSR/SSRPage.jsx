@@ -16,6 +16,10 @@ const SSRPage = ({ message, errorMessage, member }) => {
 
   const [timestamps, setTimestamps] = useState(null)
   const [labels, setLabels] = useState(null)
+  const [current, setCurrent] = useState({
+    ts: 0,
+    label: "",
+  })
 
   const startButtonRef = useRef(null)
   const audioPlayerRef = useRef(null)
@@ -38,7 +42,13 @@ const SSRPage = ({ message, errorMessage, member }) => {
 
   const startSyncing = () => {
     setIsSyncing(true)
+    audioPlayerRef.current.play()
     startButtonRef.current.blur()
+  }
+
+  const stopSyncing = () => {
+    setIsSyncing(false)
+    audioPlayerRef.current.pause()
   }
 
   return (
@@ -114,7 +124,7 @@ const SSRPage = ({ message, errorMessage, member }) => {
       <button ref={startButtonRef} onClick={startSyncing}>
         Begin Syncing
       </button>
-      <button onClick={() => setIsSyncing(false)}>Stop Syncing</button>
+      <button onClick={stopSyncing}>Stop Syncing</button>
       <p>Currently: {`${isSyncing ? "" : "Not"} Syncing`}</p>
       {isSyncing && (
         <SyncBox
@@ -126,6 +136,7 @@ const SSRPage = ({ message, errorMessage, member }) => {
           audioPlayerRef={audioPlayerRef}
           setTimestamps={setTimestamps}
           setLabels={setLabels}
+          setCurrent={setCurrent}
         />
       )}
       {!isSyncing && (
@@ -135,6 +146,7 @@ const SSRPage = ({ message, errorMessage, member }) => {
           setTimestamps={setTimestamps}
           currentTime={currentTime}
           audioPlayerRef={audioPlayerRef}
+          current={current}
         />
       )}
     </>
@@ -150,6 +162,7 @@ const SyncBox = ({
   setTimestamps,
   offset,
   mode,
+  setCurrent,
 }) => {
   const [currentIndex, setCurrentIndexState] = useState(-1)
   const currentIndexRef = useRef(0)
@@ -158,13 +171,14 @@ const SyncBox = ({
     currentIndexRef.current = index
   }
 
-  let words, timestamps
+  let words, timestamps, current
 
   if (mode === "json") {
     try {
       const j = JSON.parse(text)
       words = j.labels
       timestamps = j.timestamps
+      current = j.current
     } catch (e) {
       return <div>ERROR IN JSON</div>
     }
@@ -174,7 +188,7 @@ const SyncBox = ({
       else if (delimiter === "1") return [...words, ...paragraph.split(". ")]
       else return [...words, ...paragraph.split(" ")]
     }, [])
-    timestamps = new Array(words.length)
+    timestamps = new Array(words.length).fill(-1)
   }
 
   const sync = (e) => {
@@ -187,21 +201,35 @@ const SyncBox = ({
       setCurrentIndex(currentIndexRef.current + 1)
       if (currentIndexRef.current >= words.length) {
         setIsSyncing(false)
-        setTimestamps(timestamps)
-        setLabels(words)
       }
     }
   }
 
   useEffect(() => {
+    let currentSet = false
     if (mode === "json") {
       setTimestamps(timestamps)
       setLabels(words)
+      if (current && current.ts && current.label) {
+        setCurrentIndex(words.indexOf(current.label))
+        audioPlayerRef.current.currentTime = current.ts
+        currentSet = true
+      }
     }
 
-    setCurrentIndex(0)
+    if (!currentSet) setCurrentIndex(0)
     document.addEventListener("keydown", sync)
-    return () => document.removeEventListener("keydown", sync)
+    return () => {
+      setTimestamps(timestamps)
+      setLabels(words)
+      if (currentIndexRef.current < words.length) {
+        setCurrent({
+          ts: audioPlayerRef.current.currentTime,
+          label: words[currentIndexRef.current],
+        })
+      } else setCurrent({})
+      document.removeEventListener("keydown", sync)
+    }
   }, [])
 
   return (
@@ -227,18 +255,38 @@ const PreviewBox = ({
   currentTime,
   setTimestamps,
   audioPlayerRef,
+  current,
 }) => {
   if (!timestamps || !labels) return <div></div>
   const [currentIndex, setCurrentIndex] = useState(-1)
-  const [download, setDownload] = useState(
+  const [download, setDownloadState] = useState(
     "data:text/json;charset=utf-8," +
       encodeURIComponent(
         JSON.stringify({
           labels,
           timestamps,
+          current,
         })
       )
   )
+
+  const setDownload = () => {
+    setDownloadState(
+      "data:text/json;charset=utf-8," +
+        encodeURIComponent(
+          JSON.stringify({
+            labels,
+            timestamps: timestamps.map((t) => parseFloat(t)),
+            current,
+          })
+        )
+    )
+  }
+
+  const setIndividualTimestamp = (i) => (ts) => {
+    timestamps[i] = ts
+    setTimestamps(timestamps)
+  }
 
   useEffect(() => {
     // todo: replace with binary search
@@ -253,97 +301,119 @@ const PreviewBox = ({
     setCurrentIndex(timestamps.length - 1)
   }, [currentTime])
 
-  const [currs, setCurrs] = useState(timestamps)
-  const [errs, setErrs] = useState(new Array(timestamps.length).fill(false))
-  const [clickeds, setClickeds] = useState(
-    new Array(timestamps.length).fill(false)
-  )
-
   return (
     <div>
       <div>
-        {labels.map((word, i) => {
-          const changeCurrent = (e) => {
-            currs[i] = e.target.value
-            setCurrs(currs)
-            if (isNaN(parseFloat(e.target.value))) errs[i] = true
-            else errs[i] = false
-            setErrs(errs)
-          }
-          const acceptTs = () => {
-            timestamps[i] = currs[i]
-            setTimestamps(timestamps)
-            clickeds[i] = false
-            setClickeds(false)
-            setDownload(
-              "data:text/json;charset=utf-8," +
-                encodeURIComponent(
-                  JSON.stringify({
-                    labels,
-                    timestamps: timestamps.map((t) => parseFloat(t)),
-                  })
-                )
-            )
-          }
-          const cancelTs = () => {
-            clickeds[i] = false
-            errs[i] = false
-            currs[i] = timestamps[i]
-            setClickeds(clickeds)
-            setCurrs(currs)
-            setErrs(errs)
-          }
-          return (
-            <a
-              key={i}
-              style={{
-                padding: "0 3px",
-                background: i === currentIndex ? "lime" : "",
-              }}
-              onClick={() =>
-                (audioPlayerRef.current.currentTime = timestamps[i])
-              }
-              className={classes.tooltip}
-            >
-              {word}{" "}
-              <span className={classes.tooltiptext}>
-                {clickeds[i] ? (
-                  <div style={{ display: "flex" }}>
-                    <input
-                      value={currs[i]}
-                      onChange={changeCurrent}
-                      style={{
-                        background: errs[i] ? "red" : "",
-                        width: "100%",
-                      }}
-                    />
-                    <button disabled={errs[i]} onClick={acceptTs}>
-                      Y
-                    </button>
-                    <button onClick={cancelTs}>N</button>
-                  </div>
-                ) : (
-                  <span
-                    onClick={() => {
-                      clickeds[i] = true
-                      currs[i] = timestamps[i]
-                      setClickeds(clickeds)
-                      setCurrs(currs)
-                    }}
-                  >
-                    {timestamps[i]}
-                  </span>
-                )}
-              </span>
-            </a>
-          )
-        })}
+        {labels.map((word, i) => (
+          <PreviewLabel
+            key={i}
+            word={word}
+            i={i}
+            currentIndex={currentIndex}
+            timestamp={timestamps[i]}
+            audioPlayerRef={audioPlayerRef}
+            setDownload={setDownload}
+            setTimestamp={setIndividualTimestamp(i)}
+          />
+        ))}
       </div>
+      {Object.keys(current).length > 0 && (
+        <div style={{ display: "flex" }}>
+          <div style={{ marginRight: "5px" }}>Current Time: {current.ts}</div>
+          <div>Current Label: {current.label}</div>
+        </div>
+      )}
       <a download="syncedAudio.json" href={download}>
         Export JSON File
       </a>
     </div>
   )
+}
+
+const PreviewLabel = ({
+  word,
+  i,
+  currentIndex,
+  timestamp,
+  audioPlayerRef,
+  setTimestamp,
+  setDownload,
+}) => {
+  const [isClicked, setIsClicked] = useState(false)
+  const [curr, setCurr] = useState(timestamp)
+  const [err, setErr] = useState(false)
+
+  const changeCurrent = (e) => {
+    setCurr(e.target.value)
+    if (isNaN(parseFloat(e.target.value))) setErr(true)
+    else setErr(false)
+  }
+
+  const acceptTs = () => {
+    setTimestamp(curr)
+    setIsClicked(false)
+    setDownload()
+  }
+
+  const cancelTs = () => {
+    setIsClicked(false)
+    setCurr(timestamp)
+    setErr(false)
+  }
+  return (
+    <a
+      style={{
+        padding: "0 3px",
+        background: i === currentIndex ? "lime" : "",
+      }}
+      className={classes.tooltip}
+    >
+      <span
+        onClick={() => {
+          if (timestamp > 0) audioPlayerRef.current.currentTime = timestamp
+        }}
+      >
+        {word}
+      </span>{" "}
+      <span className={classes.tooltiptext}>
+        {isClicked ? (
+          <div style={{ display: "flex" }}>
+            <input
+              value={curr}
+              onChange={changeCurrent}
+              style={{
+                background: err ? "red" : "",
+                width: "100%",
+              }}
+            />
+            <button disabled={err} onClick={acceptTs}>
+              Y
+            </button>
+            <button onClick={cancelTs}>N</button>
+          </div>
+        ) : (
+          <span
+            onClick={() => {
+              setIsClicked(true)
+              setCurr(timestamp)
+            }}
+          >
+            {timestamp || "N/A"}
+          </span>
+        )}
+      </span>
+    </a>
+  )
+}
+
+PreviewLabel.propTypes = {
+  word: PropTypes.string,
+  i: PropTypes.number,
+  currentIndex: PropTypes.number,
+  timestamp: PropTypes.number,
+  audioPlayerRef: PropTypes.object,
+  setTimestamp: PropTypes.func,
+  setDownload: PropTypes.func,
 }
 
 PreviewBox.propTypes = {
@@ -352,6 +422,7 @@ PreviewBox.propTypes = {
   currentTime: PropTypes.number,
   setTimestamps: PropTypes.func,
   audioPlayerRef: PropTypes.object,
+  current: PropTypes.object,
 }
 
 SyncBox.propTypes = {
@@ -363,6 +434,7 @@ SyncBox.propTypes = {
   setLabels: PropTypes.func,
   offset: PropTypes.number,
   mode: PropTypes.string,
+  setCurrent: PropTypes.func,
 }
 
 SSRPage.propTypes = {
