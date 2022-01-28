@@ -3,7 +3,9 @@ import Link from "next/link"
 import styles from "./Help.module.css"
 
 const Help = (props) => {
-    return (<div><div className={styles.titleHeader}>
+  return (
+    <div>
+      <div className={styles.titleHeader}>
         <Link href={`/reader/${props.bookId}`}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -19,7 +21,9 @@ const Help = (props) => {
         </Link>
         <h1>Help</h1>
         <div> </div>
-      </div></div>)
+      </div>
+    </div>
+  )
 }
 
 export default Help

@@ -3,7 +3,9 @@ import Link from "next/link"
 import styles from "./Preferences.module.css"
 
 const Preferences = (props) => {
-    return (<div><div className={styles.titleHeader}>
+  return (
+    <div>
+      <div className={styles.titleHeader}>
         <Link href={`/reader/${props.bookId}`}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -19,7 +21,9 @@ const Preferences = (props) => {
         </Link>
         <h1>Preferences</h1>
         <div> </div>
-      </div></div>)
+      </div>
+    </div>
+  )
 }
 
 export default Preferences
