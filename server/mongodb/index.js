@@ -6,15 +6,10 @@ export default async () => {
 
   await mongoose
     .connect(urls.dbUrl, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useFindAndModify: false,
-      useCreateIndex: true,
       dbName: process.env.DB_NAME,
     })
     .catch((e) => {
       console.error("Error connecting to database.")
-
       throw e
     })
 }
