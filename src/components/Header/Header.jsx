@@ -1,5 +1,4 @@
 import React from "react"
-import clsx from "clsx"
 import PropTypes from "prop-types"
 import NavLink from "../NavLink"
 import routes from "./routes"
@@ -13,10 +12,8 @@ const Header = ({ loggedIn, currentRoute }) => (
         <NavLink
           href={link}
           key={name}
-          className={clsx(
-            atEnd ? styles.endRoute : styles.route,
-            currentRoute === link && styles.selected
-          )}
+          className={`${atEnd ? styles.endRoute : styles.route} 
+            ${currentRoute === link ? styles.selected : ""}`}
         >
           {name}
         </NavLink>

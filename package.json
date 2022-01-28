@@ -37,10 +37,8 @@
     ]
   },
   "dependencies": {
-    "clsx": "^1.1.1",
     "focus-visible": "^5.2.0",
     "isomorphic-unfetch": "^3.1.0",
-    "lodash": "^4.17.21",
     "mongodb": "^4.3.1",
     "mongoose": "^6.1.8",
     "next": "^12.0.9",
