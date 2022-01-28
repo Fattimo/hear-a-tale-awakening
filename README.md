@@ -61,8 +61,8 @@ A running instance of MongoDB is required this project.
   1. Create a MongoDB instance on MongoDB Atlas
   2. In Security → Network Access: add the IP address `0.0.0.0/0` (all IPs)
   3. In Security → Database Access: Add new database user
-  4. In Data Storage → Clusters: Find your cluster and click `Connect` → `Connect your application` and copy the connection string, set the username and password, and set this as `MONGO_DB` in `.env`
-- Create the `nextjs` database. (or choose another name, but make sure to change it in `.env`)
+  4. In Data Storage → Clusters: Find your cluster and click `Connect` → `Connect your application` and copy the connection string, set the username and password, and set this as `MONGO_DB` in `.env.local`
+- Create the `nextjs` database. (or choose another name, but make sure to change it in `.env.local`)
 - It's very helpful to install MongoDB Compass to see your database contents
 
 ### Node
@@ -82,7 +82,4 @@ To understand this code better, read the [Code Tour](/CODETOUR.md).
 
 ### Production
 
-1. Setup your host/vm and the necessary env vars
-2. Run `yarn`
-2. Run `yarn build`
-3. Run `yarn start`
+There is a pipeline in place that automatically deploys to Vercel. Vercel deploys for every PR/push into the main or production branches. Three GitHub deployment environments are used: Production (for pushes to production), Preview (for pushes to open PRs into main or production), and Development (for pushes to main).
