@@ -1,4 +1,4 @@
-# Hear A Tale -- Awakening
+# Hear A Tale - Awakening - JIB 1339
 
 > Team 1339: Chris Murray, Isabella Moak, Matt Chen, Victor Stevens, Joseph Lazzarini
 
