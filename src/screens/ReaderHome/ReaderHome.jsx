@@ -34,10 +34,10 @@ const ReaderHome = ({ book, chapters, errorMessage }) => {
         <h1>{book.title}</h1>
         <h4>{book.author}</h4>
         <button>Continue Reading</button>
-        <button>About the Author</button>
-        <button>Preferences</button>
-        <button>Review Quiz Results</button>
-        <button>Help</button>
+        <Link href={`/reader/${book._id}/Background`}><button>About the Author</button></Link>
+        <Link href={`/reader/${book._id}/Preferences`}><button>Preferences</button></Link>
+        <Link href={`/reader/${book._id}/Review`}><button>Review Quiz Results</button></Link>
+        <Link href={`/reader/${book._id}/Help`}><button>Help</button></Link>
       </div>
       <div>
         <h3>Chapters</h3>

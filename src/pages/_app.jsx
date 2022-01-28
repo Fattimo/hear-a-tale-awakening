@@ -1,10 +1,10 @@
 import React from "react"
 import PropTypes from "prop-types"
 import Head from "next/head"
-import Header from "../components/Header"
+import Header from "src/components/Header"
 import "focus-visible/dist/focus-visible.min.js"
 import "normalize.css"
-import "../../public/static/styles/App.css"
+import "public/static/styles/App.css"
 
 const MyApp = ({ Component, pageProps, router, currentUser }) => (
   <>

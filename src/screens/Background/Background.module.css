@@ -1,0 +1,9 @@
+.readerIcon {
+    cursor: pointer;
+}
+
+.titleHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
