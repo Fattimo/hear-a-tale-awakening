@@ -82,4 +82,4 @@ To understand this code better, read the [Code Tour](/CODETOUR.md).
 
 ### Production
 
-There is a pipeline in place that automatically deploys to Vercel. Vercel deploys for every PR/push into the main or production branches. Three GitHub deployment environments are used: Production (for pushes to production), Preview (for pushes to open PRs into main or production), and Development (for pushes to main).
+There is a pipeline in place that automatically deploys to Vercel. Vercel deploys for every PR/push into the main or production branches. Three GitHub deployment environments are used: Production (for pushes to `production`), Preview (for pushes to open PRs into `main` or `production`), and Development (for pushes to `main`).

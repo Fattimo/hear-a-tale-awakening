@@ -8,9 +8,9 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
+  "plugins": ["prettier"],
   "extends": [
     "eslint:recommended",
-    "plugin:prettier/recommended",
     "plugin:react/recommended",
     "prettier"
   ],
@@ -26,6 +26,10 @@
   "rules": {
     "no-underscore-dangle": "off",
     "react/jsx-props-no-spreading": "off",
-    "implicit-arrow-linebreak": "off"
+    "implicit-arrow-linebreak": "off",
+    "arrow-body-style": "off",
+    "prefer-arrow-callback": "off",
+    "prettier/prettier": "warn",
+    "react/prop-types": "off"
   }
 }

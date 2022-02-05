@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react"
-import propTypes from "prop-types"
 import styles from "./Paginator.module.css"
 
 const Paginator = ({
@@ -90,13 +89,6 @@ const Paginator = ({
       </div>
     </div>
   )
-}
-
-Paginator.propTypes = {
-  chapter: propTypes.object,
-  getNextChapter: propTypes.func,
-  getPrevChapter: propTypes.func,
-  changeQs: propTypes.func,
 }
 
 export default Paginator
