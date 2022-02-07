@@ -1,9 +1,9 @@
-import React from "react"
-import Head from "next/head"
+import React from 'react'
+import Head from 'next/head'
 import { ChakraProvider } from '@chakra-ui/react'
-import "focus-visible/dist/focus-visible.min.js"
-import "normalize.css"
-import "public/static/styles/App.css"
+import 'focus-visible/dist/focus-visible.min.js'
+import 'normalize.css'
+import 'public/static/styles/App.css'
 
 const MyApp = ({ Component, pageProps /*, router, currentUser*/ }) => (
   <ChakraProvider>

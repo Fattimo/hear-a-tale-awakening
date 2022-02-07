@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react"
-import { helloWorld } from "src/actions/General"
+import React, { useState, useEffect } from 'react'
+import { helloWorld } from 'src/actions/General'
 
 const Index = () => {
-  const [payload, setPayload] = useState("")
+  const [payload, setPayload] = useState('')
 
   useEffect(() => {
     // Example how to create page without ssr

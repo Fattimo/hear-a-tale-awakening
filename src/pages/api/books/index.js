@@ -1,4 +1,4 @@
-import { findBooks } from "../../../../server/mongodb/actions/Book"
+import { findBooks } from '../../../../server/mongodb/actions/Book'
 
 export const findBooksServerCall = async () => {
   try {
@@ -10,7 +10,7 @@ export const findBooksServerCall = async () => {
   } catch (e) {
     return {
       success: false,
-      message: "Failed to run action!",
+      message: 'Failed to run action!',
     }
   }
 }

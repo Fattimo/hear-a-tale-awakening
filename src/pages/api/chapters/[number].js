@@ -1,4 +1,4 @@
-import { findChapterWithTextBlob } from "../../../../server/mongodb/actions/Chapter"
+import { findChapterWithTextBlob } from '../../../../server/mongodb/actions/Chapter'
 
 /**
  * Should have bookid if you want to query for chapters of that book
@@ -8,13 +8,13 @@ import { findChapterWithTextBlob } from "../../../../server/mongodb/actions/Chap
 export const findChapterWithTextBlobServerCall = async (q = {}) => {
   try {
     const { bookId, number } = q
-    if (!bookId) throw Error("No Book Id")
-    if (!number) throw Error("No chapter number")
+    if (!bookId) throw Error('No Book Id')
+    if (!number) throw Error('No chapter number')
     const chapter = await findChapterWithTextBlob({ bookId, number })
-    if (chapter === "No Chapter Found")
+    if (chapter === 'No Chapter Found')
       return {
         success: true,
-        payload: "No Chapter Found",
+        payload: 'No Chapter Found',
       }
     return {
       success: true,

@@ -1,9 +1,9 @@
 import {
   findBook,
   findBookById,
-} from "../../../../../server/mongodb/actions/Book"
+} from '../../../../../server/mongodb/actions/Book'
 
-import mongoose from "mongoose"
+import mongoose from 'mongoose'
 
 export const findBookServerCall = async (q = {}) => {
   try {
@@ -23,7 +23,7 @@ export const findBookServerCall = async (q = {}) => {
   } catch (e) {
     return {
       success: false,
-      message: "Failed to run action!",
+      message: 'Failed to run action!',
     }
   }
 }

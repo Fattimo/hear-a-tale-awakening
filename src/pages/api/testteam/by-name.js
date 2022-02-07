@@ -1,4 +1,4 @@
-import { findTeamMemberByName } from "../../../../server/mongodb/actions/TestTeam"
+import { findTeamMemberByName } from '../../../../server/mongodb/actions/TestTeam'
 
 export const teamByNameServerCall = async ({ name }) => {
   try {
@@ -10,7 +10,7 @@ export const teamByNameServerCall = async ({ name }) => {
   } catch (e) {
     return {
       success: false,
-      message: "Failed to run action!",
+      message: 'Failed to run action!',
     }
   }
 }
