@@ -6,9 +6,10 @@ const Wrapper = ({ page, ...props }) => {
   const [pageOne, setPageOne] = useState('')
   const [pageTwo, setPageTwo] = useState('')
 
+  const pageNumber = parseInt(page)
+  const odd = pageNumber % 2 === 1
+
   useEffect(() => {
-    const pageNumber = parseInt(page)
-    const odd = pageNumber % 2 === 1
     const getPages = async () => {
       const p1 = odd ? pageNumber : pageNumber - 1
       const p2 = odd ? pageNumber + 1 : pageNumber
@@ -18,14 +19,23 @@ const Wrapper = ({ page, ...props }) => {
       setPageTwo(`${p2}${lorem}`)
     }
     getPages()
+    // potentially move odd and pageNumber into state variables
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page])
 
+  // if odd, then show the first one, if even, then show the right one -> visibility
+  // if screen size is bigger, then show both ->
   return (
-    <Flex w="100%" overflow="hidden" {...props}>
+    <Flex
+      w="100%"
+      overflow="hidden"
+      {...props}
+      direction={odd ? 'row' : 'row-reverse'}
+    >
       <Spacer />
-      <Page text={pageOne} />
-      <Spacer />
-      <Page d={['none', 'none', 'none', 'block']} text={pageTwo} />
+      <Page text={odd ? pageOne : pageTwo} />
+      <Spacer d={{ base: 'none', xl: 'block' }} />
+      <Page d={{ base: 'none', xl: 'block' }} text={odd ? pageTwo : pageOne} />
       <Spacer />
     </Flex>
   )

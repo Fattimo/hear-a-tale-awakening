@@ -16,19 +16,19 @@ const Panel = ({ page }) => {
     <Flex justify="space-between">
       <Box cursor="pointer">
         <Box display={{ base: 'block', xl: 'none' }} onClick={pageBackward(1)}>
-          back
+          back1
         </Box>
         <Box display={{ base: 'none', xl: 'block' }} onClick={pageBackward(2)}>
-          back
+          back2
         </Box>
       </Box>
       <Link href="/book">up</Link>
       <Box cursor="pointer">
         <Box display={{ base: 'block', xl: 'none' }} onClick={pageForward(1)}>
-          forward
+          forward1
         </Box>
         <Box display={{ base: 'none', xl: 'block' }} onClick={pageForward(2)}>
-          forward
+          forward2
         </Box>
       </Box>
     </Flex>
