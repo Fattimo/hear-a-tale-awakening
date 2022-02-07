@@ -25,7 +25,7 @@ const Wrapper = (/*{ page }*/) => {
       <Spacer />
       <Page text={pageOne} />
       <Spacer />
-      <Page d={['none', 'none', 'block']} text={pageTwo} />
+      <Page d={['none', 'none', 'none', 'block']} text={pageTwo} />
       <Spacer />
     </Flex>
   )
