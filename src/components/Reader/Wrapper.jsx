@@ -1,27 +1,27 @@
 import { Flex, Spacer } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
-import Page from './index'
+import Page from './Page'
 
-const Wrapper = (/*{ page }*/) => {
-  // invariant: left odd right even
-  // store data on odd, even
-  // render both when big enough
-  // qs = page number, page number + 2 if double size, page number + 1 otherwise
+const Wrapper = ({ page, ...props }) => {
   const [pageOne, setPageOne] = useState('')
   const [pageTwo, setPageTwo] = useState('')
+
   useEffect(() => {
-    // convert into useeffect dependency on page state variable
+    const pageNumber = parseInt(page)
+    const odd = pageNumber % 2 === 1
     const getPages = async () => {
+      const p1 = odd ? pageNumber : pageNumber - 1
+      const p2 = odd ? pageNumber + 1 : pageNumber
       const req = await fetch('/book/lorem.txt')
       const lorem = await req.text()
-      setPageOne(lorem)
-      setPageTwo(lorem)
+      setPageOne(`${p1}${lorem}`)
+      setPageTwo(`${p2}${lorem}`)
     }
     getPages()
-  }, [])
+  }, [page])
 
   return (
-    <Flex w="100%" h="100%">
+    <Flex w="100%" overflow="hidden" {...props}>
       <Spacer />
       <Page text={pageOne} />
       <Spacer />

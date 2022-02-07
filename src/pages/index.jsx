@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React, { useState, useEffect } from 'react'
 import { helloWorld } from 'src/actions/General'
 
@@ -30,6 +31,9 @@ const Index = () => {
         Similarly, the header of this page is a leftover placeholder and will be
         adjusted going into next semester.
       </p>
+      <Link href="/book">
+        <a>to book</a>
+      </Link>
     </>
   )
 }
