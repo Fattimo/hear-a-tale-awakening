@@ -14,15 +14,6 @@
     "plugin:react/recommended",
     "prettier"
   ],
-  "settings": {
-    "react": {
-      "version": "detect"
-    },
-    "linkComponents": [
-      "Hyperlink",
-      {"name": "NavLink", "linkAttribute": "href"}
-    ]
-  },
   "rules": {
     "no-underscore-dangle": "off",
     "react/jsx-props-no-spreading": "off",
