@@ -4,10 +4,6 @@
 
 "Students with poor reading skills fail to reach their potential in school and in life -- a well-designed web-based app, compatible with small-screen devices, can provide the support that such students desperately need." We will be designing a mobile compatible web application that allows users to read Kate Chopin's *The Awakening*, integrating data tracking, audio files, and user interaction features on top of a basic reader.
 
-### Known Bugs
-
-* Paging backwards does not take you to the last page of the previous chapter
-
 ## Stack
 
 - React.js: Front-end
@@ -85,3 +81,7 @@ There is a pipeline in place that automatically deploys to Vercel. Vercel deploy
 * Created header
 * Reading progress indicators added
 * Chapters in URL
+
+### Known Bugs
+
+* Paging backwards does not take you to the last page of the previous chapter
