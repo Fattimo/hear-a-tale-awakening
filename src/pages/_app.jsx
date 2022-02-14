@@ -1,37 +1,22 @@
-import React from "react"
-import PropTypes from "prop-types"
-import Head from "next/head"
-import Header from "src/components/Header"
-import "focus-visible/dist/focus-visible.min.js"
-import "normalize.css"
-import "public/static/styles/App.css"
+import React from 'react'
+import Head from 'next/head'
+import { ChakraProvider } from '@chakra-ui/react'
+import 'focus-visible/dist/focus-visible.min.js'
+import 'normalize.css'
+import 'public/static/styles/App.css'
 
-const MyApp = ({ Component, pageProps, router, currentUser }) => (
-  <>
+const MyApp = ({ Component, pageProps /*, router, currentUser*/ }) => (
+  <ChakraProvider>
     <Head>
-      <title>Next.js-Starter</title>
+      <title>The Awakening</title>
     </Head>
     <div className="App">
-      <Header loggedIn={currentUser != null} currentRoute={router.asPath} />
+      {/* <Header loggedIn={currentUser != null} currentRoute={router.asPath} /> */}
       <div className="Content">
         <Component {...pageProps} />
       </div>
     </div>
-  </>
+  </ChakraProvider>
 )
-
-MyApp.propTypes = {
-  Component: PropTypes.any.isRequired,
-  pageProps: PropTypes.object.isRequired,
-  router: PropTypes.object.isRequired,
-  currentUser: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    username: PropTypes.string.isRequired,
-  }),
-}
-
-MyApp.defaultProps = {
-  currentUser: null,
-}
 
 export default MyApp

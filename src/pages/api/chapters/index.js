@@ -1,4 +1,4 @@
-import { findChaptersByBook } from "../../../../server/mongodb/actions/Chapter"
+import { findChaptersByBook } from '../../../../server/mongodb/actions/Chapter'
 
 /**
  * Should have bookid if you want to query for chapters of that book
@@ -8,7 +8,7 @@ import { findChaptersByBook } from "../../../../server/mongodb/actions/Chapter"
 export const findChaptersServerCall = async (q = {}) => {
   try {
     const { bookId } = q
-    if (!bookId) throw Error("No Book Id")
+    if (!bookId) throw Error('No Book Id')
     const chapters = await findChaptersByBook({ bookId })
     return {
       success: true,
@@ -17,7 +17,7 @@ export const findChaptersServerCall = async (q = {}) => {
   } catch (e) {
     return {
       success: false,
-      message: "Failed to run action!",
+      message: 'Failed to run action!',
     }
   }
 }

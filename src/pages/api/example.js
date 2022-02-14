@@ -1,4 +1,4 @@
-import { exampleAction } from "../../../server/example/actions/example"
+import { exampleAction } from '../../../server/example/actions/example'
 
 export const exampleServerCall = async () => {
   try {
@@ -10,7 +10,7 @@ export const exampleServerCall = async () => {
   } catch (e) {
     return {
       success: false,
-      message: "Failed to run action!",
+      message: 'Failed to run action!',
     }
   }
 }
