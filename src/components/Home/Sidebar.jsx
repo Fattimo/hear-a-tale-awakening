@@ -13,21 +13,11 @@ const Sidebar = () => {
         borderRadius={'50%'}
         mb={4}
       />
-      <SidebarLink href="/">
-        <a>Home</a>
-      </SidebarLink>
-      <SidebarLink href="/review">
-        <a>Review</a>
-      </SidebarLink>
-      <SidebarLink href="/background">
-        <a>Background</a>
-      </SidebarLink>
-      <SidebarLink href="/bookmarks">
-        <a>Bookmarks</a>
-      </SidebarLink>
-      <SidebarLink href="/help">
-        <a>Help</a>
-      </SidebarLink>
+      <SidebarLink href="/">Home</SidebarLink>
+      <SidebarLink href="/review">Review</SidebarLink>
+      <SidebarLink href="/background">Background</SidebarLink>
+      <SidebarLink href="/bookmarks">Bookmarks</SidebarLink>
+      <SidebarLink href="/help">Help</SidebarLink>
     </Flex>
   )
 }
