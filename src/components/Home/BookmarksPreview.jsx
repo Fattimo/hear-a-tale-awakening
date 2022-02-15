@@ -5,8 +5,8 @@ import Bookmark from './Bookmark'
 const BookmarksPreview = () => {
   return (
     <Box>
-      <Text>Your bookmarks</Text>
-      <Flex justify="space-between" m="5">
+      <Text fontWeight={'semibold'}>Your bookmarks</Text>
+      <Flex justify="space-between" m="3">
         <Bookmark>
           <Text>page 13</Text>
           <Text>1:46</Text>

@@ -4,9 +4,10 @@ import React from 'react'
 const ContinueReading = () => {
   return (
     <Box>
-      <Text>Continue reading</Text>
+      <Text fontWeight={'semibold'}>Continue reading</Text>
       <Flex
-        m="5"
+        mt="3"
+        mx="3"
         p="4"
         bgColor="theme.purple"
         textColor="white"

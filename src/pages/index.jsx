@@ -21,7 +21,9 @@ const Index = () => {
         columnGap={6}
       >
         <GridItem colSpan={2}>
-          <Text>Welcome Back, {USER}</Text>
+          <Text fontSize={'xl'} fontWeight={'bold'}>
+            Welcome Back, {USER}
+          </Text>
         </GridItem>
         <GridItem>
           <ContinueReading />

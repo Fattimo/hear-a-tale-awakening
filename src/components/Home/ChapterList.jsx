@@ -6,7 +6,7 @@ const ChapterList = () => {
   const chapters = [...Array(10).keys()]
   return (
     <Flex h={'100%'} direction={'column'}>
-      <Text>Chapters</Text>
+      <Text fontWeight={'semibold'}>Chapters</Text>
       <Box overflow={'auto'}>
         {chapters.map((c) => (
           <Chapter key={c} number={c + 1} />
