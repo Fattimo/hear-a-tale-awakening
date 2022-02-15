@@ -1,6 +1,6 @@
 # Code Tour
 
-A quick introduction to the folders and files in this repo.
+A quick introduction to the folders and files in this repo!
 
 ## Source Organization: [`src/`](src)
 
