@@ -15,7 +15,7 @@ const SidebarButton = ({ children }) => {
       _active={''}
       bgColor={'white'}
       color="black"
-      dropShadow={'30px 10px 4px'}
+      boxShadow={'2xl'}
     >
       {children}
     </Button>
