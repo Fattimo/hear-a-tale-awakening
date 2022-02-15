@@ -14,6 +14,7 @@ const SidebarLink = ({ href, children }) => {
         m={1}
         mr={0}
         borderRadius={'20px 0 0 20px'}
+        cursor={'pointer'}
       >
         <Text fontSize={'sm'} fontWeight={'semibold'} ml={4}>
           {children}

@@ -1,7 +1,7 @@
 import { Button } from '@chakra-ui/react'
 import React from 'react'
 
-const SidebarButton = ({ icon }) => {
+const SidebarButton = ({ children }) => {
   return (
     <Button
       display="flex"
@@ -9,6 +9,7 @@ const SidebarButton = ({ icon }) => {
       alignItems={'center'}
       justifyContent={'center'}
       w={4}
+      my={2}
       _hover={''}
       _focus={''}
       _active={''}
@@ -16,7 +17,7 @@ const SidebarButton = ({ icon }) => {
       color="black"
       dropShadow={'30px 10px 4px'}
     >
-      {icon}
+      {children}
     </Button>
   )
 }

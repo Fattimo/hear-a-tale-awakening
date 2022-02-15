@@ -1,0 +1,8 @@
+{
+  "book": [{
+    "chapter": 1,
+    "title": "Chapter I",
+    "firstPage": 1,
+    "lastPage": 10000
+  }]
+}
