@@ -1,17 +1,26 @@
 import React from 'react'
 import Head from 'next/head'
-import { Box, ChakraProvider } from '@chakra-ui/react'
+import { Box, ChakraProvider, extendTheme } from '@chakra-ui/react'
 import 'focus-visible/dist/focus-visible.min.js'
 import 'normalize.css'
 import 'public/static/styles/App.css'
 
+const theme = extendTheme({
+  colors: {
+    theme: {
+      purple: '#666FC1',
+      gray: '#E6E9EF',
+    },
+  },
+})
+
 const MyApp = ({ Component, pageProps }) => (
-  <ChakraProvider>
+  <ChakraProvider theme={theme}>
     <Head>
       <title>The Awakening</title>
     </Head>
     <div className="App">
-      <Box className="Content" bgColor="gray.200">
+      <Box className="Content" bgColor="theme.gray">
         <Component {...pageProps} />
       </Box>
     </div>
