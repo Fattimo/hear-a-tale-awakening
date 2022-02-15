@@ -1,6 +1,6 @@
 import { SettingsIcon } from '@chakra-ui/icons'
-import { Flex } from '@chakra-ui/react'
-import Link from 'next/link'
+import { Flex, Link } from '@chakra-ui/react'
+import NextLink from 'next/link'
 import React from 'react'
 import { HeadphonesIcon, HomeIcon, PlayIcon } from '../Icons'
 import SidebarButton from './SidebarButton'
@@ -8,11 +8,13 @@ import SidebarButton from './SidebarButton'
 const ReaderSidebar = () => {
   return (
     <Flex direction="column" justify={'center'} align={'center'} w={120} p={4}>
-      <SidebarButton>
-        <Link href="/" passHref={true}>
-          <HomeIcon />
+      <NextLink href="/" passHref>
+        <Link>
+          <SidebarButton>
+            <HomeIcon />
+          </SidebarButton>
         </Link>
-      </SidebarButton>
+      </NextLink>
       <SidebarButton>
         <SettingsIcon />
       </SidebarButton>
