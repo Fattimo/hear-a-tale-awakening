@@ -24,6 +24,7 @@
     "secrets:get": "bw sync && bw get item 52e9486f-bec9-43b0-bcf6-adb0013f2329 | fx .notes > \".env\""
   },
   "dependencies": {
+    "@chakra-ui/icons": "^1.1.5",
     "@chakra-ui/react": "^1.8.1",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",

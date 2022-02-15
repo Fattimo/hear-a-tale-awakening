@@ -15,7 +15,7 @@ const Index = () => {
         templateColumns="1fr 1fr"
         templateRows="min-content 1fr 1fr"
         flexGrow={1}
-        borderRadius="3xl"
+        borderRadius="2rem 0 0 2rem"
         p={6}
         rowGap={4}
         columnGap={6}

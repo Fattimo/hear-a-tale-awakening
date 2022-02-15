@@ -1,35 +1,27 @@
-import { Box, Flex } from '@chakra-ui/react'
-import Link from 'next/link'
+import { Box, Flex, Text } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import React from 'react'
+import PageButton from './PageButton'
 
 const Panel = ({ page }) => {
   const router = useRouter()
   const MAX_PAGE = 5
 
   const pageBackward = (offset) => () =>
-    router.replace(`/book/${Math.max(parseInt(page) - offset, 1)}`)
+    router.replace(`/${Math.max(parseInt(page) - offset, 1)}`)
   const pageForward = (offset) => () =>
-    router.replace(`/book/${Math.min(parseInt(page) + offset, MAX_PAGE)}`)
+    router.replace(`/${Math.min(parseInt(page) + offset, MAX_PAGE)}`)
 
   return (
-    <Flex justify="space-between">
+    <Flex justify="center" align="center" h={150} mb={1}>
       <Box cursor="pointer">
-        <Box display={{ base: 'block', xl: 'none' }} onClick={pageBackward(1)}>
-          back1
-        </Box>
-        <Box display={{ base: 'none', xl: 'block' }} onClick={pageBackward(2)}>
-          back2
-        </Box>
+        <PageButton onClick={pageBackward(1)} left />
+        <PageButton onClick={pageBackward(2)} largeScreen left />
       </Box>
-      <Link href="/book">up</Link>
+      <Text mx={4}>page 14 | 5:46</Text>
       <Box cursor="pointer">
-        <Box display={{ base: 'block', xl: 'none' }} onClick={pageForward(1)}>
-          forward1
-        </Box>
-        <Box display={{ base: 'none', xl: 'block' }} onClick={pageForward(2)}>
-          forward2
-        </Box>
+        <PageButton onClick={pageForward(1)} />
+        <PageButton onClick={pageForward(2)} largeScreen />
       </Box>
     </Flex>
   )
