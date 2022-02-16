@@ -15,6 +15,7 @@ const Page = () => {
       <Flex
         direction="column"
         h="100%"
+        w="100%"
         bgColor={'white'}
         borderRadius={'2rem 0 0 2rem'}
       >

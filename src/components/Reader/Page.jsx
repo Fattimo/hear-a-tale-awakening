@@ -1,17 +1,20 @@
-import { Box } from '@chakra-ui/react'
+import { Box, Text } from '@chakra-ui/react'
 import React from 'react'
 
 const Page = ({ text, ...props }) => {
   return (
     <Box
-      w={['90%', '90%', '90%', '45%']}
+      w={{ base: '90%', xl: '45%' }}
       h="100%"
       borderWidth="1px"
       borderColor="red.500"
-      overflow="auto"
+      overflowX="hidden"
+      overflowY={'auto'}
       {...props}
     >
-      <Box>{text}</Box>
+      <Text whiteSpace={'pre-wrap'} w={'100%'}>
+        {text}
+      </Text>
     </Box>
   )
 }

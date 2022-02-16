@@ -2,7 +2,14 @@
   "book": [{
     "chapter": 1,
     "title": "Chapter I",
-    "firstPage": 1,
-    "lastPage": 10000
+    "pages": 7
+  },{
+    "chapter": 2,
+    "title": "Chapter II",
+    "pages": 5
+  },{
+    "chapter": 3,
+    "title": "Chapter III",
+    "pages": 8
   }]
 }
