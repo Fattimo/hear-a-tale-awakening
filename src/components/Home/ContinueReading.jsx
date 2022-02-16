@@ -1,6 +1,7 @@
 import { Box, Flex, Link, Text } from '@chakra-ui/react'
 import NextLink from 'next/link'
 import React from 'react'
+import { HeadphonesIcon } from '../Icons'
 
 const ContinueReading = () => {
   return (
@@ -23,8 +24,31 @@ const ContinueReading = () => {
               <Text>Chapter X</Text>
               <Text>page 14</Text>
             </Box>
-            <Box>sound</Box>
-            <Box>no sound</Box>
+            <Flex>
+              <Flex
+                bgColor={'white'}
+                color={'black'}
+                w={12}
+                h={12}
+                borderRadius={'50%'}
+                align={'center'}
+                justify={'center'}
+              >
+                <HeadphonesIcon />
+              </Flex>
+              <Flex
+                bgColor={'white'}
+                color={'black'}
+                w={12}
+                h={12}
+                borderRadius={'50%'}
+                align={'center'}
+                justify={'center'}
+                ml={4}
+              >
+                <HeadphonesIcon />
+              </Flex>
+            </Flex>
           </Flex>
         </Link>
       </NextLink>

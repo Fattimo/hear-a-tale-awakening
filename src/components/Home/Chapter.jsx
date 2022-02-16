@@ -1,4 +1,4 @@
-import { Box, Flex, Text } from '@chakra-ui/react'
+import { Box, CircularProgress, Flex, Text } from '@chakra-ui/react'
 import React from 'react'
 
 const Chapter = ({ number = 1 }) => {
@@ -8,7 +8,12 @@ const Chapter = ({ number = 1 }) => {
         <Text fontSize={'sm'} fontWeight={'semibold'}>
           Chapter {number}
         </Text>
-        <Text fontSize={'sm'}>wheel</Text>
+        <CircularProgress
+          color={'theme.purple'}
+          value={30}
+          thickness={15}
+          size={'30px'}
+        />
       </Flex>
     </Box>
   )
