@@ -5,10 +5,14 @@ import { Flex } from '@chakra-ui/react'
 import Panel from 'src/components/Reader/Panel'
 import ReaderSidebar from 'src/components/Reader/ReaderSidebar'
 
-const Page = () => {
+export async function getServerSideProps() {
+  const config = require('public/book/config.json')
+  return { props: { config } }
+}
+
+const Page = ({ config }) => {
   const router = useRouter()
   const { page } = router.query
-
   return (
     <Flex h="100%">
       <ReaderSidebar />
