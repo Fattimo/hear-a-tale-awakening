@@ -7,7 +7,7 @@ import SidebarButton from './SidebarButton'
 
 const ReaderSidebar = () => {
   return (
-    <Flex direction="column" justify={'center'} align={'center'} w={120} p={4}>
+    <Flex direction="column" justify={'center'} align={'center'} px={8}>
       <NextLink href="/" passHref>
         <Link>
           <SidebarButton>

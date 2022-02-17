@@ -2,6 +2,7 @@ import { Box, Text } from '@chakra-ui/react'
 import React from 'react'
 
 const Page = ({ text, ...props }) => {
+  const words = text.split('\n').map((para) => para.split(' '))
   return (
     <Box
       w={{ base: '90%', xl: '45%' }}
@@ -12,9 +13,15 @@ const Page = ({ text, ...props }) => {
       overflowY={'auto'}
       {...props}
     >
-      <Text whiteSpace={'pre-wrap'} w={'100%'}>
-        {text}
-      </Text>
+      {words.map((paragraph, i) => (
+        <Text key={i} whiteSpace={'pre-wrap'} maxW={'100%'} w={'100%'} my={2}>
+          {paragraph.map((word, j) => (
+            <span key={j} style={{ whiteSpace: 'pre' }}>
+              {word}&nbsp;
+            </span>
+          ))}
+        </Text>
+      ))}
     </Box>
   )
 }

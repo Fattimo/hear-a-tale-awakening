@@ -1,35 +1,50 @@
 import { Flex, Spacer } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import Page from './Page'
 
-const Wrapper = ({ page, ...props }) => {
+const Wrapper = ({ config }) => {
+  const router = useRouter()
+  const { page } = router.query
+  const pageNumber = parseInt(page)
   const [pageOne, setPageOne] = useState('')
   const [pageTwo, setPageTwo] = useState('')
 
-  const pageNumber = parseInt(page)
   const odd = pageNumber % 2 === 1
 
   useEffect(() => {
     const getPages = async () => {
       const p1 = odd ? pageNumber : pageNumber - 1
       const p2 = odd ? pageNumber + 1 : pageNumber
-      const req = await fetch('/book/lorem.txt')
-      const lorem = await req.text()
-      setPageOne(`${p1}${lorem}`)
-      setPageTwo(`${p2}${lorem}`)
+      const pageOneData = config.pages[p1]
+      if (!pageOneData) {
+        setPageOne('Not Available')
+        setPageTwo('Not Available')
+        return
+      }
+      const pageTwoData = config.pages[p2]
+      const reqs = await Promise.all([
+        fetch(`/book/pages/${pageOneData.chapter}/${pageOneData.page}.txt`),
+        pageTwoData
+          ? fetch(`/book/pages/${pageTwoData.chapter}/${pageTwoData.page}.txt`)
+          : Promise.resolve({ text: () => Promise.resolve('End') }),
+      ])
+      const pageTexts = await Promise.all(reqs.map((r) => r.text()))
+      setPageOne(`${pageTexts[0]}`)
+      setPageTwo(`${pageTexts[1]}`)
     }
     getPages()
-    // potentially move odd and pageNumber into state variables
+    // potentially move odd and page into state variables
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page])
+  }, [pageNumber])
 
   // if odd, then show the first one, if even, then show the right one -> visibility
   // if screen size is bigger, then show both ->
   return (
     <Flex
       w="100%"
+      h="100%"
       overflow="hidden"
-      {...props}
       direction={odd ? 'row' : 'row-reverse'}
       pt="10"
       px="4"
