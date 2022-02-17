@@ -12,5 +12,23 @@
     "chapter": 3,
     "title": "Chapter III",
     "pages": 8
-  }]
+  }],
+  "pages": {
+    "1": {
+      "chapter": 1,
+      "page": 1
+    },
+    "2": {
+      "chapter": 1,
+      "page": 2
+    },
+    "etc": {
+      "chapter": 0,
+      "page": 0
+    },
+    "8": {
+      "chapter": 2,
+      "page": 1
+    }
+  }
 }
