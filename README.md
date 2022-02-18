@@ -85,6 +85,7 @@ There is a pipeline in place that automatically deploys to Vercel. Vercel deploy
 * Accessibility issues with row-reverse layout
 * Errors are thrown in console when non-existent audio files are fetched
 * Unicode characters parsed strangely
+* Page scroll does not reset when paging
 
 ## Version 0.1.0
 
