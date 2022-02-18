@@ -31,6 +31,8 @@ const Wrapper = ({ page, ...props }) => {
       overflow="hidden"
       {...props}
       direction={odd ? 'row' : 'row-reverse'}
+      pt="10"
+      px="4"
     >
       <Spacer />
       <Page text={odd ? pageOne : pageTwo} />
