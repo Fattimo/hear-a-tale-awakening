@@ -4,30 +4,6 @@
 
 "Students with poor reading skills fail to reach their potential in school and in life -- a well-designed web-based app, compatible with small-screen devices, can provide the support that such students desperately need." We will be designing a mobile compatible web application that allows users to read Kate Chopin's *The Awakening*, integrating data tracking, audio files, and user interaction features on top of a basic reader.
 
-## Release Notes
-
-### Version 0.1.0
-
-**New Features**
-
-* Reader added
-  * Scroll mode and page mode
-* Router added
-* Audio sync tool created
-* Mongoose models created
-* Database linked
-* CI/CD set up
-* Linter set up
-* Basic books API set up
-  * Get chapter, get book, etc.
-* Created header
-* Reading progress indicators added
-* Chapters in URL
-
-**Known Bugs**
-
-* Paging backwards does not take you to the last page of the previous chapter
-
 ## Stack
 
 - React.js: Front-end
@@ -82,4 +58,32 @@ To understand this code better, read the [Code Tour](/CODETOUR.md).
 
 ### Production
 
-There is a pipeline in place that automatically deploys to Vercel. Vercel deploys for every PR/push into the main or production branches. Three GitHub deployment environments are used: Production (for pushes to `production`), Preview (for pushes to open PRs into `main` or `production`), and Development (for pushes to `main`).
+
+There is a pipeline in place that automatically deploys to Vercel. Vercel deploys for every PR/push into the main or production branches. Three GitHub deployment environments are used: Production (for pushes to production), Preview (for pushes to open PRs into main or production), and Development (for pushes to main).
+
+---
+
+# Release Notes
+
+## Version 0.1.0
+
+### New Features
+
+* Reader added
+  * Scroll mode and page mode
+* Router added
+* Audio sync tool created
+* Mongoose models created
+* Database linked
+* CI/CD set up
+* Linter set up
+* Basic books API set up
+  * Get chapter, get book, etc.
+* Created header
+* Reading progress indicators added
+* Chapters in URL
+
+### Known Bugs
+
+* Paging backwards does not take you to the last page of the previous chapter
+
