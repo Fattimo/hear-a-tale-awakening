@@ -65,7 +65,7 @@ There is a pipeline in place that automatically deploys to Vercel. Vercel deploy
 
 # Release Notes
 
-## Version 0.1.0
+## Version 0.2.0
 
 ### New Features
 
