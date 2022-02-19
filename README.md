@@ -69,6 +69,28 @@ There is a pipeline in place that automatically deploys to Vercel. Vercel deploy
 
 ### New Features
 
+* Complete redesign of application
+* Background page completed
+* Page redesign
+* Page system set up
+* Entire book added to application
+* Clicking on a word plays the audio for that word
+* Double clicking on a word brings up an alert toggle
+* Use Chakra UI
+  * Icons added
+
+### Known Bugs
+
+* No mobile compatability
+* Accessibility issues with row-reverse layout
+* Errors are thrown in console when non-existent audio files are fetched
+* Unicode characters parsed strangely
+* Page scroll does not reset when paging
+
+## Version 0.1.0
+
+### New Features
+
 * Reader added
   * Scroll mode and page mode
 * Router added
