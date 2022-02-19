@@ -15,20 +15,56 @@
   }],
   "pages": {
     "1": {
-      "chapter": 1,
-      "page": 1
+      "page": 1,
+      "chapter": 1
     },
     "2": {
-      "chapter": 1,
-      "page": 2
+      "page": 2,
+      "chapter": 1
     },
-    "etc": {
-      "chapter": 0,
-      "page": 0
+    "3": {
+      "page": 3,
+      "chapter": 1
+    },
+    "4": {
+      "page": 4,
+      "chapter": 1
+    },
+    "5": {
+      "page": 5,
+      "chapter": 1
+    },
+    "6": {
+      "page": 6,
+      "chapter": 1
+    },
+    "7": {
+      "page": 7,
+      "chapter": 1
     },
     "8": {
-      "chapter": 2,
-      "page": 1
+      "page": 1,
+      "chapter": 2
+    },
+    "9": {
+      "page": 2,
+      "chapter": 2
+    },
+    "10": {
+      "page": 3,
+      "chapter": 2
+    },
+    "11": {
+      "page": 4,
+      "chapter": 2
+    },
+    "12": {
+      "page": 5,
+      "chapter": 2
+    },
+    "13": {
+      "page": 1,
+      "chapter": 3
     }
   }
 }
