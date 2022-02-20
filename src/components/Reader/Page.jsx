@@ -1,8 +1,9 @@
 import { Box, Text } from '@chakra-ui/react'
 import React from 'react'
 
-const Page = ({ text, ...props }) => {
-  const words = text.split('\n').map((para) => para.split(' '))
+const Page = ({ text, clickWord, selected, pageId, ...props }) => {
+  const whitespace = /\s/
+  const words = text.split('\n').map((para) => para.split(whitespace))
   return (
     <Box
       w={{ base: '90%', xl: '45%' }}
@@ -17,7 +18,21 @@ const Page = ({ text, ...props }) => {
         <Text key={i} whiteSpace={'pre-wrap'} maxW={'100%'} w={'100%'} my={2}>
           {paragraph.map((word, j) => (
             <span key={j} style={{ whiteSpace: 'pre' }}>
-              {word}&nbsp;
+              <span
+                onClick={clickWord(word, i, j)}
+                style={{
+                  backgroundColor:
+                    selected.word === word &&
+                    selected.paragraph === i &&
+                    selected.index === j &&
+                    selected.page === pageId
+                      ? 'yellow'
+                      : '',
+                }}
+              >
+                {word}
+              </span>
+              &nbsp;
             </span>
           ))}
         </Text>
