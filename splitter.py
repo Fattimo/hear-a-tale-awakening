@@ -23,17 +23,22 @@ def split(charsize):
 		chaptername = None
 		with open("rawchapters/Chapter" + str(f), 'r', encoding='utf8') as book:
 			chaptername = book.readline().strip()
-			booktxt = book.read().strip().replace('\x0c', '')#Read book and remove page breaks
+			booktxt = book.read().replace('\x0c', '\n')#Read book and remove page breaks
 		pos = 0#Character position in text of chapter
 		while pos + charsize < len(booktxt):
 			end = charsize
+			
 			while booktxt[pos + end] != " ":#Page must start in between words
 				end -= 1
 			with open(pagedir + str(chapternum) + "/" + str(pagenum) + ".txt", 'w') as page:#Save a page
+				txt = ""
+				if pagenum == 1:
+					txt = "     "
 				if booktxt[pos] == " ":
-					page.write(booktxt[pos + 1:pos + end]) #Remove leading space
+					txt += booktxt[pos:pos + end].replace("\n", "\n     ") #Remove leading space
 				else:
-					page.write(booktxt[pos:pos + end]) #No leading space
+					txt += booktxt[pos:pos + end].replace("\n", "\n     ") #No leading space
+				page.write(txt)
 			config["pages"][str(globalpagenum)] = {"page":pagenum, "chapter":chapternum}
 			pagenum += 1
 			globalpagenum += 1
