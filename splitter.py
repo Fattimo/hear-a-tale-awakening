@@ -1,7 +1,7 @@
 import os
 import sys
 import json
-
+tab = "     "
 #Usage: py splitter.py charsize
 pagedir = "public/book/pages/"
 #Charsize: Size of page in characters
@@ -33,11 +33,11 @@ def split(charsize):
 			with open(pagedir + str(chapternum) + "/" + str(pagenum) + ".txt", 'w') as page:#Save a page
 				txt = ""
 				if pagenum == 1:
-					txt = "     "
+					txt = tab
 				if booktxt[pos] == " ":
-					txt += booktxt[pos:pos + end].replace("\n", "\n     ") #Remove leading space
+					txt += booktxt[pos:pos + end].replace("\n", "\n" + tab) #Remove leading space
 				else:
-					txt += booktxt[pos:pos + end].replace("\n", "\n     ") #No leading space
+					txt += booktxt[pos:pos + end].replace("\n", "\n" + tab) #No leading space
 				page.write(txt)
 			config["pages"][str(globalpagenum)] = {"page":pagenum, "chapter":chapternum}
 			pagenum += 1
