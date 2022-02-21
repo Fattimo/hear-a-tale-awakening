@@ -4,10 +4,10 @@ import json
 tab = "     "
 paragraphbreak = "\n\n"
 
-#Usage: py splitter.py charsize
+#Usage: py splitter.py pagesize
 pagedir = "public/book/pages/"
-#Charsize: Size of page in characters
-def split(charsize):
+#pagesize: Size of page in characters
+def split(pagesize, linesize):
 	config = {}
 	config["book"] = []
 	config["pages"] = {}
@@ -27,8 +27,8 @@ def split(charsize):
 			chaptername = book.readline().strip()
 			booktxt = book.read().replace('\x0c', '\n')#Read book and remove page breaks
 		pos = 0#Character position in text of chapter
-		while pos + charsize < len(booktxt):
-			end = charsize
+		while pos + pagesize < len(booktxt):
+			end = pagesize
 			
 			while booktxt[pos + end] != " ":#Page must start in between words
 				end -= 1
@@ -40,6 +40,20 @@ def split(charsize):
 					txt += booktxt[pos:pos + end].replace("\n", paragraphbreak + tab) #Remove leading space
 				else:
 					txt += booktxt[pos:pos + end].replace("\n", paragraphbreak + tab) #No leading space
+
+				#Split into lines
+				linepos = 0
+				counter = 0
+				while linepos < len(txt):
+					if counter >= linesize and txt[linepos] == " ":
+						txt = txt[:linepos] + "\n" + txt[linepos + 1:]
+					
+					if txt[linepos] == "\n":
+						counter = 0
+					linepos += 1
+					counter += 1
+
+
 				page.write(txt)
 			config["pages"][str(globalpagenum)] = {"page":pagenum, "chapter":chapternum}
 			pagenum += 1
@@ -55,7 +69,20 @@ def split(charsize):
 					txt += booktxt[pos:pos + end].replace("\n", paragraphbreak + tab) #Remove leading space
 				else:
 					txt += booktxt[pos:pos + end].replace("\n", paragraphbreak + tab) #No leading space
+
+				#Split into lines
+				linepos = 0
+				counter = 0
+				while linepos < len(txt):
+					if counter >= linesize and txt[linepos] == " ":
+						txt = txt[:linepos] + "\n" + txt[linepos + 1:]
+					
+					if txt[linepos] == "\n":
+						counter = 0
+					linepos += 1
+					counter += 1
 				page.write(txt)
+				
 			config["pages"][str(globalpagenum)] = {"page":pagenum, "chapter":chapternum}
 			globalpagenum += 1
 		config["book"].append({"chapter":chapternum, "title":chaptername, "pages":pagenum})
@@ -65,4 +92,4 @@ def split(charsize):
 		json.dump(config, configf)
 				
 
-split(int(sys.argv[1]))
+split(int(sys.argv[1]), int(sys.argv[2]))
