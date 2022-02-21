@@ -2,6 +2,8 @@ import os
 import sys
 import json
 tab = "     "
+paragraphbreak = "\n\n"
+
 #Usage: py splitter.py charsize
 pagedir = "public/book/pages/"
 #Charsize: Size of page in characters
@@ -35,9 +37,9 @@ def split(charsize):
 				if pagenum == 1:
 					txt = tab
 				if booktxt[pos] == " ":
-					txt += booktxt[pos:pos + end].replace("\n", "\n" + tab) #Remove leading space
+					txt += booktxt[pos:pos + end].replace("\n", paragraphbreak + tab) #Remove leading space
 				else:
-					txt += booktxt[pos:pos + end].replace("\n", "\n" + tab) #No leading space
+					txt += booktxt[pos:pos + end].replace("\n", paragraphbreak + tab) #No leading space
 				page.write(txt)
 			config["pages"][str(globalpagenum)] = {"page":pagenum, "chapter":chapternum}
 			pagenum += 1
@@ -46,10 +48,14 @@ def split(charsize):
 
 		if pos != len(booktxt) - 1:#Save last page
 			with open(pagedir + str(chapternum) + "/" + str(pagenum) + ".txt", 'w') as page:
+				txt = ""
+				if pagenum == 1:
+					txt = tab
 				if booktxt[pos] == " ":
-					page.write(booktxt[pos + 1:len(booktxt)])
+					txt += booktxt[pos:pos + end].replace("\n", paragraphbreak + tab) #Remove leading space
 				else:
-					page.write(booktxt[pos:len(booktxt)])
+					txt += booktxt[pos:pos + end].replace("\n", paragraphbreak + tab) #No leading space
+				page.write(txt)
 			config["pages"][str(globalpagenum)] = {"page":pagenum, "chapter":chapternum}
 			globalpagenum += 1
 		config["book"].append({"chapter":chapternum, "title":chaptername, "pages":pagenum})
