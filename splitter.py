@@ -2,7 +2,7 @@ import os
 import sys
 import json
 tab = "     "
-paragraphbreak = "\n\n"
+paragraphbreak = "\n"
 
 #Usage: py splitter.py pagesize
 pagedir = "public/book/pages/"
