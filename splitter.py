@@ -27,7 +27,7 @@ class Page_Generator():
 	def __init__(self) -> None:
 		self.tab = ""
 		self.paragraphbreak = "\n"
-		self.linebreak = "&nbsp;"
+		self.linebreak = u'\xa0'
 		self.pagedir = "public/book/pages/"
 		self.chapternum = 0
 		self.cf = Config()
@@ -74,7 +74,7 @@ class Page_Generator():
 			chaptername = None
 			with open("rawchapters/Chapter" + str(f), 'r', encoding='utf8') as book:
 				chaptername = book.readline().strip()
-				booktxt = book.read().replace('\x0c', '\n')#Read book and remove page breaks
+				booktxt = book.read().replace('\x0c', '\n').replace(u'\xa0', " ")#Read book and remove page breaks
 			pos = 0#Character position in text of chapter
 			while pos + pagesize < len(booktxt):
 				end = pagesize
