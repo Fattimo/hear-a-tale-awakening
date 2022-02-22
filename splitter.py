@@ -17,7 +17,7 @@ class Page_Generator():
 			if pagenum == 1:
 				txt = self.tab
 			if rawtext[0] == " ":
-				txt += rawtext.replace("\n", self.paragraphbreak + self.tab) #Remove leading space
+				txt += rawtext[1:].replace("\n", self.paragraphbreak + self.tab) #Remove leading space
 			else:
 				txt += rawtext.replace("\n", self.paragraphbreak + self.tab) #No leading space
 			#Split into lines
