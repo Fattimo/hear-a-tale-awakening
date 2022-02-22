@@ -25,9 +25,9 @@ class Config():
 
 class Page_Generator():
 	def __init__(self) -> None:
-		self.tab = "     "
+		self.tab = ""
 		self.paragraphbreak = "\n"
-		self.linebreak = "\n"
+		self.linebreak = "&nbsp"
 		self.pagedir = "public/book/pages/"
 		self.chapternum = 0
 		self.cf = Config()
@@ -47,9 +47,14 @@ class Page_Generator():
 			while linepos < len(txt):
 				if counter >= linesize and txt[linepos] == " ":
 					txt = txt[:linepos] + self.linebreak + txt[linepos + 1:]
-				if txt[linepos] == self.linebreak or txt[linepos] == self.paragraphbreak:
+				if txt[linepos:linepos + len(self.linebreak)] == self.linebreak:
 					counter = 0
-				linepos += 1
+					linepos += len(self.linebreak)
+				elif txt[linepos:linepos + len(self.paragraphbreak)] == self.paragraphbreak:
+					counter = 0
+					linepos += len(self.paragraphbreak)
+				else:
+					linepos += 1
 				counter += 1
 			page.write(txt)
 	
