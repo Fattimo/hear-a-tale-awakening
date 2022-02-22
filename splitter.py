@@ -27,7 +27,7 @@ class Page_Generator():
 	def __init__(self) -> None:
 		self.tab = ""
 		self.paragraphbreak = "\n"
-		self.linebreak = "&nbsp"
+		self.linebreak = "&nbsp;"
 		self.pagedir = "public/book/pages/"
 		self.chapternum = 0
 		self.cf = Config()
