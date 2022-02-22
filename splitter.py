@@ -2,6 +2,26 @@ import os
 import sys
 import json
 
+#Usage: py splitter.py pagesize linesize
+class Config():
+	def __init__(self) -> None:
+		self.book = []
+		self.pages = {}
+		self.totalpages = 0
+
+	def addpage(self, globalnum, localnum, chapternum):
+		self.pages[globalnum] = {"page":localnum, "chapter":chapternum}
+
+	def addchapter(self, chaptername, chapternum, length):
+		self.book.append({"chapter":chapternum, "title":chaptername, "pages":length})
+
+	def settotalpages(self, num):
+		self.totalpages = num
+
+	def generate(self):
+		config = {"book": self.book, "pages":self.pages, "totalPages": self.totalpages}
+		with open("public/book/config.json", 'w') as configf:
+			json.dump(config, configf)
 
 class Page_Generator():
 	def __init__(self) -> None:
@@ -10,6 +30,7 @@ class Page_Generator():
 		self.linebreak = "\n"
 		self.pagedir = "public/book/pages/"
 		self.chapternum = 0
+		self.cf = Config()
 
 	def genpage(self, pagenum, rawtext, linesize):
 		with open(self.pagedir + str(self.chapternum) + "/" + str(pagenum) + ".txt", 'w') as page:#Save a page
@@ -32,12 +53,8 @@ class Page_Generator():
 				counter += 1
 			page.write(txt)
 	
-	#Usage: py splitter.py pagesize
 	#pagesize: Size of page in characters
 	def split(self, pagesize, linesize):
-		config = {}
-		config["book"] = []
-		config["pages"] = {}
 		#Clean any existing pages
 		for f in os.listdir(self.pagedir):
 			for f1 in os.listdir(self.pagedir + str(f)):
@@ -59,21 +76,19 @@ class Page_Generator():
 				while booktxt[pos + end] != " ":#Page must start in between words
 					end -= 1
 				self.genpage(pagenum, booktxt[pos:pos + end], linesize)
-				config["pages"][str(globalpagenum)] = {"page":pagenum, "chapter":self.chapternum}
+				self.cf.addpage(str(globalpagenum), pagenum, self.chapternum)
 				pagenum += 1
 				globalpagenum += 1
 				pos = pos + end
 
 			if pos != len(booktxt) - 1:#Save last page
 				self.genpage(pagenum, booktxt[pos:pos + end], linesize)
-					
-				config["pages"][str(globalpagenum)] = {"page":pagenum, "chapter":self.chapternum}
+				self.cf.addpage(str(globalpagenum), pagenum, self.chapternum)
 				globalpagenum += 1
-			config["book"].append({"chapter":self.chapternum, "title":chaptername, "pages":pagenum})
+			self.cf.addchapter(chaptername, self.chapternum, pagenum)
 
-		config["totalPages"] = globalpagenum - 1
-		with open("public/book/config.json", 'w') as configf:
-			json.dump(config, configf)
+		self.cf.settotalpages(globalpagenum - 1)
+		self.cf.generate()
 				
 
 splitter = Page_Generator()
