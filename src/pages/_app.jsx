@@ -1,9 +1,18 @@
 import React from 'react'
 import Head from 'next/head'
 import { Box, ChakraProvider, extendTheme } from '@chakra-ui/react'
+import { createBreakpoints } from '@chakra-ui/theme-tools'
 import 'focus-visible/dist/focus-visible.min.js'
 import 'normalize.css'
 import 'public/static/styles/App.css'
+
+const breakpoints = createBreakpoints({
+  sm: '320px',
+  md: '768px',
+  lg: '960px',
+  xl: '1200px',
+  '2xl': '1536px',
+})
 
 const theme = extendTheme({
   colors: {
@@ -12,6 +21,7 @@ const theme = extendTheme({
       gray: '#E6E9EF',
     },
   },
+  breakpoints,
 })
 
 const MyApp = ({ Component, pageProps }) => (
