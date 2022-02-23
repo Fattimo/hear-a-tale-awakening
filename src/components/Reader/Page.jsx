@@ -38,7 +38,7 @@ const Page = ({ text, clickWord, selected, pageId, ...props }) => {
             textAlign={'justify'}
             style={{
               textAlignLast: justifyLast ? 'justify' : '',
-              textIndent: indent ? '2.5%' : '',
+              textIndent: indent ? '1em' : '',
             }}
           >
             {paragraph.map((word, j) => (
