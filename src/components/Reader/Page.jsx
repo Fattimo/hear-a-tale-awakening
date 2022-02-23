@@ -34,7 +34,7 @@ const Page = ({ text, clickWord, selected, pageId, ...props }) => {
             maxW={'100%'}
             w={{ base: '36.36em' }}
             my={2}
-            wordBreak={'break-word'}
+            overflowWrap={'break-word'}
             textAlign={'justify'}
             style={{
               textAlignLast: justifyLast ? 'justify' : '',
