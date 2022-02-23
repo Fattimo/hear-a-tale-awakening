@@ -12,7 +12,7 @@ const Page = ({ text, clickWord, selected, pageId, ...props }) => {
       borderWidth="1px"
       borderColor="red.500"
       overflowX="hidden"
-      overflowY={'auto'}
+      overflowY={'scroll'}
       style={{}}
       {...props}
     >
