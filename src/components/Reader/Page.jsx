@@ -32,7 +32,6 @@ const Page = ({ text, clickWord, selected, pageId, ...props }) => {
             key={i}
             fontSize={{ base: '16px', md: '1.95vw', xl: '1.1vw' }}
             whiteSpace={'pre-wrap'}
-            overflowWrap={'normal'}
             maxW={'100%'}
             w={{ base: '36.36em' }}
             my={2}
