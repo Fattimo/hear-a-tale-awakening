@@ -39,11 +39,10 @@ const Page = ({ text, clickWord, selected, pageId, ...props }) => {
             style={{
               textAlignLast: justifyLast ? 'justify' : '',
               textIndent: indent ? '1em' : '',
-              wordWrap: 'break-word',
             }}
           >
             {paragraph.map((word, j) => (
-              <span key={j} style={{ whiteSpace: 'nowrap' }}>
+              <span key={j}>
                 <span
                   onClick={clickWord(word, i, j)}
                   style={{
