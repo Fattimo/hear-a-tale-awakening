@@ -8,7 +8,7 @@ import 'public/static/styles/App.css'
 
 const breakpoints = createBreakpoints({
   sm: '320px',
-  md: '768px',
+  md: '512px',
   lg: '960px',
   xl: '1200px',
   '2xl': '1536px',
