@@ -35,6 +35,7 @@ const Page = ({ text, clickWord, selected, pageId, ...props }) => {
             w={{ base: '36.36em' }}
             my={2}
             overflowWrap={'break-word'}
+            wordBreak={'break-all'}
             textAlign={'justify'}
             style={{
               textAlignLast: justifyLast ? 'justify' : '',
