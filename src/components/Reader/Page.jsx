@@ -42,7 +42,10 @@ const Page = ({ text, clickWord, selected, pageId, ...props }) => {
             }}
           >
             {paragraph.map((word, j) => (
-              <span key={j} style={{ whiteSpace: 'pre' }}>
+              <span
+                key={j}
+                style={{ whiteSpace: 'pre', overflowWrap: 'normal ' }}
+              >
                 <span
                   onClick={clickWord(word, i, j)}
                   style={{
