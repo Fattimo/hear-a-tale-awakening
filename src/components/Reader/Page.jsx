@@ -40,6 +40,7 @@ const Page = ({ text, clickWord, selected, pageId, ...props }) => {
               textAlignLast: justifyLast ? 'justify' : '',
               textIndent: indent ? '1em' : '',
               wordWrap: 'break-word',
+              wordBreak: 'break-word', // safari
             }}
           >
             {paragraph.map((word, j) => (
