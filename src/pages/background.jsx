@@ -1,4 +1,4 @@
-import { Box, Container, Flex, Heading, Text } from '@chakra-ui/react'
+import { Box, Container, Flex, Heading, Stack, Text } from '@chakra-ui/react'
 import React from 'react'
 import Sidebar from 'src/components/Home/Sidebar'
 import Image from 'next/image'
@@ -25,9 +25,11 @@ const Background = () => {
           <Flex align={'center'}>
             <Box>
               <Heading size={'md'}>About the Author</Heading>
-              <Text>{BACKGROUND_TEXT}</Text>
+              <Container flexShrink={1}>
+                <Text>{BACKGROUND_TEXT}</Text>
+              </Container>
             </Box>
-            <Box w={'40rem'} h={40} position={'relative'}>
+            <Box w={'20rem'} h={80} position={'relative'}>
               <Image
                 src={'/images/Chopin_Pictures/1KateChopin1879.jpg'}
                 alt={'Portrait of Kate Chopin'}
@@ -38,8 +40,8 @@ const Background = () => {
           </Flex>
           <Box w={'100%'}>
             <Heading size={'md'}>Setting</Heading>
-            <Container overflow={'auto'}>
-              <Flex mt={4}>
+            <Box overflow={'auto'}>
+              <Stack isInline mt={4} w={'80rem'} overflow={'hidden'}>
                 <Box w={40} h={40} position={'relative'}>
                   <Image
                     src={'/images/Chopin_Pictures/1KateChopin1879.jpg'}
@@ -112,8 +114,8 @@ const Background = () => {
                     objectFit={'contain'}
                   />
                 </Box>
-              </Flex>
-            </Container>
+              </Stack>
+            </Box>
           </Box>
         </Flex>
       </Flex>
