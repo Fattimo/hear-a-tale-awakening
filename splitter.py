@@ -8,8 +8,9 @@ charsizes = {'a': 71, 'b': 646, 'c': 83, 'd': 64, 'e': 70, 'f': 118, 'g': 46,
 	'q': 64, 'r': 105, 's': 78, 't': 111, 'u': 67, 'v': 70, 'w': 43, 'x': 71, 'y': 70, 
 	'z': 81, 'A': 51, 'B': 55, 'C':57, 'D': 50, 'E': 64, 'F':68, 'G': 51, 'H': 49,
 	'I': 146, 'J': 123, 'K': 60, 'L': 69, 'M': 44, 'N': 50, 'O': 49, 'P': 59, 'Q': 49,
-	'R': 56, 'S': 61, 'T': 61, 'U': 51, 'V': 54, 'W': 34, 'X': 57, 'Y': 63, 'Z': 63}
+	'R': 56, 'S': 61, 'T': 61, 'U': 51, 'V': 54, 'W': 34, 'X': 57, 'Y': 63, 'Z': 63, ' ': 149}
 
+missing = set()
 #Usage: py splitter.py pagesize linesize
 class Config():
 	def __init__(self) -> None:
@@ -41,7 +42,7 @@ class Page_Generator():
 		self.cf = Config()
 
 	def genpage(self, pagenum, rawtext):
-		with open(self.pagedir + str(self.chapternum) + "/" + str(pagenum) + ".txt", 'w') as page:#Save a page
+		with open(self.pagedir + str(self.chapternum) + "/" + str(pagenum) + ".txt", 'w', encoding='utf8') as page:#Save a page
 			txt = ""
 			if pagenum == 1:
 				txt = self.tab
@@ -56,6 +57,9 @@ class Page_Generator():
 				if txt[linepos] in charsizes:
 					sumline += 1 / charsizes[txt[linepos]]
 				else:
+					if txt[linepos] not in missing:
+						missing.add(txt[linepos])
+						print(txt[linepos])
 					sumline += 1/34 #Upper bound for now
 				if txt[linepos] == "\n":
 					sumline = 0
