@@ -37,25 +37,25 @@ class Config():
 
 class Page_Generator():
 	def __init__(self) -> None:
-		self.tab = ""
 		self.paragraphbreak = "\n"
-		self.linebreak = "\n"
+		self.linebreak = " "
 		self.pagedir = "public/book/pages/"
 		self.chapternum = 0
 		self.cf = Config()
 		self.maxlength = 1
 
-	def genpage(self, pagenum, rawtext):
+	def genpage(self, pagenum, rawtext, onparagraph):
 		with open(self.pagedir + str(self.chapternum) + "/" + str(pagenum) + ".txt", 'w', encoding='utf8') as page:#Save a page
 			txt = ""
-			if pagenum == 1:
-				txt = self.tab
+			if not onparagraph:
+				txt = "&nl; "
+			initsize = len(txt)
 			if rawtext[0] == " ":
-				txt += rawtext[1:].replace("\n", self.paragraphbreak + self.tab) #Remove leading space
+				txt += rawtext[1:].replace("\n", self.paragraphbreak) #Remove leading space
 			else:
-				txt += rawtext.replace("\n", self.paragraphbreak + self.tab) #No leading space
+				txt += rawtext.replace("\n", self.paragraphbreak) #No leading space
 			#Split into lines
-			linepos = 0
+			linepos = initsize
 			sumline = 0
 			while linepos < len(txt):
 				if txt[linepos] in charsizes:
@@ -69,14 +69,18 @@ class Page_Generator():
 					sumline = 0
 				
 				if sumline >= self.maxlength:				
-					while txt[linepos] != " ":
+					while txt[linepos] != " " and txt[linepos] != "\n":
 						linepos -= 1
 				if sumline >= self.maxlength:
 					txt = txt[:linepos] + self.linebreak + txt[linepos + 1:]
 					sumline = 0
 				linepos += 1
-				
+			nextonparagraph = True
+			if txt[len(txt) - 1] != '\n':
+				txt += " &jl;"
+				nextonparagraph = False
 			page.write(txt)
+			return nextonparagraph
 	
 	#pagesize: Size of page in characters
 	def split(self, pagesize):
@@ -96,18 +100,19 @@ class Page_Generator():
 				chaptername = book.readline().strip()
 				booktxt = book.read().replace('\x0c', '\n').replace(u'\xa0', " ")#Read book and remove page breaks
 			pos = 0#Character position in text of chapter
+			onparagraph = True
 			while pos + pagesize < len(booktxt):
 				end = pagesize
 				while booktxt[pos + end] != " ":#Page must start in between words
 					end -= 1
-				self.genpage(pagenum, booktxt[pos:pos + end])
+				onparagraph = self.genpage(pagenum, booktxt[pos:pos + end], onparagraph)
 				self.cf.addpage(str(globalpagenum), pagenum, self.chapternum)
 				pagenum += 1
 				globalpagenum += 1
 				pos = pos + end
 
 			if pos != len(booktxt) - 1:#Save last page
-				self.genpage(pagenum, booktxt[pos:pos + end])
+				self.genpage(pagenum, booktxt[pos:pos + end], onparagraph)
 				self.cf.addpage(str(globalpagenum), pagenum, self.chapternum)
 				globalpagenum += 1
 			self.cf.addchapter(chaptername, self.chapternum, pagenum)
