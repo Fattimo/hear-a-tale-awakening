@@ -48,7 +48,7 @@ class Page_Generator():
 		with open(self.pagedir + str(self.chapternum) + "/" + str(pagenum) + ".txt", 'w', encoding='utf8') as page:#Save a page
 			txt = ""
 			if not onparagraph:
-				txt = "&nl; "
+				txt = "&ni; "
 			initsize = len(txt)
 			if rawtext[0] == " ":
 				txt += rawtext[1:].replace("\n", self.paragraphbreak) #Remove leading space
