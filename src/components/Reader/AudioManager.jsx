@@ -1,29 +1,26 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 
 const AudioManager = ({ word }) => {
   const player = useRef()
-  const [src, setSrc] = useState()
 
   useEffect(() => {
     if (word) {
       const punctuationless = word.replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, '')
       const cleanedWord = punctuationless.replace(/\s{2,}/g, ' ')
-      setSrc(
+      player.current.setAttribute(
+        'src',
         `https://words-and-definitons.s3.amazonaws.com/words/${cleanedWord.charAt(
           0
         )}/${cleanedWord}.mp3`
       )
+      const playPromise = player.current.play()
+      playPromise.then(() => {}).catch(() => {})
     } else {
       player.current.removeAttribute('src')
     }
   }, [word])
 
-  useEffect(() => {
-    const playPromise = player.current.play()
-    playPromise.then(() => {}).catch(() => {})
-  }, [src])
-
-  return <audio ref={player} src={src} />
+  return <audio ref={player} />
 }
 
 export default AudioManager
