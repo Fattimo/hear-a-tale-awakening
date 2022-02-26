@@ -109,10 +109,7 @@ const Wrapper = ({ config }) => {
         </Spacer>
       </Flex>
       {showAlert && (
-        <WordAlert
-          word={currWord.word}
-          closeAlert={() => setShowAlert(false)}
-        />
+        <WordAlert word={currWord.word} closeAlert={() => unsetWord()} />
       )}
     </Flex>
   )
