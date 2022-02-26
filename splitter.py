@@ -3,12 +3,15 @@ from pdb import line_prefix
 import sys
 import json
 
-charsizes = {'a': 71, 'b': 646, 'c': 83, 'd': 64, 'e': 70, 'f': 118, 'g': 46,
+charsizes = {'a': 71, 'b': 64, 'c': 83, 'd': 64, 'e': 70, 'f': 118, 'g': 46,
 	'h': 66, 'i': 162, 'j': 159, 'k': 75, 'l': 127, 'm': 44, 'n':66, 'o': 67, 'p':64,
 	'q': 64, 'r': 105, 's': 78, 't': 111, 'u': 67, 'v': 70, 'w': 43, 'x': 71, 'y': 70, 
 	'z': 81, 'A': 51, 'B': 55, 'C':57, 'D': 50, 'E': 64, 'F':68, 'G': 51, 'H': 49,
 	'I': 146, 'J': 123, 'K': 60, 'L': 69, 'M': 44, 'N': 50, 'O': 49, 'P': 59, 'Q': 49,
-	'R': 56, 'S': 61, 'T': 61, 'U': 51, 'V': 54, 'W': 34, 'X': 57, 'Y': 63, 'Z': 63, ' ': 149}
+	'R': 56, 'S': 61, 'T': 61, 'U': 51, 'V': 54, 'W': 34, 'X': 57, 'Y': 63, 'Z': 63, ' ': 149,
+	',': 169, ':': 169, '“': 98, '-': 91, '!': 165, '’': 165, '”': 95, '\n':1000000, '.': 165,
+	';': 165, 'ê': 70, 'è': 70, '—': 37, '?': 84, 'ç': 83, 'é': 70, '1': 62, '8': 62, '4': 62,
+	'0': 62, 'ô': 67, 'ï': 159, 'î': 151, '(': 118, ')': 118, 'à': 71, '‘': 165}
 
 missing = set()
 #Usage: py splitter.py pagesize linesize
@@ -36,10 +39,11 @@ class Page_Generator():
 	def __init__(self) -> None:
 		self.tab = ""
 		self.paragraphbreak = "\n"
-		self.linebreak = u'\xa0'
+		self.linebreak = "\n"
 		self.pagedir = "public/book/pages/"
 		self.chapternum = 0
 		self.cf = Config()
+		self.maxlength = 1
 
 	def genpage(self, pagenum, rawtext):
 		with open(self.pagedir + str(self.chapternum) + "/" + str(pagenum) + ".txt", 'w', encoding='utf8') as page:#Save a page
@@ -64,10 +68,10 @@ class Page_Generator():
 				if txt[linepos] == "\n":
 					sumline = 0
 				
-				if sumline >= 1:				
+				if sumline >= self.maxlength:				
 					while txt[linepos] != " ":
 						linepos -= 1
-				if sumline >= 1:
+				if sumline >= self.maxlength:
 					txt = txt[:linepos] + self.linebreak + txt[linepos + 1:]
 					sumline = 0
 				linepos += 1
@@ -75,7 +79,7 @@ class Page_Generator():
 			page.write(txt)
 	
 	#pagesize: Size of page in characters
-	def split(self, pagesize, linesize):
+	def split(self, pagesize):
 		#Clean any existing pages
 		for f in os.listdir(self.pagedir):
 			for f1 in os.listdir(self.pagedir + str(f)):
@@ -113,4 +117,4 @@ class Page_Generator():
 				
 
 splitter = Page_Generator()
-splitter.split(int(sys.argv[1]), int(sys.argv[2]))
+splitter.split(int(sys.argv[1]))
