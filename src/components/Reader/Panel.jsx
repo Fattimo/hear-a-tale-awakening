@@ -7,9 +7,9 @@ const Panel = ({ page, maxPage, chapter }) => {
   const router = useRouter()
 
   const pageBackward = (offset) => () =>
-    router.replace(`/${Math.max(parseInt(page) - offset, 1)}`)
+    router.replace(`/page/${Math.max(parseInt(page) - offset, 1)}`)
   const pageForward = (offset) => () =>
-    router.replace(`/${Math.min(parseInt(page) + offset, maxPage)}`)
+    router.replace(`/page/${Math.min(parseInt(page) + offset, maxPage)}`)
 
   return (
     <Flex justify="center" align="center" h={150} mb={1}>
