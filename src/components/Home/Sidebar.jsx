@@ -4,7 +4,7 @@ import SidebarLink from './SidebarLink'
 
 const Sidebar = () => {
   return (
-    <Flex direction="column" w={140} pt={6}>
+    <Flex direction="column" w={140} pt={6} flexShrink={0}>
       <Box
         w={'60%'}
         style={{ aspectRatio: '1 / 1' }}
