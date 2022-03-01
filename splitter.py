@@ -72,10 +72,7 @@ class Page_Generator():
 					while txt[linepos] != " " and txt[linepos] != "\n":
 						linepos -= 1
 				if sumline >= self.maxlength:
-					if txt[linepos] == " ":
-						txt = txt[:linepos] + self.linebreak + txt[linepos + 1:]
-					else:
-						txt = txt[:linepos+1]
+					txt = txt[:linepos] + self.linebreak + txt[linepos + 1:]
 					sumline = 0
 				linepos += 1
 			nextonparagraph = True
@@ -106,18 +103,13 @@ class Page_Generator():
 			onparagraph = True
 			while pos + pagesize < len(booktxt):
 				end = pagesize
-				tmp = booktxt[pos:pos + end]
-				if "\n" in tmp:
-					while booktxt[pos + end] != "\n":#Page must start on new paragraph
-						end -= 1
-				else:
-					while booktxt[pos + end] != " ":#Page must start in between words
-						end -= 1
-				onparagraph = self.genpage(pagenum, booktxt[pos:pos + end + 1], onparagraph)
+				while booktxt[pos + end] != " ":#Page must start in between words
+					end -= 1
+				onparagraph = self.genpage(pagenum, booktxt[pos:pos + end], onparagraph)
 				self.cf.addpage(str(globalpagenum), pagenum, self.chapternum)
 				pagenum += 1
 				globalpagenum += 1
-				pos = pos + end + 1
+				pos = pos + end
 
 			if pos != len(booktxt) - 1:#Save last page
 				self.genpage(pagenum, booktxt[pos:pos + end], onparagraph)
