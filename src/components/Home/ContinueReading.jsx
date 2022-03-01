@@ -7,7 +7,7 @@ const ContinueReading = () => {
   return (
     <Box>
       <Text fontWeight={'semibold'}>Continue reading</Text>
-      <NextLink href="/1" passHref={true}>
+      <NextLink href="/page/1" passHref={true}>
         <Link>
           <Flex
             mt="3"
