@@ -17,16 +17,11 @@ const Page = ({ text, clickWord, selected, pageId, ...props }) => {
       {...props}
     >
       {words.map((paragraph, i) => {
-        let justifyLast = false
-        let indent = true
-        if (paragraph[paragraph.length - 1] === JUSTIFY_LAST_MARKER) {
-          justifyLast = true
-          paragraph.pop()
-        }
-        if (paragraph[0] === NO_INDENT_MARKER) {
-          indent = false
-          paragraph.shift()
-        }
+        const justifyLast =
+          paragraph[paragraph.length - 1] === JUSTIFY_LAST_MARKER
+        const noIndent = paragraph[0] === NO_INDENT_MARKER
+        if (justifyLast) paragraph.pop()
+        if (noIndent) paragraph.shift()
         return (
           <Text
             key={i}
@@ -38,7 +33,7 @@ const Page = ({ text, clickWord, selected, pageId, ...props }) => {
             textAlign={'justify'}
             style={{
               textAlignLast: justifyLast ? 'justify' : '',
-              textIndent: indent ? '1em' : '',
+              textIndent: noIndent ? '' : '1em',
             }}
           >
             {paragraph.map((word, j) => (
