@@ -53,6 +53,7 @@ const Wrapper = ({ config, quizOpen, setQuizOpen }) => {
   const [currWord, setCurrWord] = useState(DEFAULT_CURR_WORD)
   const [timeout, setTimeoutState] = useState(null)
   const [showAlert, setShowAlert] = useState(false)
+  const [definition, setDefinition] = useState('')
   const clickWord = (page) => (word, paragraph, index) => () => {
     if (timeout) clearTimeout(timeout)
     if (
@@ -61,7 +62,12 @@ const Wrapper = ({ config, quizOpen, setQuizOpen }) => {
       paragraph === currWord.paragraph &&
       index === currWord.index
     ) {
-      setShowAlert(true)
+      fetch(`/api/definition?word=${word}`).then((res) =>
+        res.text().then((definition) => {
+          setShowAlert(true)
+          setDefinition(definition)
+        })
+      )
     } else {
       setShowAlert(false)
       setCurrWord({ page, word, paragraph, index })
@@ -116,11 +122,12 @@ const Wrapper = ({ config, quizOpen, setQuizOpen }) => {
       {showAlert && (
         <WordAlert
           word={currWord.word}
+          definition={definition}
           closeAlert={() => unsetWord()}
           openQuiz={openQuiz}
         />
       )}
-      {quizOpen && <Quiz closeQuiz={closeQuiz} />}
+      {quizOpen && <Quiz closeQuiz={closeQuiz} word={currWord.word} />}
     </Flex>
   )
 }

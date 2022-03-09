@@ -12,7 +12,10 @@ import clientPromise from 'utils/mongodb'
 const handler = async (req, res) => {
   const { letter } = req.query
   const QUIZ_SIZE = 4
-  if (!letter) res.status(400).send('Error. No Letter Provided')
+  if (!letter) {
+    res.status(400).send('Error. No Letter Provided')
+    return
+  }
   const client = await clientPromise
   const definitions = client.db('awakening').collection('definitions')
   const agg = definitions.aggregate([
@@ -31,8 +34,10 @@ const handler = async (req, res) => {
     payload.choices.push(choice)
     i++
   }
-  if (payload.choices.length < QUIZ_SIZE)
+  if (payload.choices.length < QUIZ_SIZE){
     res.status(400).send('Quiz too small.')
+    return
+  }
   res.json(payload)
 }
 

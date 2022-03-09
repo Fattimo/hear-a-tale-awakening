@@ -10,7 +10,12 @@ import React from 'react'
 import { HeadphonesIcon } from '../Icons'
 import SidebarButton from './SidebarButton'
 
-const WordAlert = ({ word, closeAlert, openQuiz }) => {
+const WordAlert = ({
+  word,
+  definition = 'Definition',
+  closeAlert,
+  openQuiz,
+}) => {
   const punctuationless = word.replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, '')
   const cleanedWord = punctuationless.replace(/\s{2,}/g, ' ')
   return (
@@ -27,7 +32,7 @@ const WordAlert = ({ word, closeAlert, openQuiz }) => {
       <Flex justify={'space-between'} align={'center'} w={'100%'} px={2} pr={8}>
         <Flex direction={'column'}>
           <AlertTitle>{cleanedWord}</AlertTitle>
-          <AlertDescription>Definition of word here</AlertDescription>
+          <AlertDescription>{definition}</AlertDescription>
         </Flex>
         <Flex>
           <SidebarButton mx={2} onClick={openQuiz}>
