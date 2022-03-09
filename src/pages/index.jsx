@@ -7,28 +7,26 @@ import Sidebar from 'src/components/Home/Sidebar'
 
 const Index = ({ config = {} }) => {
   const USER = 'ISABELLA MOAK'
-  /**
-   * Shape of local storage:
-   * {
-   *  currPage: number,
-   *  chapterProgress: {
-   *    chapternumber: { page: <absolute page>, progress: proportion}
-   *  },
-   *  bookmarks: [numbers]
-   * }
-   * TODO: replace with real user tied data
-   */
-  const data =
-    typeof window !== 'undefined'
-      ? JSON.parse(window.localStorage.getItem('awakening')) ?? {}
-      : {}
-  const [currPage, setCurrPage] = useState(1)
-  const [bookmarks, setBookmarks] = useState([])
+  const [localStorage, setLocalStorage] = useState({})
   useEffect(() => {
-    setCurrPage(data.currPage)
-    setBookmarks(data.bookmarks)
-  }, [data.bookmarks, data.currPage])
-  const { chapter } = config.pages[currPage]
+    /**
+     * Shape of local storage:
+     * {
+     *  currPage: number,
+     *  chapterProgress: {
+     *    chapternumber: { page: <absolute page>, progress: proportion}
+     *  },
+     *  bookmarks: [numbers]
+     * }
+     * TODO: replace with real user tied data
+     */
+    const data =
+      typeof window !== 'undefined'
+        ? JSON.parse(window.localStorage.getItem('awakening')) ?? {}
+        : {}
+    setLocalStorage(data)
+  }, [])
+  const { chapter } = config.pages[localStorage.currPage ?? 1]
   return (
     <Flex h="100%">
       <Sidebar />
@@ -48,17 +46,20 @@ const Index = ({ config = {} }) => {
           </Text>
         </GridItem>
         <GridItem>
-          <ContinueReading chapter={chapter} page={currPage} />
+          <ContinueReading
+            chapter={chapter}
+            page={localStorage.currPage ?? 0}
+          />
         </GridItem>
         <GridItem rowSpan={2}>
           <ChapterList
             chapters={config.book}
-            chapterProgress={data.chapterProgress}
+            chapterProgress={localStorage.chapterProgress}
           />
         </GridItem>
         <GridItem>
           <BookmarksPreview
-            bookmarks={bookmarks}
+            bookmarks={localStorage.bookmarks}
             pagesToChapter={config.pages}
           />
         </GridItem>
