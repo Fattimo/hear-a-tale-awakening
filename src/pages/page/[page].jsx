@@ -10,7 +10,7 @@ export async function getServerSideProps() {
   return { props: { config } }
 }
 
-const Page = ({ config }) => {
+const Page = ({ config = {} }) => {
   const router = useRouter()
   const { page } = router.query
   const pageNumber = parseInt(page)

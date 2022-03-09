@@ -5,8 +5,23 @@ import ChapterList from 'src/components/Home/ChapterList'
 import ContinueReading from 'src/components/Home/ContinueReading'
 import Sidebar from 'src/components/Home/Sidebar'
 
-const Index = () => {
+const Index = ({ config = {} }) => {
   const USER = 'ISABELLA MOAK'
+  /**
+   * Shape of local storage:
+   * {
+   *  currPage: number,
+   *  chapterProgress: {
+   *    1: number
+   *    2: number
+   *  },
+   *  bookmarks: [numbers]
+   * }
+   */
+  const data =
+    typeof window !== undefined
+      ? JSON.parse(window.localStorage.getItem('awakening')) ?? {}
+      : {}
   return (
     <Flex h="100%">
       <Sidebar />
@@ -29,7 +44,7 @@ const Index = () => {
           <ContinueReading />
         </GridItem>
         <GridItem rowSpan={2}>
-          <ChapterList />
+          <ChapterList chapterPages={config.book} />
         </GridItem>
         <GridItem>
           <BookmarksPreview />
@@ -37,6 +52,11 @@ const Index = () => {
       </Grid>
     </Flex>
   )
+}
+
+export async function getServerSideProps() {
+  const config = require('public/book/config.json')
+  return { props: { config } }
 }
 
 export default Index

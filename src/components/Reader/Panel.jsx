@@ -8,8 +8,11 @@ const Panel = ({ page, maxPage, chapter }) => {
 
   const pageBackward = (offset) => () =>
     router.replace(`/page/${Math.max(parseInt(page) - offset, 1)}`)
-  const pageForward = (offset) => () =>
+  const pageForward = (offset) => () => {
     router.replace(`/page/${Math.min(parseInt(page) + offset, maxPage)}`)
+    const data = JSON.parse(window.localStorage.getItem('awakening')) ?? {}
+    data.currPage
+  }
 
   return (
     <Flex justify="center" align="center" h={150} mb={1}>
