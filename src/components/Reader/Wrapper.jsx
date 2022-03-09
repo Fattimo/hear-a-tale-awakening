@@ -120,7 +120,7 @@ const Wrapper = ({ config, quizOpen, setQuizOpen }) => {
           openQuiz={openQuiz}
         />
       )}
-      {quizOpen && <Quiz closeQuiz={closeQuiz}/>}
+      {quizOpen && <Quiz closeQuiz={closeQuiz} />}
     </Flex>
   )
 }
