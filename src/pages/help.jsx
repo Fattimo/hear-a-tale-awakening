@@ -67,7 +67,7 @@ const Help = () => {
                 w={4}
                 h={4}
                 borderRadius={'50%'}
-                bgColor={page === i ? '#666FC1' : 'white'}
+                bgColor={page === i ? 'theme.purple' : 'white'}
               />
             ))}
           </Flex>
