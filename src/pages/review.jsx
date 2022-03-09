@@ -92,7 +92,14 @@ const CuedWord = () => {
         <Flex align={'center'} bgColor={'white'} borderRadius={8} px={3} h={5}>
           Score: XX%
         </Flex>
-        <Flex bgColor={'white'} borderRadius={8} px={3} h={5} align={'center'}>
+        <Flex
+          bgColor={'white'}
+          borderRadius={8}
+          px={3}
+          h={5}
+          align={'center'}
+          color={'yellow.300'} // todo: move to star level
+        >
           <StarIcon /> <StarIcon />
           <StarIcon /> <StarIcon />
           <StarIcon />
