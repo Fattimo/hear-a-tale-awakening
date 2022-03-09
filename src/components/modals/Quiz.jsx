@@ -43,7 +43,22 @@ const Quiz = ({ closeQuiz, word = '' }) => {
       closeQuiz()
       return
     }
-    fetchQuiz()
+    reshuffleQuiz()
+  }
+
+  const reshuffleQuiz = () => {
+    if (!quiz.choices) return
+    // https://stackoverflow.com/a/12646864
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1))
+        ;[array[i], array[j]] = [array[j], array[i]]
+      }
+    }
+    const correctAnswer = quiz.choices[quiz.correctIndex]
+    shuffleArray(quiz.choices)
+    quiz.correctIndex = quiz.choices.indexOf(correctAnswer)
+    setQuiz(quiz)
   }
 
   return (
