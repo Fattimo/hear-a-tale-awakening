@@ -3,7 +3,7 @@ import NextLink from 'next/link'
 import React from 'react'
 import { HeadphonesIcon } from '../Icons'
 
-const ContinueReading = () => {
+const ContinueReading = ({ chapter, page }) => {
   return (
     <Box>
       <Text fontWeight={'semibold'}>Continue reading</Text>
@@ -21,8 +21,8 @@ const ContinueReading = () => {
             h="50%"
           >
             <Box>
-              <Text>Chapter X</Text>
-              <Text>page 14</Text>
+              <Text>Chapter {chapter}</Text>
+              <Text>page {page}</Text>
             </Box>
             <Flex>
               <Flex

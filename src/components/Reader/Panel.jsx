@@ -3,15 +3,34 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import PageButton from './PageButton'
 
-const Panel = ({ page, maxPage, chapter }) => {
+const Panel = ({ page, maxPage, chapter, config }) => {
   const router = useRouter()
+  const data =
+    typeof window !== 'undefined'
+      ? JSON.parse(window.localStorage.getItem('awakening')) ?? {}
+      : {}
 
-  const pageBackward = (offset) => () =>
-    router.replace(`/page/${Math.max(parseInt(page) - offset, 1)}`)
+  const pageBackward = (offset) => () => {
+    const newPage = Math.max(parseInt(page) - offset, 1)
+    router.replace(`/page/${newPage}`)
+    adjustProgress(newPage)
+  }
   const pageForward = (offset) => () => {
-    router.replace(`/page/${Math.min(parseInt(page) + offset, maxPage)}`)
-    const data = JSON.parse(window.localStorage.getItem('awakening')) ?? {}
-    data.currPage
+    const newPage = Math.min(parseInt(page) + offset, maxPage)
+    router.replace(`/page/${newPage}`)
+    adjustProgress(newPage)
+  }
+
+  const adjustProgress = (newPage) => {
+    data.currPage = newPage
+    const { page, chapter } = config.pages[newPage]
+    const { pages } = config.book[chapter - 1]
+    if (!data.chapterProgress) data.chapterProgress = {}
+    data.chapterProgress[chapter] = {
+      progress: Math.trunc((page / pages) * 100),
+      page: newPage,
+    }
+    window.localStorage.setItem('awakening', JSON.stringify(data))
   }
 
   return (

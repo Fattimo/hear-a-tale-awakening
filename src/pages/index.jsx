@@ -12,16 +12,17 @@ const Index = ({ config = {} }) => {
    * {
    *  currPage: number,
    *  chapterProgress: {
-   *    1: number
-   *    2: number
+   *    chapternumber: { page: <absolute page>, progress: proportion}
    *  },
    *  bookmarks: [numbers]
    * }
    */
   const data =
-    typeof window !== undefined
+    typeof window !== 'undefined'
       ? JSON.parse(window.localStorage.getItem('awakening')) ?? {}
       : {}
+  const currPage = data.currPage ?? 1
+  const { chapter } = config.pages[currPage]
   return (
     <Flex h="100%">
       <Sidebar />
@@ -41,10 +42,13 @@ const Index = ({ config = {} }) => {
           </Text>
         </GridItem>
         <GridItem>
-          <ContinueReading />
+          <ContinueReading chapter={chapter} page={currPage} />
         </GridItem>
         <GridItem rowSpan={2}>
-          <ChapterList chapterPages={config.book} />
+          <ChapterList
+            chapters={config.book}
+            chapterProgress={data.chapterProgress}
+          />
         </GridItem>
         <GridItem>
           <BookmarksPreview />

@@ -34,6 +34,7 @@ const Page = ({ config = {} }) => {
           page={pageNumber}
           maxPage={config.totalPages}
           chapter={chapterData.chapter}
+          config={config}
         />
       </Flex>
     </Flex>
