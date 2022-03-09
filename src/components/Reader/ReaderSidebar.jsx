@@ -17,7 +17,7 @@ const ReaderSidebar = ({ bookmarked = false, page }) => {
     typeof window !== 'undefined'
       ? JSON.parse(window.localStorage.getItem('awakening')) ?? {}
       : {}
-  
+
   const [bookmarkedState, setBookmarked] = useState(false)
   useEffect(() => {
     setBookmarked(bookmarked)

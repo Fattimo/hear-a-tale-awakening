@@ -21,7 +21,9 @@ const Bookmark = ({ page, endLabel = false, children }) => {
   if (!page) return bookmark
   return (
     <NextLink href={`/page/${page}`} passHref>
-      <Link flexGrow={1} maxW={40}>{bookmark}</Link>
+      <Link flexGrow={1} maxW={40}>
+        {bookmark}
+      </Link>
     </NextLink>
   )
 }
