@@ -1,12 +1,4 @@
-import {
-  Box,
-  Center,
-  Container,
-  Flex,
-  Heading,
-  Stack,
-  Text,
-} from '@chakra-ui/react'
+import { Box, Center, Flex, Heading, Stack, Text } from '@chakra-ui/react'
 import React from 'react'
 import Sidebar from 'src/components/Home/Sidebar'
 import Image from 'next/image'
