@@ -12,6 +12,7 @@ const ReaderSidebar = ({ ...rest }) => {
       justify={'center'}
       align={'center'}
       px={8}
+      flexShrink={0}
       {...rest}
     >
       <NextLink href="/" passHref>
