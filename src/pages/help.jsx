@@ -53,7 +53,12 @@ const Help = () => {
             Right
           </ArrowRightIcon>
         </Flex>
-        <Flex justify={'center'} align={'center'} direction={'column'} mb={1}>
+        <Flex
+          justify={'center'}
+          align={'center'}
+          direction={'column'}
+          mb={{ base: 2, xl: 6 }}
+        >
           <Flex justify={'center'} align={'center'} my={1}>
             {PAGES.map((_, i) => (
               <Box
