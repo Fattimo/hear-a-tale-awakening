@@ -34,7 +34,13 @@ const ReaderSidebar = ({ bookmarked = false, page }) => {
     setBookmarked(!bookmarkedState)
   }
   return (
-    <Flex direction="column" justify={'center'} align={'center'} px={8}>
+    <Flex
+      direction="column"
+      justify={'center'}
+      align={'center'}
+      px={8}
+      flexShrink={0}
+    >
       <NextLink href="/" passHref>
         <Link>
           <SidebarButton>

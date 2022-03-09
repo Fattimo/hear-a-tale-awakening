@@ -13,4 +13,7 @@ module.exports = withImages({
       JWT_SECRET: process.env.JWT_SECRET,
     },
   },
+  images: {
+    disableStaticImages: true,
+  },
 })
