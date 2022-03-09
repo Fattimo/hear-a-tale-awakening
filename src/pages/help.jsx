@@ -7,48 +7,25 @@ import tutorial_3 from 'public/images/tutorial/tutorial_3.png'
 import tutorial_4 from 'public/images/tutorial/tutorial_4.png'
 import tutorial_5 from 'public/images/tutorial/tutorial_5.png'
 import NextLink from 'next/link'
+import { ArrowLeftIcon, ArrowRightIcon, CloseIcon } from '@chakra-ui/icons'
 
 const Help = () => {
+  const PAGES = [tutorial_1, tutorial_2, tutorial_3, tutorial_4, tutorial_5]
   const [page, setPage] = useState(0)
   const pageForward = () => setPage(Math.min(4, page + 1))
   const pageBack = () => setPage(Math.max(0, page - 1))
   return (
     <Flex h={'100%'} w={'100%'} position={'relative'}>
-      <Image
-        alt="tutorial"
-        src={tutorial_1}
-        layout={page === 0 ? 'fill' : null}
-        width={0}
-        height={0}
-      />
-      <Image
-        alt="tutorial"
-        src={tutorial_2}
-        layout={page === 1 ? 'fill' : null}
-        width={0}
-        height={0}
-      />
-      <Image
-        alt="tutorial"
-        src={tutorial_3}
-        layout={page === 2 ? 'fill' : null}
-        width={0}
-        height={0}
-      />
-      <Image
-        alt="tutorial"
-        src={tutorial_4}
-        layout={page === 3 ? 'fill' : null}
-        width={0}
-        height={0}
-      />
-      <Image
-        alt="tutorial"
-        src={tutorial_5}
-        layout={page === 4 ? 'fill' : null}
-        width={0}
-        height={0}
-      />
+      {PAGES.map((src, i) => (
+        <Image
+          alt="tutorial"
+          key={`tutorial_${i}`}
+          src={src}
+          layout={page === i ? 'fill' : null}
+          width={0}
+          height={0}
+        />
+      ))}
       <Flex
         justify={'space-between'}
         align={'center'}
@@ -57,22 +34,52 @@ const Help = () => {
         direction={'column'}
         zIndex={100}
       >
-        <Flex justify={'space-around'} width={'100%'} mt={6}>
-          <Box w={10} /> <Box w={10} />{' '}
-          <NextLink href={'/'} passHref>
-            <Link>Close</Link>
-          </NextLink>
-        </Flex>
+        <Box />
         <Flex justify={'space-between'} width={'100%'}>
-          <Box onClick={pageBack}>Left</Box>
-          <Box onClick={pageForward}>Right</Box>
+          <ArrowLeftIcon
+            color={'white'}
+            cursor={'pointer'}
+            onClick={pageBack}
+            ml={10}
+          >
+            Left
+          </ArrowLeftIcon>
+          <ArrowRightIcon
+            color={'white'}
+            cursor={'pointer'}
+            onClick={pageForward}
+            mr={10}
+          >
+            Right
+          </ArrowRightIcon>
         </Flex>
-        <Flex justify={'center'} align={'center'} mb={10}>
-          <Box>1</Box>
-          <Box>1</Box>
-          <Box>1</Box>
-          <Box>1</Box>
-          <Box>1</Box>
+        <Flex justify={'center'} align={'center'} direction={'column'} mb={1}>
+          <Flex justify={'center'} align={'center'} my={1}>
+            {PAGES.map((_, i) => (
+              <Box
+                key={i}
+                mx={1}
+                w={4}
+                h={4}
+                borderRadius={'50%'}
+                bgColor={page === i ? '#666FC1' : 'white'}
+              />
+            ))}
+          </Flex>
+          <NextLink href={'/'} passHref>
+            <Link
+              bgColor={'white'}
+              padding={1}
+              borderRadius={'50%'}
+              w={8}
+              h={8}
+              display={'flex'}
+              alignItems={'center'}
+              justifyContent={'center'}
+            >
+              <CloseIcon color={'red'} />
+            </Link>
+          </NextLink>
         </Flex>
       </Flex>
     </Flex>
