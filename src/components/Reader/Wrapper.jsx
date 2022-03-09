@@ -1,11 +1,12 @@
 import { Flex, Spacer } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
+import Quiz from '../modals/Quiz'
 import AudioManager from './AudioManager'
 import Page from './Page'
 import WordAlert from './WordAlert'
 
-const Wrapper = ({ config }) => {
+const Wrapper = ({ config, quizOpen, setQuizOpen }) => {
   const router = useRouter()
 
   // Page Calculations
@@ -72,6 +73,10 @@ const Wrapper = ({ config }) => {
     setShowAlert(false)
   }
 
+  // Quiz Logic
+  const openQuiz = () => setQuizOpen(true)
+  const closeQuiz = () => setQuizOpen(false)
+
   // if odd, then show the first one, if even, then show the right one -> visibility
   // if screen size is bigger, then show both ->
   return (
@@ -109,8 +114,13 @@ const Wrapper = ({ config }) => {
         </Spacer>
       </Flex>
       {showAlert && (
-        <WordAlert word={currWord.word} closeAlert={() => unsetWord()} />
+        <WordAlert
+          word={currWord.word}
+          closeAlert={() => unsetWord()}
+          openQuiz={openQuiz}
+        />
       )}
+      {quizOpen && <Quiz closeQuiz={closeQuiz}/>}
     </Flex>
   )
 }

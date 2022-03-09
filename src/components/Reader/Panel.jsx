@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import PageButton from './PageButton'
 
-const Panel = ({ page, maxPage, chapter }) => {
+const Panel = ({ page, maxPage, chapter, ...rest }) => {
   const router = useRouter()
 
   const pageBackward = (offset) => () =>
@@ -12,7 +12,7 @@ const Panel = ({ page, maxPage, chapter }) => {
     router.replace(`/page/${Math.min(parseInt(page) + offset, maxPage)}`)
 
   return (
-    <Flex justify="center" align="center" h={150} mb={1}>
+    <Flex justify="center" align="center" h={150} mb={1} {...rest}>
       <Box cursor="pointer">
         <PageButton onClick={pageBackward(1)} left />
         <PageButton onClick={pageBackward(2)} largeScreen left />

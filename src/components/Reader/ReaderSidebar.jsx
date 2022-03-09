@@ -5,9 +5,15 @@ import React from 'react'
 import { HeadphonesIcon, HomeIcon, PlayIcon } from '../Icons'
 import SidebarButton from './SidebarButton'
 
-const ReaderSidebar = () => {
+const ReaderSidebar = ({ ...rest }) => {
   return (
-    <Flex direction="column" justify={'center'} align={'center'} px={8}>
+    <Flex
+      direction="column"
+      justify={'center'}
+      align={'center'}
+      px={8}
+      {...rest}
+    >
       <NextLink href="/" passHref>
         <Link>
           <SidebarButton>
