@@ -5,6 +5,7 @@ import PageButton from './PageButton'
 
 const Panel = ({ page, maxPage, chapter, config }) => {
   const router = useRouter()
+  //TODO: replace with real user tied data
   const data =
     typeof window !== 'undefined'
       ? JSON.parse(window.localStorage.getItem('awakening')) ?? {}

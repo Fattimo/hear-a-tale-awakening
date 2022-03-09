@@ -1,5 +1,5 @@
 import { Flex, Grid, GridItem, Text } from '@chakra-ui/react'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import BookmarksPreview from 'src/components/Home/BookmarksPreview'
 import ChapterList from 'src/components/Home/ChapterList'
 import ContinueReading from 'src/components/Home/ContinueReading'
@@ -16,12 +16,18 @@ const Index = ({ config = {} }) => {
    *  },
    *  bookmarks: [numbers]
    * }
+   * TODO: replace with real user tied data
    */
   const data =
     typeof window !== 'undefined'
       ? JSON.parse(window.localStorage.getItem('awakening')) ?? {}
       : {}
-  const currPage = data.currPage ?? 1
+  const [currPage, setCurrPage] = useState(1)
+  const [bookmarks, setBookmarks] = useState([])
+  useEffect(() => {
+    setCurrPage(data.currPage)
+    setBookmarks(data.bookmarks)
+  }, [data.bookmarks, data.currPage])
   const { chapter } = config.pages[currPage]
   return (
     <Flex h="100%">
@@ -51,7 +57,10 @@ const Index = ({ config = {} }) => {
           />
         </GridItem>
         <GridItem>
-          <BookmarksPreview />
+          <BookmarksPreview
+            bookmarks={bookmarks}
+            pagesToChapter={config.pages}
+          />
         </GridItem>
       </Grid>
     </Flex>

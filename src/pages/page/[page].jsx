@@ -20,7 +20,7 @@ const Page = ({ config = {} }) => {
   const chapterData = config.book[pageData ? pageData.chapter - 1 : 0]
   return (
     <Flex h="100%" w={'100%'}>
-      <ReaderSidebar />
+      <ReaderSidebar page={pageNumber}/>
       <Flex
         direction="column"
         h="100%"

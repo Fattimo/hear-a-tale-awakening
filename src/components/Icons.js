@@ -17,3 +17,15 @@ export const PlayIcon = createIcon({
   viewBox: '0 0 15 19',
   d: 'M0 0V19L15 9.5L0 0Z',
 })
+
+export const BookmarkIconUnfilled = createIcon({
+  displayName: 'BookmarkIconUnfilled',
+  viewBox: '0 0 16 21',
+  d: 'M13.7143 0H2.28571C1.02857 0 0.0114288 1.05 0.0114288 2.33333L0 21L8 17.5L16 21V2.33333C16 1.05 14.9714 0 13.7143 0ZM13.7143 17.5L8 14.9567L2.28571 17.5V2.33333H13.7143V17.5Z'
+})
+
+export const BookmarkIconFilled = createIcon({
+  displayName: 'BookmarkIconFilled',
+  viewBox: '0 0 16 21',
+  d: 'M0.511429 2.33364V2.33333C0.511429 1.31307 1.3176 0.5 2.28571 0.5H13.7143C14.6856 0.5 15.5 1.31637 15.5 2.33333V20.2355L8.20041 17.0419L8 16.9542L7.79959 17.0419L0.500468 20.2353L0.511429 2.33364Z'
+})
