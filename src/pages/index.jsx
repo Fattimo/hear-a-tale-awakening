@@ -48,7 +48,7 @@ const Index = ({ config = {} }) => {
         <GridItem>
           <ContinueReading
             chapter={chapter}
-            page={localStorage.currPage ?? 0}
+            page={localStorage.currPage ?? 1}
           />
         </GridItem>
         <GridItem rowSpan={2}>
