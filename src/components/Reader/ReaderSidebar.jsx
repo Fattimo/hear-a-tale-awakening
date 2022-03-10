@@ -12,28 +12,29 @@ import {
 import SidebarButton from './SidebarButton'
 
 const ReaderSidebar = ({ bookmarked = false, page, ...rest }) => {
-  //TODO: replace with real user tied data
-  const data =
-    typeof window !== 'undefined'
-      ? JSON.parse(window.localStorage.getItem('awakening')) ?? {}
-      : {}
-
+  const [localStorage, setLocalStorage] = useState({})
   const [bookmarkedState, setBookmarked] = useState(false)
   useEffect(() => {
-    if (data.bookmarks.includes(page)) setBookmarked(true)
+    //TODO: replace with real user tied data
+    const data =
+      typeof window !== 'undefined'
+        ? JSON.parse(window.localStorage.getItem('awakening')) ?? {}
+        : {}
+    setLocalStorage(data)
+    if (data.bookmarks?.includes(page)) setBookmarked(true)
     else setBookmarked(bookmarked)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bookmarked, page])
 
   const bookmark = () => {
-    if (!data.bookmarks) data.bookmarks = []
-    if (!bookmarkedState) data.bookmarks.push(page)
+    if (!localStorage.bookmarks) localStorage.bookmarks = []
+    if (!bookmarkedState) localStorage.bookmarks.push(page)
     else {
-      const i = data.bookmarks.indexOf(page)
-      if (i > 0) data.bookmarks.splice(i, 1)
+      const i = localStorage.bookmarks.indexOf(page)
+      if (i > 0) localStorage.bookmarks.splice(i, 1)
     }
-    window.localStorage.setItem('awakening', JSON.stringify(data))
+    window.localStorage.setItem('awakening', JSON.stringify(localStorage))
     setBookmarked(!bookmarkedState)
+    setLocalStorage(localStorage)
   }
   return (
     <Flex
