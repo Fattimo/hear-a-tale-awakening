@@ -11,7 +11,7 @@ import {
 } from '../Icons'
 import SidebarButton from './SidebarButton'
 
-const ReaderSidebar = ({ bookmarked = false, page, ...rest }) => {
+const ReaderSidebar = ({ page, ...rest }) => {
   const [localStorage, setLocalStorage] = useState({})
   const [bookmarkedState, setBookmarked] = useState(false)
   useEffect(() => {
@@ -21,9 +21,12 @@ const ReaderSidebar = ({ bookmarked = false, page, ...rest }) => {
         ? JSON.parse(window.localStorage.getItem('awakening')) ?? {}
         : {}
     setLocalStorage(data)
-    if (data.bookmarks?.includes(page)) setBookmarked(true)
-    else setBookmarked(bookmarked)
-  }, [bookmarked, page])
+  }, [])
+
+  useEffect(
+    () => setBookmarked(localStorage.bookmarks?.includes(page)),
+    [localStorage.bookmarks, page]
+  )
 
   const bookmark = () => {
     if (!localStorage.bookmarks) localStorage.bookmarks = []
@@ -32,6 +35,7 @@ const ReaderSidebar = ({ bookmarked = false, page, ...rest }) => {
       const i = localStorage.bookmarks.indexOf(page)
       if (i > 0) localStorage.bookmarks.splice(i, 1)
     }
+    // TODO: This is a race condition with the other local storage set item in Panel.jsx. Will be resolved when this system isnt tied to localstorage.
     window.localStorage.setItem('awakening', JSON.stringify(localStorage))
     setBookmarked(!bookmarkedState)
     setLocalStorage(localStorage)
@@ -45,7 +49,7 @@ const ReaderSidebar = ({ bookmarked = false, page, ...rest }) => {
       flexShrink={0}
       {...rest}
     >
-      <NextLink href="/" passHref>
+      <NextLink href="/" passHref prefetch={false}>
         <Link>
           <SidebarButton>
             <HomeIcon />
