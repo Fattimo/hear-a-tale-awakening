@@ -40,11 +40,8 @@ const Page = ({ config = {} }) => {
           page={pageNumber}
           maxPage={config.totalPages}
           chapter={chapterData.chapter}
-<<<<<<< HEAD
           pointerEvents={quizOpen ? 'none' : null}
-=======
           config={config}
->>>>>>> origin/main
         />
       </Flex>
     </Flex>
