@@ -1,7 +1,7 @@
 import { Button } from '@chakra-ui/react'
 import React from 'react'
 
-const SidebarButton = ({ children }) => {
+const SidebarButton = ({ children, ...rest }) => {
   return (
     <Button
       display="flex"
@@ -16,6 +16,7 @@ const SidebarButton = ({ children }) => {
       bgColor={'white'}
       color="black"
       boxShadow={'2xl'}
+      {...rest}
     >
       {children}
     </Button>

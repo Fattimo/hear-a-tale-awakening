@@ -10,7 +10,7 @@ export async function getServerSideProps() {
   return { props: { config } }
 }
 
-const Page = ({ config }) => {
+const Page = ({ config = {} }) => {
   const router = useRouter()
   const { page } = router.query
   const pageNumber = parseInt(page)
@@ -20,7 +20,7 @@ const Page = ({ config }) => {
   const chapterData = config.book[pageData ? pageData.chapter - 1 : 0]
   return (
     <Flex h="100%" w={'100%'}>
-      <ReaderSidebar />
+      <ReaderSidebar page={pageNumber} />
       <Flex
         direction="column"
         h="100%"
@@ -34,6 +34,7 @@ const Page = ({ config }) => {
           page={pageNumber}
           maxPage={config.totalPages}
           chapter={chapterData.chapter}
+          config={config}
         />
       </Flex>
     </Flex>

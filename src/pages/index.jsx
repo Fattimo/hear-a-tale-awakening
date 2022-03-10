@@ -1,12 +1,32 @@
 import { Flex, Grid, GridItem, Text } from '@chakra-ui/react'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import BookmarksPreview from 'src/components/Home/BookmarksPreview'
 import ChapterList from 'src/components/Home/ChapterList'
 import ContinueReading from 'src/components/Home/ContinueReading'
 import Sidebar from 'src/components/Home/Sidebar'
 
-const Index = () => {
+const Index = ({ config = {} }) => {
   const USER = 'ISABELLA MOAK'
+  const [localStorage, setLocalStorage] = useState({})
+  useEffect(() => {
+    /**
+     * Shape of local storage:
+     * {
+     *  currPage: number,
+     *  chapterProgress: {
+     *    chapternumber: { page: <absolute page>, progress: proportion}
+     *  },
+     *  bookmarks: [numbers]
+     * }
+     * TODO: replace with real user tied data
+     */
+    const data =
+      typeof window !== 'undefined'
+        ? JSON.parse(window.localStorage.getItem('awakening')) ?? {}
+        : {}
+    setLocalStorage(data)
+  }, [])
+  const { chapter } = config.pages[localStorage.currPage ?? 1]
   return (
     <Flex h="100%">
       <Sidebar />
@@ -26,17 +46,31 @@ const Index = () => {
           </Text>
         </GridItem>
         <GridItem>
-          <ContinueReading />
+          <ContinueReading
+            chapter={chapter}
+            page={localStorage.currPage ?? 1}
+          />
         </GridItem>
         <GridItem rowSpan={2}>
-          <ChapterList />
+          <ChapterList
+            chapters={config.book}
+            chapterProgress={localStorage.chapterProgress}
+          />
         </GridItem>
         <GridItem>
-          <BookmarksPreview />
+          <BookmarksPreview
+            bookmarks={localStorage.bookmarks}
+            pagesToChapter={config.pages}
+          />
         </GridItem>
       </Grid>
     </Flex>
   )
+}
+
+export async function getServerSideProps() {
+  const config = require('public/book/config.json')
+  return { props: { config } }
 }
 
 export default Index
