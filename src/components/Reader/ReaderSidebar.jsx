@@ -20,8 +20,10 @@ const ReaderSidebar = ({ bookmarked = false, page, ...rest }) => {
 
   const [bookmarkedState, setBookmarked] = useState(false)
   useEffect(() => {
-    setBookmarked(bookmarked)
-  }, [bookmarked])
+    if (data.bookmarks.includes(page)) setBookmarked(true)
+    else setBookmarked(bookmarked)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [bookmarked, page])
 
   const bookmark = () => {
     if (!data.bookmarks) data.bookmarks = []

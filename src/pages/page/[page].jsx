@@ -22,7 +22,10 @@ const Page = ({ config = {} }) => {
 
   return (
     <Flex h="100%" w={'100%'}>
-      <ReaderSidebar page={pageNumber} pointerEvents={quizOpen ? 'none' : null} />
+      <ReaderSidebar
+        page={pageNumber}
+        pointerEvents={quizOpen ? 'none' : null}
+      />
       <Flex
         direction="column"
         h="100%"
