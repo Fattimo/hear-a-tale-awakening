@@ -34,7 +34,7 @@ const handler = async (req, res) => {
     payload.choices.push(choice)
     i++
   }
-  if (payload.choices.length < QUIZ_SIZE){
+  if (payload.choices.length < QUIZ_SIZE) {
     res.status(400).send('Quiz too small.')
     return
   }

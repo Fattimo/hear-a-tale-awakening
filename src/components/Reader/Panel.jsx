@@ -1,6 +1,6 @@
 import { Box, Flex, Text } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useEffect } from 'react'
 import PageButton from './PageButton'
 
 const Panel = ({ page, maxPage, chapter, config, ...rest }) => {
@@ -10,6 +10,15 @@ const Panel = ({ page, maxPage, chapter, config, ...rest }) => {
     typeof window !== 'undefined'
       ? JSON.parse(window.localStorage.getItem('awakening')) ?? {}
       : {}
+
+  useEffect(() => {
+    return () => {
+      const localStorage = JSON.parse(window.localStorage.getItem('awakening'))
+      localStorage.chapterProgress = data.chapterProgress
+      window.localStorage.setItem('awakening', JSON.stringify(localStorage))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const pageBackward = (offset) => () => {
     const newPage = Math.max(parseInt(page) - offset, 1)
@@ -31,7 +40,6 @@ const Panel = ({ page, maxPage, chapter, config, ...rest }) => {
       progress: Math.trunc((page / pages) * 100),
       page: newPage,
     }
-    window.localStorage.setItem('awakening', JSON.stringify(data))
   }
 
   return (
