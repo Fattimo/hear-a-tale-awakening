@@ -10,7 +10,7 @@ export async function getServerSideProps() {
   return { props: { config } }
 }
 
-const Page = ({ config }) => {
+const Page = ({ config = {} }) => {
   const [quizOpen, setQuizOpen] = useState(false)
   const router = useRouter()
   const { page } = router.query
@@ -22,7 +22,7 @@ const Page = ({ config }) => {
 
   return (
     <Flex h="100%" w={'100%'}>
-      <ReaderSidebar pointerEvents={quizOpen ? 'none' : null} />
+      <ReaderSidebar page={pageNumber} pointerEvents={quizOpen ? 'none' : null} />
       <Flex
         direction="column"
         h="100%"
@@ -40,7 +40,11 @@ const Page = ({ config }) => {
           page={pageNumber}
           maxPage={config.totalPages}
           chapter={chapterData.chapter}
+<<<<<<< HEAD
           pointerEvents={quizOpen ? 'none' : null}
+=======
+          config={config}
+>>>>>>> origin/main
         />
       </Flex>
     </Flex>

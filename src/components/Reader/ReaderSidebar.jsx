@@ -1,11 +1,38 @@
 import { SettingsIcon } from '@chakra-ui/icons'
 import { Flex, Link } from '@chakra-ui/react'
 import NextLink from 'next/link'
-import React from 'react'
-import { HeadphonesIcon, HomeIcon, PlayIcon } from '../Icons'
+import React, { useEffect, useState } from 'react'
+import {
+  BookmarkIconFilled,
+  BookmarkIconUnfilled,
+  HeadphonesIcon,
+  HomeIcon,
+  PlayIcon,
+} from '../Icons'
 import SidebarButton from './SidebarButton'
 
-const ReaderSidebar = ({ ...rest }) => {
+const ReaderSidebar = ({ bookmarked = false, page, ...rest }) => {
+  //TODO: replace with real user tied data
+  const data =
+    typeof window !== 'undefined'
+      ? JSON.parse(window.localStorage.getItem('awakening')) ?? {}
+      : {}
+
+  const [bookmarkedState, setBookmarked] = useState(false)
+  useEffect(() => {
+    setBookmarked(bookmarked)
+  }, [bookmarked])
+
+  const bookmark = () => {
+    if (!data.bookmarks) data.bookmarks = []
+    if (!bookmarkedState) data.bookmarks.push(page)
+    else {
+      const i = data.bookmarks.indexOf(page)
+      if (i > 0) data.bookmarks.splice(i, 1)
+    }
+    window.localStorage.setItem('awakening', JSON.stringify(data))
+    setBookmarked(!bookmarkedState)
+  }
   return (
     <Flex
       direction="column"
@@ -30,6 +57,9 @@ const ReaderSidebar = ({ ...rest }) => {
       </SidebarButton>
       <SidebarButton>
         <PlayIcon />
+      </SidebarButton>
+      <SidebarButton onClick={bookmark}>
+        {bookmarkedState ? <BookmarkIconFilled /> : <BookmarkIconUnfilled />}
       </SidebarButton>
     </Flex>
   )
