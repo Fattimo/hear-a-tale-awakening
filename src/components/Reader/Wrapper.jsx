@@ -62,7 +62,7 @@ const Wrapper = ({ config, quizOpen, setQuizOpen }) => {
       paragraph === currWord.paragraph &&
       index === currWord.index
     ) {
-      fetch(`/api/definition?word=${word}`).then((res) =>
+      fetch(`/api/definition?word=${cleanedWord(word)}`).then((res) =>
         res.text().then((definition) => {
           setShowAlert(true)
           setDefinition(definition)
@@ -82,6 +82,12 @@ const Wrapper = ({ config, quizOpen, setQuizOpen }) => {
   // Quiz Logic
   const openQuiz = () => setQuizOpen(true)
   const closeQuiz = () => setQuizOpen(false)
+
+  // Cleaned Word
+  const cleanedWord = (word = currWord.word) => {
+    const punctuationless = word.replace(/[.,/#!$%^&*;:{}=_`~()]/g, '')
+    return punctuationless.replace(/\s{2,}/g, ' ')
+  }
 
   // if odd, then show the first one, if even, then show the right one -> visibility
   // if screen size is bigger, then show both ->
@@ -116,18 +122,18 @@ const Wrapper = ({ config, quizOpen, setQuizOpen }) => {
           pageId={1}
         />
         <Spacer>
-          <AudioManager word={currWord.word} />
+          <AudioManager word={cleanedWord()} />
         </Spacer>
       </Flex>
       {showAlert && (
         <WordAlert
-          word={currWord.word}
+          word={cleanedWord()}
           definition={definition}
           closeAlert={() => unsetWord()}
           openQuiz={openQuiz}
         />
       )}
-      {quizOpen && <Quiz closeQuiz={closeQuiz} word={currWord.word} />}
+      {quizOpen && <Quiz closeQuiz={closeQuiz} word={cleanedWord()} />}
     </Flex>
   )
 }

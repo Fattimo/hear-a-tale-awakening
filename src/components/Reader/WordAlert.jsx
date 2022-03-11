@@ -16,8 +16,6 @@ const WordAlert = ({
   closeAlert,
   openQuiz,
 }) => {
-  const punctuationless = word.replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, '')
-  const cleanedWord = punctuationless.replace(/\s{2,}/g, ' ')
   return (
     <Alert
       position={'absolute'}
@@ -31,7 +29,7 @@ const WordAlert = ({
     >
       <Flex justify={'space-between'} align={'center'} w={'100%'} px={2} pr={8}>
         <Flex direction={'column'}>
-          <AlertTitle>{cleanedWord}</AlertTitle>
+          <AlertTitle>{word}</AlertTitle>
           <AlertDescription>{definition}</AlertDescription>
         </Flex>
         <Flex>
