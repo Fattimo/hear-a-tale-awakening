@@ -51,6 +51,9 @@ class Page_Generator():
 			initpos = pos
 			if not onparagraph:
 				txt = "&ni; "
+				sumline = 0#indent
+			else:
+				sumline = 14.259#indent
 			if text[pos] == " ":
 				pos += 1
 				#txt += rawtext[1:].replace("\n", self.paragraphbreak) #Remove leading space
@@ -58,7 +61,7 @@ class Page_Generator():
 			#	txt += rawtext.replace("\n", self.paragraphbreak) #No leading space
 			#Split into lines
 			linepos = 0
-			sumline = 0
+			lineno = 0
 			while pos + linepos < len(text):
 				if text[pos + linepos] in charsizes2:
 					sumline += charsizes2[text[pos + linepos]]
@@ -68,12 +71,14 @@ class Page_Generator():
 						print(text[pos + linepos])
 					sumline += 1/34 #Upper bound for now
 				if text[pos + linepos] == "\n":
-					sumline = 0
+					lineno = 0
+					sumline = 14.259
 				
-				if sumline >= self.maxlength or (linepos >= size and sumline >= 0.98 * self.maxlength):
+				if sumline >= self.maxlength or (linepos >= size and sumline >= 0.99 * self.maxlength):
 					while (text[pos + linepos] != " " and text[pos + linepos] != "\n") or sumline >= self.maxlength:
 						sumline -= charsizes2[text[pos + linepos]]
 						linepos -= 1
+					lineno += 1
 					#if text[pos + linepos] != "\n":
 					#	txt = txt[:linepos] + self.linebreak + txt[linepos + 1:]
 					sumline = 0
