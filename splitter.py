@@ -70,8 +70,9 @@ class Page_Generator():
 				if text[pos + linepos] == "\n":
 					sumline = 0
 				
-				if sumline >= 0.99 * self.maxlength:
-					while text[pos + linepos] != " " and text[pos + linepos] != "\n":
+				if sumline >= self.maxlength or (linepos >= size and sumline >= 0.98 * self.maxlength):
+					while (text[pos + linepos] != " " and text[pos + linepos] != "\n") or sumline >= self.maxlength:
+						sumline -= charsizes2[text[pos + linepos]]
 						linepos -= 1
 					#if text[pos + linepos] != "\n":
 					#	txt = txt[:linepos] + self.linebreak + txt[linepos + 1:]
@@ -113,6 +114,8 @@ class Page_Generator():
 				pagenum += 1
 				globalpagenum += 1
 				pos = pos + end
+				if booktxt[pos] != ' ' and booktxt[pos] != "\n":
+					pos += 1
 
 			if pos != len(booktxt) - 1:#Save last page
 				self.genpage(pagenum, onparagraph, booktxt, pos, len(booktxt) - pos)
