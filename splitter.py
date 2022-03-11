@@ -62,6 +62,7 @@ class Page_Generator():
 			#Split into lines
 			linepos = 0
 			lineno = 0
+			endNewline = False
 			while pos + linepos < len(text):
 				if text[pos + linepos] in charsizes2:
 					sumline += charsizes2[text[pos + linepos]]
@@ -83,11 +84,17 @@ class Page_Generator():
 					#	txt = txt[:linepos] + self.linebreak + txt[linepos + 1:]
 					sumline = 0
 					if linepos >= size:
+						ind = text[pos + linepos: pos + linepos + int(1/10 * size)].find("\n")
+						if ind > 0:
+							linepos += ind
+							endNewline = True
 						break
 
 				linepos += 1
 			nextonparagraph = True
 			txt += text[initpos:pos+linepos]
+			if endNewline:
+				txt += "\n"
 			if txt[len(txt) - 1] != '\n':
 				txt += " &jl;"
 				nextonparagraph = False
