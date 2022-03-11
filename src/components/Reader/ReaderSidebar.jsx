@@ -11,27 +11,34 @@ import {
 } from '../Icons'
 import SidebarButton from './SidebarButton'
 
-const ReaderSidebar = ({ bookmarked = false, page }) => {
-  //TODO: replace with real user tied data
-  const data =
-    typeof window !== 'undefined'
-      ? JSON.parse(window.localStorage.getItem('awakening')) ?? {}
-      : {}
-
+const ReaderSidebar = ({ page, ...rest }) => {
+  const [localStorage, setLocalStorage] = useState({})
   const [bookmarkedState, setBookmarked] = useState(false)
   useEffect(() => {
-    setBookmarked(bookmarked)
-  }, [bookmarked])
+    //TODO: replace with real user tied data
+    const data =
+      typeof window !== 'undefined'
+        ? JSON.parse(window.localStorage.getItem('awakening')) ?? {}
+        : {}
+    setLocalStorage(data)
+  }, [])
+
+  useEffect(
+    () => setBookmarked(localStorage.bookmarks?.includes(page)),
+    [localStorage.bookmarks, page]
+  )
 
   const bookmark = () => {
-    if (!data.bookmarks) data.bookmarks = []
-    if (!bookmarkedState) data.bookmarks.push(page)
+    if (!localStorage.bookmarks) localStorage.bookmarks = []
+    if (!bookmarkedState) localStorage.bookmarks.push(page)
     else {
-      const i = data.bookmarks.indexOf(page)
-      if (i > 0) data.bookmarks.splice(i, 1)
+      const i = localStorage.bookmarks.indexOf(page)
+      if (i >= 0) localStorage.bookmarks.splice(i, 1)
     }
-    window.localStorage.setItem('awakening', JSON.stringify(data))
+    // TODO: This is a race condition with the other local storage set item in Panel.jsx. Will be resolved when this system isnt tied to localstorage.
+    window.localStorage.setItem('awakening', JSON.stringify(localStorage))
     setBookmarked(!bookmarkedState)
+    setLocalStorage(localStorage)
   }
   return (
     <Flex
@@ -40,8 +47,9 @@ const ReaderSidebar = ({ bookmarked = false, page }) => {
       align={'center'}
       px={8}
       flexShrink={0}
+      {...rest}
     >
-      <NextLink href="/" passHref>
+      <NextLink href="/" passHref prefetch={false}>
         <Link>
           <SidebarButton>
             <HomeIcon />

@@ -1,11 +1,12 @@
 import { Flex, Spacer } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
+import Quiz from '../modals/Quiz'
 import AudioManager from './AudioManager'
 import Page from './Page'
 import WordAlert from './WordAlert'
 
-const Wrapper = ({ config }) => {
+const Wrapper = ({ config, quizOpen, setQuizOpen }) => {
   const router = useRouter()
 
   // Page Calculations
@@ -52,6 +53,7 @@ const Wrapper = ({ config }) => {
   const [currWord, setCurrWord] = useState(DEFAULT_CURR_WORD)
   const [timeout, setTimeoutState] = useState(null)
   const [showAlert, setShowAlert] = useState(false)
+  const [definition, setDefinition] = useState('')
   const clickWord = (page) => (word, paragraph, index) => () => {
     if (timeout) clearTimeout(timeout)
     if (
@@ -60,7 +62,12 @@ const Wrapper = ({ config }) => {
       paragraph === currWord.paragraph &&
       index === currWord.index
     ) {
-      setShowAlert(true)
+      fetch(`/api/definition?word=${cleanedWord(word)}`).then((res) =>
+        res.text().then((definition) => {
+          setShowAlert(true)
+          setDefinition(definition)
+        })
+      )
     } else {
       setShowAlert(false)
       setCurrWord({ page, word, paragraph, index })
@@ -70,6 +77,16 @@ const Wrapper = ({ config }) => {
   const unsetWord = () => {
     setCurrWord(DEFAULT_CURR_WORD)
     setShowAlert(false)
+  }
+
+  // Quiz Logic
+  const openQuiz = () => setQuizOpen(true)
+  const closeQuiz = () => setQuizOpen(false)
+
+  // Cleaned Word
+  const cleanedWord = (word = currWord.word) => {
+    const punctuationless = word.replace(/[.,/#!$%^&*;:{}=_`~()]/g, '')
+    return punctuationless.replace(/\s{2,}/g, ' ')
   }
 
   // if odd, then show the first one, if even, then show the right one -> visibility
@@ -105,12 +122,18 @@ const Wrapper = ({ config }) => {
           pageId={1}
         />
         <Spacer>
-          <AudioManager word={currWord.word} />
+          <AudioManager word={cleanedWord()} />
         </Spacer>
       </Flex>
       {showAlert && (
-        <WordAlert word={currWord.word} closeAlert={() => unsetWord()} />
+        <WordAlert
+          word={cleanedWord()}
+          definition={definition}
+          closeAlert={() => unsetWord()}
+          openQuiz={openQuiz}
+        />
       )}
+      {quizOpen && <Quiz closeQuiz={closeQuiz} word={cleanedWord()} />}
     </Flex>
   )
 }

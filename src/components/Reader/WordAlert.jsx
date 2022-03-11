@@ -1,9 +1,21 @@
-import { Alert, AlertTitle, CloseButton } from '@chakra-ui/react'
+import { WarningIcon } from '@chakra-ui/icons'
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+  CloseButton,
+  Flex,
+} from '@chakra-ui/react'
 import React from 'react'
+import { HeadphonesIcon } from '../Icons'
+import SidebarButton from './SidebarButton'
 
-const WordAlert = ({ word, closeAlert }) => {
-  const punctuationless = word.replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, '')
-  const cleanedWord = punctuationless.replace(/\s{2,}/g, ' ')
+const WordAlert = ({
+  word,
+  definition = 'Definition',
+  closeAlert,
+  openQuiz,
+}) => {
   return (
     <Alert
       position={'absolute'}
@@ -15,8 +27,28 @@ const WordAlert = ({ word, closeAlert }) => {
       bgColor={'theme.purple'}
       color={'white'}
     >
-      <AlertTitle>{cleanedWord}</AlertTitle>
-      <CloseButton onClick={closeAlert} />
+      <Flex justify={'space-between'} align={'center'} w={'100%'} px={2} pr={8}>
+        <Flex direction={'column'}>
+          <AlertTitle>{word}</AlertTitle>
+          <AlertDescription>{definition}</AlertDescription>
+        </Flex>
+        <Flex>
+          <SidebarButton mx={2} onClick={openQuiz}>
+            <WarningIcon />
+          </SidebarButton>
+          <SidebarButton>
+            <HeadphonesIcon />
+          </SidebarButton>
+        </Flex>
+      </Flex>
+      <CloseButton
+        onClick={closeAlert}
+        position={'absolute'}
+        right="8px"
+        top="8px"
+        bgColor={'red.500'}
+        _hover={{ bgColor: 'red.500' }}
+      />
     </Alert>
   )
 }
