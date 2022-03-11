@@ -2,14 +2,18 @@ import { Box, Flex, Text } from '@chakra-ui/react'
 import React from 'react'
 import Chapter from './Chapter'
 
-const ChapterList = () => {
-  const chapters = [...Array(10).keys()]
+const ChapterList = ({ chapters, chapterProgress = {} }) => {
   return (
     <Flex h={'100%'} direction={'column'}>
       <Text fontWeight={'semibold'}>Chapters</Text>
       <Box overflow={'auto'}>
-        {chapters.map((c) => (
-          <Chapter key={c} number={c + 1} />
+        {chapters.map((chap) => (
+          <Chapter
+            key={chap.chapter}
+            number={chap.chapter}
+            chapterProgress={chapterProgress[chap.chapter]}
+            chapter={chap}
+          />
         ))}
       </Box>
     </Flex>
