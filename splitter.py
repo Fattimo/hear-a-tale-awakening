@@ -13,16 +13,6 @@ charsizes2 = {'a': 10.38, 'b': 11.39, 'c': 9.39, 'd': 11.43, 'e': 10.21, 'f': 6.
 	',': 5.13, ':': 5.13, '“': 8.77, '-': 6.41, '!': 5.95, '’': 5.13, '”': 8.77, '\n':1000000, '.': 5.13,
 	';': 5.13, 'ê': 10.21, 'è': 10.21, '—': 16.47, '?': 8.75, 'ç': 9.39, 'é': 10.21, '1': 10.23, '8': 10.23, '4': 10.23,
 	'0': 10.23, 'ô': 11.16, 'ï': 5.08, 'î': 5.08, '(': 6.24, ')': 6.24, 'à': 10.38, '‘': 5.13}
-	
-charsizes = {'a': 71, 'b': 64, 'c': 83, 'd': 64, 'e': 70, 'f': 118, 'g': 46,
-	'h': 66, 'i': 162, 'j': 159, 'k': 75, 'l': 127, 'm': 44, 'n':66, 'o': 67, 'p':64,
-	'q': 64, 'r': 105, 's': 78, 't': 111, 'u': 67, 'v': 70, 'w': 43, 'x': 71, 'y': 70, 
-	'z': 81, 'A': 51, 'B': 55, 'C':57, 'D': 50, 'E': 64, 'F':68, 'G': 51, 'H': 49,
-	'I': 146, 'J': 123, 'K': 60, 'L': 69, 'M': 44, 'N': 50, 'O': 49, 'P': 59, 'Q': 49,
-	'R': 56, 'S': 61, 'T': 61, 'U': 51, 'V': 54, 'W': 34, 'X': 57, 'Y': 63, 'Z': 63, ' ': 149,
-	',': 169, ':': 169, '“': 98, '-': 91, '!': 165, '’': 165, '”': 95, '\n':1000000, '.': 165,
-	';': 165, 'ê': 70, 'è': 70, '—': 37, '?': 84, 'ç': 83, 'é': 70, '1': 62, '8': 62, '4': 62,
-	'0': 62, 'ô': 67, 'ï': 159, 'î': 151, '(': 118, ')': 118, 'à': 71, '‘': 165}
 
 missing = set()
 #Usage: py splitter.py pagesize linesize
@@ -53,45 +43,50 @@ class Page_Generator():
 		self.pagedir = "public/book/pages/"
 		self.chapternum = 0
 		self.cf = Config()
-		self.maxlength = 1
+		self.maxlength = 750.49
 
-	def genpage(self, pagenum, rawtext, onparagraph):
+	def genpage(self, pagenum, onparagraph, text, pos, size):
 		with open(self.pagedir + str(self.chapternum) + "/" + str(pagenum) + ".txt", 'w', encoding='utf8') as page:#Save a page
 			txt = ""
+			initpos = pos
 			if not onparagraph:
 				txt = "&ni; "
-			initsize = len(txt)
-			if rawtext[0] == " ":
-				txt += rawtext[1:].replace("\n", self.paragraphbreak) #Remove leading space
-			else:
-				txt += rawtext.replace("\n", self.paragraphbreak) #No leading space
+			if text[pos] == " ":
+				pos += 1
+				#txt += rawtext[1:].replace("\n", self.paragraphbreak) #Remove leading space
+			#else:
+			#	txt += rawtext.replace("\n", self.paragraphbreak) #No leading space
 			#Split into lines
-			linepos = initsize
+			linepos = 0
 			sumline = 0
-			while linepos < len(txt):
-				if txt[linepos] in charsizes:
-					sumline += 1 / charsizes[txt[linepos]]
+			while pos + linepos < len(text):
+				if text[pos + linepos] in charsizes2:
+					sumline += charsizes2[text[pos + linepos]]
 				else:
-					if txt[linepos] not in missing:
-						missing.add(txt[linepos])
-						print(txt[linepos])
+					if text[pos + linepos] not in missing:
+						missing.add(text[pos + linepos])
+						print(text[pos + linepos])
 					sumline += 1/34 #Upper bound for now
-				if txt[linepos] == "\n":
+				if text[pos + linepos] == "\n":
 					sumline = 0
 				
-				if sumline >= self.maxlength:				
-					while txt[linepos] != " " and txt[linepos] != "\n":
+				if sumline >= 0.99 * self.maxlength:
+					while text[pos + linepos] != " " and text[pos + linepos] != "\n":
 						linepos -= 1
-				if sumline >= self.maxlength:
-					txt = txt[:linepos] + self.linebreak + txt[linepos + 1:]
+					#if text[pos + linepos] != "\n":
+					#	txt = txt[:linepos] + self.linebreak + txt[linepos + 1:]
 					sumline = 0
+					if linepos >= size:
+						break
+
 				linepos += 1
 			nextonparagraph = True
+			txt += text[initpos:pos+linepos]
 			if txt[len(txt) - 1] != '\n':
 				txt += " &jl;"
 				nextonparagraph = False
 			page.write(txt)
-			return nextonparagraph
+			return nextonparagraph, linepos
 	
 	#pagesize: Size of page in characters
 	def split(self, pagesize):
@@ -113,17 +108,14 @@ class Page_Generator():
 			pos = 0#Character position in text of chapter
 			onparagraph = True
 			while pos + pagesize < len(booktxt):
-				end = pagesize
-				while booktxt[pos + end] != " ":#Page must start in between words
-					end -= 1
-				onparagraph = self.genpage(pagenum, booktxt[pos:pos + end], onparagraph)
+				onparagraph, end = self.genpage(pagenum, onparagraph, booktxt, pos, pagesize) #self.genpage((pagenum, booktxt[pos:pos + end], onparagraph))
 				self.cf.addpage(str(globalpagenum), pagenum, self.chapternum)
 				pagenum += 1
 				globalpagenum += 1
 				pos = pos + end
 
 			if pos != len(booktxt) - 1:#Save last page
-				self.genpage(pagenum, booktxt[pos:pos + end], onparagraph)
+				self.genpage(pagenum, onparagraph, booktxt, pos, len(booktxt) - pos)
 				self.cf.addpage(str(globalpagenum), pagenum, self.chapternum)
 				globalpagenum += 1
 			self.cf.addchapter(chaptername, self.chapternum, pagenum)
