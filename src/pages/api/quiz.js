@@ -2,7 +2,7 @@ import clientPromise from 'utils/mongodb'
 
 /**
  * GET params:
- * letter: letter to get quiz for
+ * word: word to get quiz for
  * res: {
  *  choices: []
  *  correctIndex: number
