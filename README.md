@@ -65,6 +65,27 @@ There is a pipeline in place that automatically deploys to Vercel. Vercel deploy
 
 # Release Notes
 
+## Version 0.3.0
+
+### New Features
+
+* Words on the reader can be cued
+  * Cued words have definition displayed
+  * Cued words can be quizzed on
+* Words can be quizzed
+* Bookmarks can be saved
+* Review screen mocked
+* Background screen finalized
+* Help screen finalized
+
+### Known Bugs
+
+* No mobile compatability
+
+### Bug Fixes
+* Page scroll resets when paging
+* /404 no longer a page
+
 ## Version 0.2.0
 
 ### New Features
