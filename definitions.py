@@ -13,12 +13,12 @@ db = client["test"]
 col = db["test2"]
 col.delete_many({})#Clear database
 docs = []
-with open("rawdefinitions/names.txt", 'r') as names: #Name definitions
+with open("rawdefinitions/names.txt", 'r', encoding='utf8') as names: #Name definitions
     for i in names.read().split(","):
         i = i.strip().replace(" ", "")
         docs.append({"words": [i.lower()], "definition": "= A name", "first_letter": i.lower()[0]})
 
-with open("rawdefinitions/definitions1.txt", 'r') as defs:#Words
+with open("rawdefinitions/definitions1.txt", 'r', encoding='utf8') as defs:#Words
     lines = defs.readlines()
     doc = {}
     s = set()
@@ -47,5 +47,6 @@ with open("rawdefinitions/definitions1.txt", 'r') as defs:#Words
 
         
 col.insert_many(docs)
-col.create_index([("first_letter", pymongo.DESCENDING)])
-col.create_index([("words", pymongo.DESCENDING)])
+col.create_index([("first_letter", pymongo.ASCENDING)])
+col.create_index([("words", pymongo.ASCENDING)])
+print(col.index_information())
