@@ -8,7 +8,9 @@ const Chapter = ({ number = 1, chapterProgress, chapter }) => {
   useEffect(() => {
     if (chapterProgress) {
       setProgress(chapterProgress.progress ?? 0)
-      setHref(`/page/${chapterProgress.page ?? chapter.startPage ?? 1}`)
+      setHref(`/page/${chapterProgress.page ?? chapter.startPage}`)
+    } else {
+      setHref(`/page/${chapter.startPage ?? 1}`)
     }
   }, [chapter.startPage, chapterProgress])
   return (
