@@ -1,11 +1,20 @@
 import { Box, Text } from '@chakra-ui/react'
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 
 const Page = ({ text, clickWord, selected, pageId, ...props }) => {
   const NO_INDENT_MARKER = '&ni;'
   const JUSTIFY_LAST_MARKER = '&jl;'
   const whitespace = /\s/
   const words = text.split('\n').map((para) => para.split(whitespace))
+  const overflowBox = useRef(null)
+  useEffect(
+    () =>
+      overflowBox.current.scroll({
+        top: 0,
+        behavior: 'instant',
+      }),
+    [text]
+  )
   return (
     <Box
       h="100%"
@@ -14,6 +23,7 @@ const Page = ({ text, clickWord, selected, pageId, ...props }) => {
       overflowX="hidden"
       overflowY={'scroll'}
       style={{}}
+      ref={overflowBox}
       {...props}
     >
       {words.map((paragraph, i) => {
