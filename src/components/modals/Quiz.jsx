@@ -12,7 +12,7 @@ const Quiz = ({ closeQuiz, word = '' }) => {
   const [currCorrect, setCurrCorrect] = useState(0)
   const fetchQuiz = useCallback(
     () =>
-      fetch(`/api/quiz?letter=${word.charAt(0)}`).then((res) =>
+      fetch(`/api/quiz?word=${word}`).then((res) =>
         res.json().then((quiz) => setQuiz(quiz))
       ),
     [word]
@@ -37,6 +37,7 @@ const Quiz = ({ closeQuiz, word = '' }) => {
   }
 
   const nextQuiz = () => {
+    if (!correct) return
     setCorrect(null)
     setSelectedIndex(-1)
     if (currCorrect >= 5) {
@@ -200,12 +201,8 @@ const Quiz = ({ closeQuiz, word = '' }) => {
         <SidebarButton pos={'absolute'} top={12} left={16} onClick={closeQuiz}>
           <CloseIcon />
         </SidebarButton>
-        <SidebarButton pos={'absolute'} top={12} right={16}>
-          {correct === true ? (
-            <ArrowRightIcon onClick={nextQuiz} />
-          ) : (
-            <HeadphonesIcon />
-          )}
+        <SidebarButton pos={'absolute'} top={12} right={16} onClick={nextQuiz}>
+          {correct === true ? <ArrowRightIcon /> : <HeadphonesIcon />}
         </SidebarButton>
       </Flex>
     </Box>
