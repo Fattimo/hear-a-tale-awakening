@@ -90,7 +90,7 @@ There is a pipeline in place that automatically deploys to Vercel. Vercel deploy
 ### Known Bugs
 * Trying to access a chapter from the home screen brings the reader to the beginning of the book if the reader has not begun reading that chapter yet
 * Errors are thrown in console when the reader tries to cue audio that we don't have files for
-* User interface on mobile needs improvement
+* User interface on mobile (vertical) needs improvement
 
 ## Version 0.2.0
 
