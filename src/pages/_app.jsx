@@ -18,6 +18,7 @@ const theme = extendTheme({
   colors: {
     theme: {
       purple: '#666FC1',
+      lightpurple: '#838CDF',
       gray: '#E6E9EF',
     },
   },
