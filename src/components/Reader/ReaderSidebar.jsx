@@ -33,7 +33,7 @@ const ReaderSidebar = ({ page, ...rest }) => {
     if (!bookmarkedState) localStorage.bookmarks.push(page)
     else {
       const i = localStorage.bookmarks.indexOf(page)
-      if (i > 0) localStorage.bookmarks.splice(i, 1)
+      if (i >= 0) localStorage.bookmarks.splice(i, 1)
     }
     // TODO: This is a race condition with the other local storage set item in Panel.jsx. Will be resolved when this system isnt tied to localstorage.
     window.localStorage.setItem('awakening', JSON.stringify(localStorage))
