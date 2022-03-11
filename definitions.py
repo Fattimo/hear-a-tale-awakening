@@ -25,7 +25,7 @@ docs = []
 with open("rawdefinitions/names.txt", 'r', encoding='utf8') as names: #Name definitions
     for i in names.read().split(","):
         i = i.strip().replace(" ", "")
-        docs.append({"words": [i.lower()], "definition": "= A name", "first_letter": i.lower()[0]})
+        docs.append({"words": [i.lower()], "definition": "A name", "first_letter": i.lower()[0]})
 
 with open("rawdefinitions/definitions1.txt", 'r', encoding='utf8') as defs:#Words
     lines = defs.readlines()
@@ -45,7 +45,7 @@ with open("rawdefinitions/definitions1.txt", 'r', encoding='utf8') as defs:#Word
             if word not in s:
                 doc["words"].append(word)
                 s.add(word)
-            doc["definition"] = l[pos:]
+            doc["definition"] = l[pos+2:]
             doc["first_letter"] = l[0].lower()
         else:
             word = l.lower()
