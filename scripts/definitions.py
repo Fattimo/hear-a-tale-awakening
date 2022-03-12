@@ -10,7 +10,7 @@ if len(sys.argv) >= 2:
             prod = True
 if prod:
     print("Production")
-    with open(".env", 'r') as env:
+    with open("../.env", 'r') as env:
         lines = env.readlines()
         for line in lines:
             if line[:8] == "MONGO_DB":

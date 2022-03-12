@@ -5,13 +5,11 @@ const AudioManager = ({ word }) => {
 
   useEffect(() => {
     if (word) {
-      const punctuationless = word.replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, '')
-      const cleanedWord = punctuationless.replace(/\s{2,}/g, ' ')
       player.current.setAttribute(
         'src',
-        `https://words-and-definitons.s3.amazonaws.com/words/${cleanedWord.charAt(
+        `https://words-and-definitons.s3.amazonaws.com/words/${word.charAt(
           0
-        )}/${cleanedWord}.mp3`
+        )}/${word}.mp3`
       )
       const playPromise = player.current.play()
       playPromise.then(() => {}).catch(() => {})
