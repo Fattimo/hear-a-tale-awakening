@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import Wrapper from 'src/components/Reader/Wrapper'
 import { Box, Flex } from '@chakra-ui/react'
@@ -11,6 +11,7 @@ export async function getServerSideProps() {
 }
 
 const Page = ({ config = {} }) => {
+  const [quizOpen, setQuizOpen] = useState(false)
   const router = useRouter()
   const { page } = router.query
   const pageNumber = parseInt(page)
@@ -18,9 +19,13 @@ const Page = ({ config = {} }) => {
     return <Box>Invalid Page</Box>
   const pageData = config.pages[page]
   const chapterData = config.book[pageData ? pageData.chapter - 1 : 0]
+
   return (
     <Flex h="100%" w={'100%'}>
-      <ReaderSidebar page={pageNumber} />
+      <ReaderSidebar
+        page={pageNumber}
+        pointerEvents={quizOpen ? 'none' : null}
+      />
       <Flex
         direction="column"
         h="100%"
@@ -29,11 +34,16 @@ const Page = ({ config = {} }) => {
         overflow={'hidden'}
         flexGrow={1}
       >
-        <Wrapper config={config} />
+        <Wrapper
+          config={config}
+          quizOpen={quizOpen}
+          setQuizOpen={setQuizOpen}
+        />
         <Panel
           page={pageNumber}
           maxPage={config.totalPages}
           chapter={chapterData.chapter}
+          pointerEvents={quizOpen ? 'none' : null}
           config={config}
         />
       </Flex>

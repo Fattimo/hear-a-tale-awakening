@@ -20,6 +20,7 @@ const theme = extendTheme({
       purple: '#666FC1',
       lightpurple: '#838CDF',
       gray: '#E6E9EF',
+      progress: { 500: '#666FC1' },
     },
   },
   breakpoints,
