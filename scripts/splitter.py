@@ -1,5 +1,4 @@
 import os
-from pdb import line_prefix
 import sys
 import json
 # screen width: 750.49px
@@ -33,14 +32,14 @@ class Config():
 
 	def generate(self):
 		config = {"book": self.book, "pages":self.pages, "totalPages": self.totalpages}
-		with open("public/book/config.json", 'w') as configf:
+		with open("../public/book/config.json", 'w') as configf:
 			json.dump(config, configf)
 
 class Page_Generator():
 	def __init__(self) -> None:
 		self.paragraphbreak = "\n"
 		self.linebreak = " "
-		self.pagedir = "public/book/pages/"
+		self.pagedir = "../public/book/pages/"
 		self.chapternum = 0
 		self.cf = Config()
 		self.maxlength = 750.49
