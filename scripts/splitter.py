@@ -24,8 +24,8 @@ class Config():
 	def addpage(self, globalnum, localnum, chapternum):
 		self.pages[globalnum] = {"page":localnum, "chapter":chapternum}
 
-	def addchapter(self, chaptername, chapternum, length):
-		self.book.append({"chapter":chapternum, "title":chaptername, "pages":length})
+	def addchapter(self, chaptername, chapternum, length, pagenum):
+		self.book.append({"chapter":chapternum, "title":chaptername, "pages":length, "startPage":pagenum})
 
 	def settotalpages(self, num):
 		self.totalpages = num
@@ -119,6 +119,7 @@ class Page_Generator():
 				booktxt = book.read().replace('\x0c', '\n').replace(u'\xa0', " ")#Read book and remove page breaks
 			pos = 0#Character position in text of chapter
 			onparagraph = True
+			chapterstart = globalpagenum
 			while pos + pagesize < len(booktxt):
 				onparagraph, end = self.genpage(pagenum, onparagraph, booktxt, pos, pagesize) #self.genpage((pagenum, booktxt[pos:pos + end], onparagraph))
 				self.cf.addpage(str(globalpagenum), pagenum, self.chapternum)
@@ -132,7 +133,7 @@ class Page_Generator():
 				self.genpage(pagenum, onparagraph, booktxt, pos, len(booktxt) - pos)
 				self.cf.addpage(str(globalpagenum), pagenum, self.chapternum)
 				globalpagenum += 1
-			self.cf.addchapter(chaptername, self.chapternum, pagenum)
+			self.cf.addchapter(chaptername, self.chapternum, pagenum, chapterstart)
 
 		self.cf.settotalpages(globalpagenum - 1)
 		self.cf.generate()
