@@ -88,7 +88,6 @@ There is a pipeline in place that automatically deploys to Vercel. Vercel deploy
 * Fixed bug where new pages would be scrolled down if the reader scrolled down on a previous page
 
 ### Known Bugs
-* Trying to access a chapter from the home screen brings the reader to the beginning of the book if the reader has not begun reading that chapter yet
 * Errors are thrown in console when the reader tries to cue audio that we don't have files for
 * User interface on mobile (vertical) needs improvement
 
