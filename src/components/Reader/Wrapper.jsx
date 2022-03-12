@@ -15,12 +15,10 @@ const Wrapper = ({ config, quizOpen, setQuizOpen }) => {
   const [pageOne, setPageOne] = useState('')
   const [pageTwo, setPageTwo] = useState('')
 
-  const odd = pageNumber % 2 === 1
-
   useEffect(() => {
     const getPages = async () => {
-      const p1 = odd ? pageNumber : pageNumber - 1
-      const p2 = odd ? pageNumber + 1 : pageNumber
+      const p1 = pageNumber
+      const p2 = pageNumber + 1
       const pageOneData = config.pages[p1]
       if (!pageOneData) {
         setPageOne('Not Available')
@@ -39,9 +37,7 @@ const Wrapper = ({ config, quizOpen, setQuizOpen }) => {
       setPageTwo(`${pageTexts[1]}`)
     }
     getPages()
-    // potentially move odd and page into state variables
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pageNumber])
+  }, [config.pages, pageNumber])
 
   // Audio Calculations
   const DEFAULT_CURR_WORD = {
@@ -99,16 +95,10 @@ const Wrapper = ({ config, quizOpen, setQuizOpen }) => {
       h={'100%'}
       overflow="hidden"
     >
-      <Flex
-        w="100%"
-        h="100%"
-        direction={odd ? 'row' : 'row-reverse'}
-        pt="10"
-        px="4"
-      >
+      <Flex w="100%" h="100%" direction={'row'} pt="10" px="4">
         <Spacer />
         <Page
-          text={odd ? pageOne : pageTwo}
+          text={pageOne}
           selected={currWord}
           clickWord={clickWord(0)}
           pageId={0}
@@ -116,7 +106,7 @@ const Wrapper = ({ config, quizOpen, setQuizOpen }) => {
         <Spacer d={{ base: 'none', xl: 'block' }} />
         <Page
           d={{ base: 'none', xl: 'block' }}
-          text={odd ? pageTwo : pageOne}
+          text={pageTwo}
           selected={currWord}
           clickWord={clickWord(1)}
           pageId={1}

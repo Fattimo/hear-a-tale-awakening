@@ -3,8 +3,9 @@ import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import PageButton from './PageButton'
 
-const Panel = ({ page, maxPage, chapter, config, ...rest }) => {
+const Panel = ({ maxPage, chapter, config, ...rest }) => {
   const router = useRouter()
+  // const pageNumber = parseInt(page)
   //TODO: replace with real user tied data
   const data =
     typeof window !== 'undefined'
@@ -15,18 +16,18 @@ const Panel = ({ page, maxPage, chapter, config, ...rest }) => {
     return () => {
       const localStorage = JSON.parse(window.localStorage.getItem('awakening'))
       localStorage.chapterProgress = data.chapterProgress
+      localStorage.currPage = router.query.page
       window.localStorage.setItem('awakening', JSON.stringify(localStorage))
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [data.chapterProgress, router.query])
 
   const pageBackward = (offset) => () => {
-    const newPage = Math.max(parseInt(page) - offset, 1)
+    const newPage = Math.max(parseInt(router.query.page) - offset, 1)
     router.replace(`/page/${newPage}`)
     adjustProgress(newPage)
   }
   const pageForward = (offset) => () => {
-    const newPage = Math.min(parseInt(page) + offset, maxPage)
+    const newPage = Math.min(parseInt(router.query.page) + offset, maxPage)
     router.replace(`/page/${newPage}`)
     adjustProgress(newPage)
   }
@@ -49,7 +50,7 @@ const Panel = ({ page, maxPage, chapter, config, ...rest }) => {
         <PageButton onClick={pageBackward(2)} largeScreen left />
       </Box>
       <Text mx={4}>
-        page {page}, chapter {chapter} | XX:XX
+        page {router.query.page}, chapter {chapter} | XX:XX
       </Text>
       <Box cursor="pointer">
         <PageButton onClick={pageForward(1)} />

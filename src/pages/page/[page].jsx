@@ -40,7 +40,6 @@ const Page = ({ config = {} }) => {
           setQuizOpen={setQuizOpen}
         />
         <Panel
-          page={pageNumber}
           maxPage={config.totalPages}
           chapter={chapterData.chapter}
           pointerEvents={quizOpen ? 'none' : null}
