@@ -14,7 +14,8 @@ const Panel = ({ maxPage, chapter, config, ...rest }) => {
 
   useEffect(() => {
     return () => {
-      const localStorage = JSON.parse(window.localStorage.getItem('awakening'))
+      const localStorage =
+        JSON.parse(window.localStorage.getItem('awakening')) ?? {}
       localStorage.chapterProgress = data.chapterProgress
       localStorage.currPage = router.query.page
       window.localStorage.setItem('awakening', JSON.stringify(localStorage))
