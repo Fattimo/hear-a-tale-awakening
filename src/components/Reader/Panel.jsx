@@ -5,43 +5,28 @@ import PageButton from './PageButton'
 
 const Panel = ({ maxPage, chapter, config, ...rest }) => {
   const router = useRouter()
-  // const pageNumber = parseInt(page)
-  //TODO: replace with real user tied data
-  const data =
-    typeof window !== 'undefined'
-      ? JSON.parse(window.localStorage.getItem('awakening')) ?? {}
-      : {}
 
   useEffect(() => {
-    return () => {
-      const localStorage =
-        JSON.parse(window.localStorage.getItem('awakening')) ?? {}
-      localStorage.chapterProgress = data.chapterProgress
-      localStorage.currPage = router.query.page
-      window.localStorage.setItem('awakening', JSON.stringify(localStorage))
+    const { page, chapter } = config.pages[router.query.page]
+    const { pages } = config.book[chapter - 1]
+    const localStorage =
+      JSON.parse(window.localStorage.getItem('awakening')) ?? {}
+    localStorage.currPage = router.query.page
+    if (!localStorage.chapterProgress) localStorage.chapterProgress = {}
+    localStorage.chapterProgress[chapter] = {
+      progress: Math.trunc((page / pages) * 100),
+      page: router.query.page
     }
-  }, [data.chapterProgress, router.query])
+    window.localStorage.setItem('awakening', JSON.stringify(localStorage))
+  }, [config.book, config.pages, router.query])
 
   const pageBackward = (offset) => () => {
     const newPage = Math.max(parseInt(router.query.page) - offset, 1)
     router.replace(`/page/${newPage}`)
-    adjustProgress(newPage)
   }
   const pageForward = (offset) => () => {
     const newPage = Math.min(parseInt(router.query.page) + offset, maxPage)
     router.replace(`/page/${newPage}`)
-    adjustProgress(newPage)
-  }
-
-  const adjustProgress = (newPage) => {
-    data.currPage = newPage
-    const { page, chapter } = config.pages[newPage]
-    const { pages } = config.book[chapter - 1]
-    if (!data.chapterProgress) data.chapterProgress = {}
-    data.chapterProgress[chapter] = {
-      progress: Math.trunc((page / pages) * 100),
-      page: newPage,
-    }
   }
 
   return (
