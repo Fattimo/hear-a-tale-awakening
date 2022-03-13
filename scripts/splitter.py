@@ -133,7 +133,8 @@ class Page_Generator():
 				self.genpage(pagenum, onparagraph, booktxt, pos, len(booktxt) - pos)
 				self.cf.addpage(str(globalpagenum), pagenum, self.chapternum)
 				globalpagenum += 1
-			self.cf.addchapter(chaptername, self.chapternum, pagenum, chapterstart)
+				pagenum += 1
+			self.cf.addchapter(chaptername, self.chapternum, pagenum - 1, chapterstart)
 
 		self.cf.settotalpages(globalpagenum - 1)
 		self.cf.generate()
