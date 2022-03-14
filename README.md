@@ -65,6 +65,32 @@ There is a pipeline in place that automatically deploys to Vercel. Vercel deploy
 
 # Release Notes
 
+## Version 0.3.0
+
+### New Features
+
+* Definitions: When the reader clicks on a word after it is cued, a popup displays the definition for that word
+* Quizzes: When the definition popup is displayed, the reader can click the exclamation point icon to take a quiz on that word
+* Bookmarks: The reader can click on the bookmark icon on the sidebar while reading to save a bookmark that can be accessed on the home screen
+* Help Screen: The reader can access a tutorial from the home page by clicking on the "Help" option on the sidebar.
+* Progress: The reader can click on the "Continue Reading" button on the home screen to start reading from the last page they accessed. On the right side of the home screen, the reader can see their progress through each chapter; clicking on a chapter brings the reader to the most recent page they accessed in that chapter.
+* Review Screen: Design mockup for the review screen has been added to the application.
+
+### Improvements
+* Background Screen: The font weight for the author bio has been increased and the images are now larger.
+* Reading Screen: The pages of the book have been adjusted to look more like a physical book and to have fixed lines regardless of the window size
+
+### Bug fixes
+* Fixed a 404 error on page 404 of the book
+* Fixed bug where the audio for a word didn't play if the reader tried to cue it more than once in a row.
+* Fixed bug where the word highlighting persisted after a definition was cued
+* Fixed issues with the text encoding
+* Fixed bug where new pages would be scrolled down if the reader scrolled down on a previous page
+
+### Known Bugs
+* Errors are thrown in console when the reader tries to cue audio that we don't have files for
+* User interface on mobile (vertical) needs improvement
+
 ## Version 0.2.0
 
 ### New Features
