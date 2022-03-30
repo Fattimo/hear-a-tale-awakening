@@ -21,7 +21,7 @@ const WordAlert = ({
       position={'absolute'}
       w={'80%'}
       h={'50%'}
-      fontSize={'xl'}
+      fontSize={{ base: 'xl', xl: '3xl' }}
       bottom={30}
       zIndex={10}
       borderRadius={'3xl'}
@@ -38,14 +38,16 @@ const WordAlert = ({
       >
         <Flex direction={'column'} justify={'center'} h={'full'}>
           <AlertTitle mb={4}>{word}</AlertTitle>
-          <AlertDescription>{definition}</AlertDescription>
+          <AlertDescription lineHeight={{ base: 6, md: 8, lg: 10 }}>
+            {definition}
+          </AlertDescription>
         </Flex>
         <Flex>
-          <SidebarButton mx={2} onClick={openQuiz}>
-            <StarIcon />
+          <SidebarButton mx={4} onClick={openQuiz} w={12} h={12}>
+            <StarIcon w={6} h={6} />
           </SidebarButton>
-          <SidebarButton>
-            <HeadphonesIcon />
+          <SidebarButton w={12} h={12}>
+            <HeadphonesIcon w={6} h={6} />
           </SidebarButton>
         </Flex>
       </Flex>
