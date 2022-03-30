@@ -108,7 +108,7 @@ class Page_Generator():
 				os.remove(self.pagedir + str(f) + "/" + str(f1))
 			os.rmdir(self.pagedir + f)
 		globalpagenum = 1 #Book page number
-		for f in range(1, 52):#Generate chapter
+		for f in range(1, 40):#Generate chapter
 			self.chapternum = f
 			os.mkdir(self.pagedir + str(self.chapternum))
 			pagenum = 1 #Chapter page number
