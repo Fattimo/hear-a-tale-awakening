@@ -78,12 +78,13 @@ const Quiz = ({ closeQuiz, word = '' }) => {
         align={'center'}
         h={'full'}
         w={'full'}
+        fontSize={'xl'}
       >
         <Flex mt={6}>
           {[...Array(5).keys()].map((i) => (
             <StarIcon
-              w={6}
-              h={6}
+              w={10}
+              h={10}
               key={i}
               stroke={i < currCorrect ? 'yellow.300' : 'gray.300'}
               strokeWidth={'2px'}
@@ -106,6 +107,7 @@ const Quiz = ({ closeQuiz, word = '' }) => {
           bgColor={'gray.200'}
           borderRadius={8}
           my={4}
+          flexShrink={0}
         />
         <Flex
           bgColor={'white'}
@@ -113,14 +115,14 @@ const Quiz = ({ closeQuiz, word = '' }) => {
           w={'80%'}
           borderTopRadius={'40'}
           pos={'relative'}
-          mt={'50px'}
+          mt={{ base: '30px', lg: '50px' }}
           boxShadow={'2xl'}
           flexShrink={1}
           _after={{
             w: '90%',
             h: 'full',
             pos: 'absolute',
-            bottom: '25px',
+            bottom: { base: '20px', lg: '25px' },
             right: '5%',
             bgColor: 'white',
             content: '""',
@@ -132,7 +134,7 @@ const Quiz = ({ closeQuiz, word = '' }) => {
             w: '80%',
             h: 'full',
             pos: 'absolute',
-            bottom: '45px',
+            bottom: { base: '35px', lg: '45px' },
             right: '10%',
             bgColor: 'white',
             content: '""',
@@ -148,13 +150,16 @@ const Quiz = ({ closeQuiz, word = '' }) => {
           ) : (
             <Flex
               direction={'column'}
-              justify={'space-between'}
+              justify={'space-around'}
               align={'center'}
               fontWeight={'bold'}
               h={'full'}
               w={'full'}
+              textAlign={'center'}
             >
-              <Text mt={4}>{quiz.definition}</Text>
+              <Text mt={4} px={16}>
+                {quiz.definition}
+              </Text>
               <Text color={correct ? 'green.400' : 'red.400'}>
                 {correct !== null
                   ? correct
