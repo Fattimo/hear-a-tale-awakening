@@ -65,6 +65,23 @@ There is a pipeline in place that automatically deploys to Vercel. Vercel deploy
 
 # Release Notes
 
+## Version 0.4.0
+
+### New Features
+
+* Audio for definitions can now be cued
+* Bookmarks screen created
+
+### Improvements
+* Icons updated for bookmarking and quiz taking
+
+### Bug fixes
+* Fixed bug that progress would never make it to 100% for chapters that ended on even numbered pages
+
+### Known Bugs
+* Errors are thrown in console when the reader tries to cue audio that we don't have files for
+* User interface on mobile (vertical) needs improvement
+
 ## Version 0.3.0
 
 ### New Features
