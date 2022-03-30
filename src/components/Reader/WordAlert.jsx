@@ -21,7 +21,7 @@ const WordAlert = ({
     setAudioSrc(
       `https://brainy-literacy-assets.s3.amazonaws.com/audio/defs/${word.charAt(
         0
-      )}/${word}%2B.mp3`
+      ).toUpperCase()}/${word}%2B.mp3`
     )
 
   return (
