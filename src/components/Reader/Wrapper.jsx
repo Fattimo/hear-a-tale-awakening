@@ -46,6 +46,8 @@ const Wrapper = ({ config, quizOpen, setQuizOpen }) => {
     paragraph: -1,
     page: -1,
   }
+  const [audioSrc, setAudioSrcState] = useState({})
+  const setAudioSrc = (src) => setAudioSrcState({ src })
   const [currWord, setCurrWord] = useState(DEFAULT_CURR_WORD)
   const [timeout, setTimeoutState] = useState(null)
   const [showAlert, setShowAlert] = useState(false)
@@ -67,12 +69,17 @@ const Wrapper = ({ config, quizOpen, setQuizOpen }) => {
     } else {
       setShowAlert(false)
       setCurrWord({ page, word, paragraph, index })
+      setAudioSrc(`https://words-and-definitons.s3.amazonaws.com/words/${word.charAt(
+          0
+        )}/${cleanedWord(word)}.mp3`,
+      )
       setTimeoutState(setTimeout(unsetWord, 3000))
     }
   }
   const unsetWord = () => {
     setCurrWord(DEFAULT_CURR_WORD)
     setShowAlert(false)
+    setAudioSrc('')
   }
 
   // Quiz Logic
@@ -85,8 +92,6 @@ const Wrapper = ({ config, quizOpen, setQuizOpen }) => {
     return punctuationless.replace(/\s{2,}/g, ' ')
   }
 
-  // if odd, then show the first one, if even, then show the right one -> visibility
-  // if screen size is bigger, then show both ->
   return (
     <Flex
       direction={'column'}
@@ -112,7 +117,7 @@ const Wrapper = ({ config, quizOpen, setQuizOpen }) => {
           pageId={1}
         />
         <Spacer>
-          <AudioManager word={cleanedWord()} />
+          <AudioManager src={audioSrc.src} />
         </Spacer>
       </Flex>
       {showAlert && (
@@ -121,6 +126,7 @@ const Wrapper = ({ config, quizOpen, setQuizOpen }) => {
           definition={definition}
           closeAlert={() => unsetWord()}
           openQuiz={openQuiz}
+          setAudioSrc={setAudioSrc}
         />
       )}
       {quizOpen && <Quiz closeQuiz={closeQuiz} word={cleanedWord()} />}

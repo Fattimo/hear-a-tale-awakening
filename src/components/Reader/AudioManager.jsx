@@ -1,22 +1,17 @@
 import React, { useEffect, useRef } from 'react'
 
-const AudioManager = ({ word }) => {
+const AudioManager = ({ src }) => {
   const player = useRef()
 
   useEffect(() => {
-    if (word) {
-      player.current.setAttribute(
-        'src',
-        `https://words-and-definitons.s3.amazonaws.com/words/${word.charAt(
-          0
-        )}/${word}.mp3`
-      )
+    if (src) {
+      player.current.setAttribute('src', src)
       const playPromise = player.current.play()
       playPromise.then(() => {}).catch(() => {})
     } else {
       player.current.removeAttribute('src')
     }
-  }, [word])
+  }, [src])
 
   return <audio ref={player} />
 }
