@@ -1,4 +1,4 @@
-import { WarningIcon } from '@chakra-ui/icons'
+import { StarIcon } from '@chakra-ui/icons'
 import {
   Alert,
   AlertDescription,
@@ -42,7 +42,7 @@ const WordAlert = ({
         </Flex>
         <Flex>
           <SidebarButton mx={2} onClick={openQuiz}>
-            <WarningIcon />
+            <StarIcon />
           </SidebarButton>
           <SidebarButton>
             <HeadphonesIcon />
