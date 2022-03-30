@@ -19,9 +19,9 @@ const WordAlert = ({
 }) => {
   const playDefinitionAudio = () =>
     setAudioSrc(
-      `https://brainy-literacy-assets.s3.amazonaws.com/audio/defs/${word.charAt(
-        0
-      ).toUpperCase()}/${word}%2B.mp3`
+      `https://brainy-literacy-assets.s3.amazonaws.com/audio/defs/${word
+        .charAt(0)
+        .toUpperCase()}/${word}%2B.mp3`
     )
 
   return (
