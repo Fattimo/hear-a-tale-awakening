@@ -20,16 +20,24 @@ const WordAlert = ({
     <Alert
       position={'absolute'}
       w={'80%'}
+      h={'50%'}
+      fontSize={'xl'}
       bottom={30}
       zIndex={10}
-      h={24}
       borderRadius={'3xl'}
       bgColor={'theme.purple'}
       color={'white'}
     >
-      <Flex justify={'space-between'} align={'center'} w={'100%'} px={2} pr={8}>
-        <Flex direction={'column'}>
-          <AlertTitle>{word}</AlertTitle>
+      <Flex
+        justify={'space-between'}
+        align={'center'}
+        w={'full'}
+        h={'full'}
+        px={2}
+        pr={8}
+      >
+        <Flex direction={'column'} justify={'center'} h={'full'}>
+          <AlertTitle mb={4}>{word}</AlertTitle>
           <AlertDescription>{definition}</AlertDescription>
         </Flex>
         <Flex>
