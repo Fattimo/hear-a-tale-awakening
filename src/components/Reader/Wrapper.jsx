@@ -46,8 +46,8 @@ const Wrapper = ({ config, quizOpen, setQuizOpen }) => {
     paragraph: -1,
     page: -1,
   }
-  const [audioSrc, setAudioSrcState] = useState({})
-  const setAudioSrc = (src) => setAudioSrcState({ src })
+  const [audioSrc, setAudioSrcState] = useState({ src: '', i: 0 })
+  const setAudioSrc = (src) => setAudioSrcState({ src, i: audioSrc.i + 1 })
   const [currWord, setCurrWord] = useState(DEFAULT_CURR_WORD)
   const [timeout, setTimeoutState] = useState(null)
   const [showAlert, setShowAlert] = useState(false)
@@ -69,9 +69,10 @@ const Wrapper = ({ config, quizOpen, setQuizOpen }) => {
     } else {
       setShowAlert(false)
       setCurrWord({ page, word, paragraph, index })
-      setAudioSrc(`https://words-and-definitons.s3.amazonaws.com/words/${word.charAt(
+      setAudioSrc(
+        `https://words-and-definitons.s3.amazonaws.com/words/${word.charAt(
           0
-        )}/${cleanedWord(word)}.mp3`,
+        )}/${cleanedWord(word)}.mp3`
       )
       setTimeoutState(setTimeout(unsetWord, 3000))
     }
@@ -117,7 +118,7 @@ const Wrapper = ({ config, quizOpen, setQuizOpen }) => {
           pageId={1}
         />
         <Spacer>
-          <AudioManager src={audioSrc.src} />
+          <AudioManager src={audioSrc} />
         </Spacer>
       </Flex>
       {showAlert && (
@@ -129,7 +130,13 @@ const Wrapper = ({ config, quizOpen, setQuizOpen }) => {
           setAudioSrc={setAudioSrc}
         />
       )}
-      {quizOpen && <Quiz closeQuiz={closeQuiz} word={cleanedWord()} />}
+      {quizOpen && (
+        <Quiz
+          closeQuiz={closeQuiz}
+          word={cleanedWord()}
+          setAudioSrc={setAudioSrc}
+        />
+      )}
     </Flex>
   )
 }

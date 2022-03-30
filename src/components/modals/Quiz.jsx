@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { HeadphonesIcon } from '../Icons'
 import SidebarButton from '../Reader/SidebarButton'
 
-const Quiz = ({ closeQuiz, word = '' }) => {
+const Quiz = ({ closeQuiz, word = '', setAudioSrc }) => {
   const [quiz, setQuiz] = useState({})
   const [correct, setCorrect] = useState(null)
   const [selectedIndex, setSelectedIndex] = useState(-1)
@@ -33,6 +33,9 @@ const Quiz = ({ closeQuiz, word = '' }) => {
     } else {
       setCorrect(false)
       setCurrCorrect(0)
+      setAudioSrc(
+        'https://brainy-literacy-assets.s3.amazonaws.com/audio/incorrect_answer_sound.mp3'
+      )
     }
   }
 
