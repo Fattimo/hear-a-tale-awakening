@@ -66,6 +66,7 @@ with open("rawdefinitions/definitions1.txt", 'r', encoding='utf8') as defs:#Word
                 doc["related"] = l[p2-1:]
             else:
                 doc["definition"] = l[pos+2:]
+                doc["related"] = ""
             doc["first_letter"] = l[0].lower()
         else:
             word = l.lower()
