@@ -1,6 +1,7 @@
 import os
 import sys
 import json
+from time import time
 # screen width: 750.49px
 # responsive px width = 1083px
 charsizes2 = {'a': 10.38, 'b': 11.39, 'c': 9.39, 'd': 11.43, 'e': 10.21, 'f': 6.01, 'g': 10.38,
@@ -21,8 +22,10 @@ class Config():
 		self.pages = {}
 		self.totalpages = 0
 
-	def addpage(self, globalnum, localnum, chapternum):
-		self.pages[globalnum] = {"page":localnum, "chapter":chapternum}
+	def addpage(self, globalnum, localnum, chapternum, times):
+		start = 0 if localnum == 1 else times[(chapternum, localnum - 1)]
+		end = times[(chapternum, localnum)] 
+		self.pages[globalnum] = {"page":localnum, "chapter":chapternum, "ts": start, "duration": end - start}
 
 	def addchapter(self, chaptername, chapternum, length, pagenum):
 		self.book.append({"chapter":chapternum, "title":chaptername, "pages":length, "startPage":pagenum})
@@ -43,6 +46,7 @@ class Page_Generator():
 		self.chapternum = 0
 		self.cf = Config()
 		self.maxlength = 750.49
+		self.times = {}#Keys (chapter, page)
 
 	def genpage(self, pagenum, onparagraph, text, pos, size):
 		with open(self.pagedir + str(self.chapternum) + "/" + str(pagenum) + ".txt", 'w', encoding='utf8') as page:#Save a page
@@ -55,10 +59,6 @@ class Page_Generator():
 				sumline = 14.259#indent
 			if text[pos] == " ":
 				pos += 1
-				#txt += rawtext[1:].replace("\n", self.paragraphbreak) #Remove leading space
-			#else:
-			#	txt += rawtext.replace("\n", self.paragraphbreak) #No leading space
-			#Split into lines
 			linepos = 0
 			lineno = 0
 			endNewline = False
@@ -79,8 +79,6 @@ class Page_Generator():
 						sumline -= charsizes2[text[pos + linepos]]
 						linepos -= 1
 					lineno += 1
-					#if text[pos + linepos] != "\n":
-					#	txt = txt[:linepos] + self.linebreak + txt[linepos + 1:]
 					sumline = 0
 					if linepos >= size:
 						ind = text[pos + linepos: pos + linepos + int(1/10 * size)].find("\n")
@@ -103,6 +101,20 @@ class Page_Generator():
 	#pagesize: Size of page in characters
 	def split(self, pagesize):
 		#Clean any existing pages
+		with open("timestamps.txt", 'r') as timestamps:
+			lines = timestamps.readlines()
+			for line in lines:
+				line = line.strip()
+				if line == "":
+					continue
+				loc = line.split(" ")[0]
+				p = loc.split("-")[1]
+				c = loc.split("-")[0]
+				time = line.split(" ")[-1].split(":")
+				seconds = int(time[0]) * 60 + int(time[1])
+				self.times[(int(c), int(p))] = seconds
+
+
 		for f in os.listdir(self.pagedir):
 			for f1 in os.listdir(self.pagedir + str(f)):
 				os.remove(self.pagedir + str(f) + "/" + str(f1))
@@ -122,7 +134,7 @@ class Page_Generator():
 			chapterstart = globalpagenum
 			while pos + pagesize < len(booktxt):
 				onparagraph, end = self.genpage(pagenum, onparagraph, booktxt, pos, pagesize) #self.genpage((pagenum, booktxt[pos:pos + end], onparagraph))
-				self.cf.addpage(str(globalpagenum), pagenum, self.chapternum)
+				self.cf.addpage(str(globalpagenum), pagenum, self.chapternum, self.times)
 				pagenum += 1
 				globalpagenum += 1
 				pos = pos + end
@@ -131,7 +143,7 @@ class Page_Generator():
 
 			if pos != len(booktxt) - 1:#Save last page
 				self.genpage(pagenum, onparagraph, booktxt, pos, len(booktxt) - pos)
-				self.cf.addpage(str(globalpagenum), pagenum, self.chapternum)
+				self.cf.addpage(str(globalpagenum), pagenum, self.chapternum, self.times)
 				globalpagenum += 1
 				pagenum += 1
 			self.cf.addchapter(chaptername, self.chapternum, pagenum - 1, chapterstart)
