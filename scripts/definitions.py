@@ -60,7 +60,12 @@ with open("rawdefinitions/definitions1.txt", 'r', encoding='utf8') as defs:#Word
             if word not in s:
                 doc["words"].append(word)
                 s.add(word)
-            doc["definition"] = l[pos+2:]
+            if "(" in l:
+                p2 = l.index("(")
+                doc["definition"] = l[pos+2:p2 - 1]#Don't include space
+                doc["related"] = l[p2-1:]
+            else:
+                doc["definition"] = l[pos+2:]
             doc["first_letter"] = l[0].lower()
         else:
             word = l.lower()
