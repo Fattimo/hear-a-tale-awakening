@@ -26,7 +26,8 @@ with open("rawdefinitions/names.txt", 'r', encoding='utf8') as names: #Name defi
     for i in names.read().split(","):
         i = i.strip().replace(" ", "")
         docs.append({"words": [i.lower()], "definition": "A name", "first_letter": i.lower()[0]})
-
+words = set()
+position = {}
 with open("rawdefinitions/definitions1.txt", 'r', encoding='utf8') as defs:#Words
     lines = defs.readlines()
     doc = {}
@@ -38,21 +39,56 @@ with open("rawdefinitions/definitions1.txt", 'r', encoding='utf8') as defs:#Word
         if '=' in l:
             s = set()
             if doc != {}:
-                docs.append(doc)
+                exists = False
+                pos = 0
+                for i in doc["words"]:
+                    if i in position:
+                        exists = True
+                        pos = position[i]
+                if not exists:
+                    for i in doc["words"]:
+                        position[i] = len(docs) 
+                    docs.append(doc)
+                else:
+                    for i in doc["words"]:
+                        position[i] = pos
+                    docs[pos] = doc
+
             doc = {"words": [], "definition": "", "first_letter": ""}
             pos = l.index('=')
             word = l[:pos-1].lower()
             if word not in s:
                 doc["words"].append(word)
                 s.add(word)
-            doc["definition"] = l[pos+2:]
+            if "(" in l:
+                p2 = l.index("(")
+                doc["definition"] = l[pos+2:p2 - 1]#Don't include space
+                doc["related"] = l[p2-1:]
+            else:
+                doc["definition"] = l[pos+2:]
+                doc["related"] = ""
             doc["first_letter"] = l[0].lower()
         else:
             word = l.lower()
             if word not in s:
                 doc["words"].append(word)
                 s.add(word)
-    docs.append(doc)
+                
+    if doc != {}:
+        exists = False
+        pos = 0
+        for i in doc["words"]:
+            if i in position:
+                exists = True
+                pos = position[i]
+        if not exists:
+            for i in doc["words"]:
+                position[i] = len(docs) 
+            docs.append(doc)
+        else:
+            for i in doc["words"]:
+                position[i] = pos
+            docs[pos] = doc
 
         
 col.insert_many(docs)
