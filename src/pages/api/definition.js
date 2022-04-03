@@ -23,6 +23,7 @@ const handler = async (req, res) => {
   res.json({
     definition: document.definition,
     key: document.words[0],
+    related: document.related,
   })
 }
 

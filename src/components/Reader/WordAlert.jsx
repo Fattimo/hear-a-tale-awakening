@@ -38,7 +38,9 @@ const WordAlert = ({
       <Flex justify={'space-between'} align={'center'} w={'100%'} px={2} pr={8}>
         <Flex direction={'column'}>
           <AlertTitle>{word}</AlertTitle>
-          <AlertDescription>{definition.definition}</AlertDescription>
+          <AlertDescription>
+            {definition.definition} {definition.related ?? ''}
+          </AlertDescription>
         </Flex>
         <Flex>
           <SidebarButton mx={2} onClick={openQuiz}>
