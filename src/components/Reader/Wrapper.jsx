@@ -93,6 +93,14 @@ const Wrapper = ({ config, quizOpen, setQuizOpen }) => {
     return punctuationless.replace(/\s{2,}/g, ' ')
   }
 
+  const chapterHeading = (page = pageNumber) => {
+    const chapter = config.pages[page].chapter
+    const chapterData = config.book[chapter - 1]
+    return chapterData.startPage === page ? chapterData.title : ''
+  }
+
+  // if odd, then show the first one, if even, then show the right one -> visibility
+  // if screen size is bigger, then show both ->
   return (
     <Flex
       direction={'column'}
@@ -108,6 +116,7 @@ const Wrapper = ({ config, quizOpen, setQuizOpen }) => {
           selected={currWord}
           clickWord={clickWord(0)}
           pageId={0}
+          chapter={chapterHeading(pageNumber)}
         />
         <Spacer d={{ base: 'none', xl: 'block' }} />
         <Page
@@ -116,6 +125,7 @@ const Wrapper = ({ config, quizOpen, setQuizOpen }) => {
           selected={currWord}
           clickWord={clickWord(1)}
           pageId={1}
+          chapter={chapterHeading(pageNumber + 1)}
         />
         <Spacer>
           <AudioManager src={audioSrc} />
