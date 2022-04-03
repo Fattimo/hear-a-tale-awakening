@@ -1,4 +1,4 @@
-import { WarningIcon } from '@chakra-ui/icons'
+import { StarIcon } from '@chakra-ui/icons'
 import {
   Alert,
   AlertDescription,
@@ -28,23 +28,31 @@ const WordAlert = ({
     <Alert
       position={'absolute'}
       w={'80%'}
+      h={'50%'}
+      fontSize={{ base: 'xl', xl: '3xl' }}
       bottom={30}
       zIndex={10}
-      h={24}
       borderRadius={'3xl'}
       bgColor={'theme.purple'}
       color={'white'}
     >
-      <Flex justify={'space-between'} align={'center'} w={'100%'} px={2} pr={8}>
-        <Flex direction={'column'}>
-          <AlertTitle>{word}</AlertTitle>
-          <AlertDescription>
+      <Flex
+        justify={'space-between'}
+        align={'center'}
+        w={'full'}
+        h={'full'}
+        px={2}
+        pr={8}
+      >
+        <Flex direction={'column'} justify={'center'} h={'full'}>
+          <AlertTitle mb={4}>{word}</AlertTitle>
+          <AlertDescription lineHeight={{ base: 6, md: 8, lg: 10 }}>
             {definition.definition} {definition.related ?? ''}
           </AlertDescription>
         </Flex>
         <Flex>
-          <SidebarButton mx={2} onClick={openQuiz}>
-            <WarningIcon />
+          <SidebarButton mx={4} onClick={openQuiz} w={12} h={12}>
+            <StarIcon w={6} h={6} />
           </SidebarButton>
           <SidebarButton>
             <HeadphonesIcon onClick={playDefinitionAudio} />

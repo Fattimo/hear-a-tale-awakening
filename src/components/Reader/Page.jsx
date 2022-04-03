@@ -18,11 +18,9 @@ const Page = ({ text, clickWord, selected, pageId, ...props }) => {
   return (
     <Box
       h="100%"
-      borderWidth="1px"
-      borderColor="red.500"
       overflowX="hidden"
       overflowY={'scroll'}
-      px={2}
+      px={4}
       ref={overflowBox}
       {...props}
     >

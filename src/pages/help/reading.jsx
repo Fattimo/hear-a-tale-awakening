@@ -71,7 +71,7 @@ const Help = () => {
               />
             ))}
           </Flex>
-          <NextLink href={'/'} passHref>
+          <NextLink href={'/help'} passHref>
             <Link
               bgColor={'white'}
               padding={1}
