@@ -12,16 +12,17 @@ import SidebarButton from './SidebarButton'
 
 const WordAlert = ({
   word,
-  definition = 'Definition',
+  definition = { definition: 'Definition', key: '' },
   closeAlert,
   openQuiz,
   setAudioSrc,
 }) => {
+  console.log(definition)
   const playDefinitionAudio = () =>
     setAudioSrc(
       `https://brainy-literacy-assets.s3.amazonaws.com/audio/defs/${word
         .charAt(0)
-        .toUpperCase()}/${word.toLowerCase()}%2B.mp3`
+        .toUpperCase()}/${definition.key}%2B.mp3`
     )
 
   return (
@@ -38,7 +39,7 @@ const WordAlert = ({
       <Flex justify={'space-between'} align={'center'} w={'100%'} px={2} pr={8}>
         <Flex direction={'column'}>
           <AlertTitle>{word}</AlertTitle>
-          <AlertDescription>{definition}</AlertDescription>
+          <AlertDescription>{definition.definition}</AlertDescription>
         </Flex>
         <Flex>
           <SidebarButton mx={2} onClick={openQuiz}>

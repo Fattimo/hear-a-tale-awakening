@@ -61,7 +61,7 @@ const Wrapper = ({ config, quizOpen, setQuizOpen }) => {
       index === currWord.index
     ) {
       fetch(`/api/definition?word=${cleanedWord(word)}`).then((res) =>
-        res.text().then((definition) => {
+        res.json().then((definition) => {
           setShowAlert(true)
           setDefinition(definition)
         })
@@ -72,7 +72,7 @@ const Wrapper = ({ config, quizOpen, setQuizOpen }) => {
       setAudioSrc(
         `https://words-and-definitons.s3.amazonaws.com/words/${word.charAt(
           0
-        )}/${cleanedWord(word)}.mp3`
+        )}/${definition.key}.mp3`
       )
       setTimeoutState(setTimeout(unsetWord, 3000))
     }
@@ -133,7 +133,7 @@ const Wrapper = ({ config, quizOpen, setQuizOpen }) => {
       {quizOpen && (
         <Quiz
           closeQuiz={closeQuiz}
-          word={cleanedWord()}
+          word={definition.key}
           setAudioSrc={setAudioSrc}
         />
       )}
