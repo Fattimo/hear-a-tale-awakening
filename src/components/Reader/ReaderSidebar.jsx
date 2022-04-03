@@ -56,15 +56,6 @@ const ReaderSidebar = ({ page, config, ...rest }) => {
   const [audioEnd, setAudioEnd] = useState(-1)
   const [isAudio, setIsAudio] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
-  useEffect(() => {
-    setAudioStates()
-  }, [page])
-  const toggleAudio = () => {
-    setIsAudio(!isAudio)
-    setIsPlaying(!isAudio)
-    if (!isAudio) setAudioStates()
-  }
-
   const setAudioStates = useCallback(() => {
     const pageData = config.pages[page]
     setAudioSrc({
@@ -79,9 +70,15 @@ const ReaderSidebar = ({ page, config, ...rest }) => {
     setAudioEnd(endTs)
   }, [config.pages, isDoublePaged, page])
 
-  const pausePlay = () => {
-    setIsPlaying(!isPlaying)
+  useEffect(() => setAudioStates(), [page, setAudioStates])
+
+  const toggleAudio = () => {
+    setIsAudio(!isAudio)
+    setIsPlaying(!isAudio)
+    if (!isAudio) setAudioStates()
   }
+
+  const pausePlay = () => setIsPlaying(!isPlaying)
 
   return (
     <Flex

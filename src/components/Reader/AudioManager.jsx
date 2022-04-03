@@ -7,6 +7,7 @@ const AudioManager = ({ src = {}, paused = false, start = 0, end = -1 }) => {
     if (src.src) {
       player.current.setAttribute('src', src.src)
       player.current.currentTime = start
+      if (paused) return
       const playPromise = player.current.play()
       playPromise.then(() => {}).catch(() => {})
     } else {
