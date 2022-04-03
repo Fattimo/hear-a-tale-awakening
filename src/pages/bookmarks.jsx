@@ -1,4 +1,4 @@
-import { Flex, Grid, GridItem, Link, Text } from '@chakra-ui/react'
+import { Box, Flex, Grid, GridItem, Link, Text } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import Sidebar from 'src/components/Home/Sidebar'
 import NextLink from 'next/link'
@@ -36,10 +36,12 @@ const Bookmarks = ({ config = {} }) => {
         <Text fontSize={'xl'} fontWeight={'bold'}>
           Your Bookmarks
         </Text>
-        <Flex direction={'column'}>
-          {bookmarks.map((b, i) => (
-            <BookmarkRow key={i} page={b} chapter={config[b]?.chapter} />
-          ))}
+        <Flex overflow={'hidden'}>
+          <Box overflow={'auto'} w={'full'}>
+            {bookmarks.map((b, i) => (
+              <BookmarkRow key={i} page={b} chapter={config[b]?.chapter} />
+            ))}
+          </Box>
         </Flex>
       </Flex>
     </Flex>
