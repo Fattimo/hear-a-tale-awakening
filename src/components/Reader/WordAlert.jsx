@@ -17,7 +17,6 @@ const WordAlert = ({
   openQuiz,
   setAudioSrc,
 }) => {
-  console.log(definition)
   const playDefinitionAudio = () =>
     setAudioSrc(
       `https://brainy-literacy-assets.s3.amazonaws.com/audio/defs/${word
