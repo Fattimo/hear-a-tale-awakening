@@ -3,6 +3,7 @@ import { Box, Flex, Progress, Text, Loading } from '@chakra-ui/react'
 import React, { useCallback, useEffect, useState } from 'react'
 import { HeadphonesIcon } from '../Icons'
 import SidebarButton from '../Reader/SidebarButton'
+import style from './quiz.module.css'
 
 const Quiz = ({ closeQuiz, word = '' }) => {
   const [quiz, setQuiz] = useState({})
@@ -78,12 +79,13 @@ const Quiz = ({ closeQuiz, word = '' }) => {
         align={'center'}
         h={'full'}
         w={'full'}
+        fontSize={'xl'}
       >
         <Flex mt={6}>
           {[...Array(5).keys()].map((i) => (
             <StarIcon
-              w={6}
-              h={6}
+              w={10}
+              h={10}
               key={i}
               stroke={i < currCorrect ? 'yellow.300' : 'gray.300'}
               strokeWidth={'2px'}
@@ -106,6 +108,7 @@ const Quiz = ({ closeQuiz, word = '' }) => {
           bgColor={'gray.200'}
           borderRadius={8}
           my={4}
+          flexShrink={0}
         />
         <Flex
           bgColor={'white'}
@@ -113,14 +116,14 @@ const Quiz = ({ closeQuiz, word = '' }) => {
           w={'80%'}
           borderTopRadius={'40'}
           pos={'relative'}
-          mt={'50px'}
+          mt={{ base: '30px', lg: '50px' }}
           boxShadow={'2xl'}
           flexShrink={1}
           _after={{
             w: '90%',
             h: 'full',
             pos: 'absolute',
-            bottom: '25px',
+            bottom: { base: '20px', lg: '25px' },
             right: '5%',
             bgColor: 'white',
             content: '""',
@@ -132,7 +135,7 @@ const Quiz = ({ closeQuiz, word = '' }) => {
             w: '80%',
             h: 'full',
             pos: 'absolute',
-            bottom: '45px',
+            bottom: { base: '35px', lg: '45px' },
             right: '10%',
             bgColor: 'white',
             content: '""',
@@ -148,13 +151,16 @@ const Quiz = ({ closeQuiz, word = '' }) => {
           ) : (
             <Flex
               direction={'column'}
-              justify={'space-between'}
+              justify={'space-around'}
               align={'center'}
               fontWeight={'bold'}
               h={'full'}
               w={'full'}
+              textAlign={'center'}
             >
-              <Text mt={4}>{quiz.definition}</Text>
+              <Text mt={4} px={16}>
+                {quiz.definition}
+              </Text>
               <Text color={correct ? 'green.400' : 'red.400'}>
                 {correct !== null
                   ? correct
@@ -164,20 +170,22 @@ const Quiz = ({ closeQuiz, word = '' }) => {
               </Text>
               <Flex
                 justifyContent={'space-between'}
-                w={'full'}
+                w={{ base: 'full', lg: '60%' }}
                 px={12}
                 my={2}
                 flexShrink={1}
+                flexWrap={{ lg: 'wrap', base: 'nowrap' }}
               >
                 {quiz.choices?.map((w, i) => (
                   <Flex
                     key={i}
                     flexGrow={1}
-                    w={'20%'}
-                    style={{ aspectRatio: '1 / 1' }}
+                    w={{ base: '20%', lg: '40%' }}
+                    className={style.answer_choice}
                     boxShadow={'0px 14px 31px rgba(0, 0, 0, 0.13);'}
                     borderRadius={20}
                     mx={3}
+                    my={3}
                     align={'center'}
                     justify={'center'}
                     onClick={() => selectAnswer(i)}

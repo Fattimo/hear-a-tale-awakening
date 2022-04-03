@@ -1,0 +1,9 @@
+.answer_choice {
+  aspect-ratio: 1 / 1;
+}
+
+@media screen and (min-width: 960px) {
+  .answer_choice {
+    aspect-ratio: 2 / 1;
+  }
+}
