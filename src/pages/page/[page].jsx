@@ -24,6 +24,7 @@ const Page = ({ config = {} }) => {
     <Flex h="100%" w={'100%'}>
       <ReaderSidebar
         page={pageNumber}
+        config={config}
         pointerEvents={quizOpen ? 'none' : null}
       />
       <Flex

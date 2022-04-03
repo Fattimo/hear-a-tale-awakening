@@ -1,6 +1,6 @@
 import { Flex, Link } from '@chakra-ui/react'
 import NextLink from 'next/link'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import {
   BookmarkIconFilled,
   BookmarkIconUnfilled,
@@ -14,16 +14,23 @@ import {
 import AudioManager from './AudioManager'
 import SidebarButton from './SidebarButton'
 
-const ReaderSidebar = ({ page, ...rest }) => {
+const ReaderSidebar = ({ page, config, ...rest }) => {
   const [localStorage, setLocalStorage] = useState({})
   const [bookmarkedState, setBookmarked] = useState(false)
+  const [isDoublePaged, setIsDoublePaged] = useState(false)
   useEffect(() => {
+    const handleResize = () => {
+      setIsDoublePaged(window.innerWidth >= 1200)
+    }
+    window.addEventListener('resize', handleResize)
+    handleResize()
     //TODO: replace with real user tied data
     const data =
       typeof window !== 'undefined'
         ? JSON.parse(window.localStorage.getItem('awakening')) ?? {}
         : {}
     setLocalStorage(data)
+    return () => window.removeEventListener('resize', handleResize)
   }, [])
 
   useEffect(
@@ -44,11 +51,36 @@ const ReaderSidebar = ({ page, ...rest }) => {
     setLocalStorage(localStorage)
   }
 
+  const [audioSrc, setAudioSrc] = useState({ src: '' })
+  const [audioStart, setAudioStart] = useState(0)
+  const [audioEnd, setAudioEnd] = useState(-1)
   const [isAudio, setIsAudio] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
+  useEffect(() => {
+    setAudioStates()
+  }, [page])
   const toggleAudio = () => {
     setIsAudio(!isAudio)
     setIsPlaying(!isAudio)
+    if (!isAudio) setAudioStates()
+  }
+
+  const setAudioStates = useCallback(() => {
+    const pageData = config.pages[page]
+    setAudioSrc({
+      src: `https://brainy-literacy-assets.s3.amazonaws.com/audio/awa/awa_${pageData.chapter}.mp3`,
+    })
+    setAudioStart(pageData.ts)
+    let endTs = pageData.ts + pageData.duration
+    if (isDoublePaged) {
+      const nextPageData = config.pages[page + 1]
+      if (nextPageData) endTs = nextPageData.duration + endTs
+    }
+    setAudioEnd(endTs)
+  }, [config.pages, isDoublePaged, page])
+
+  const pausePlay = () => {
+    setIsPlaying(!isPlaying)
   }
 
   return (
@@ -75,14 +107,19 @@ const ReaderSidebar = ({ page, ...rest }) => {
         {isAudio ? null : <NoIcon position={'absolute'} w={6} h={6} />}
       </SidebarButton>
       {isAudio ? (
-        <SidebarButton>
-          {isPlaying ?  <PauseIcon /> : <PlayIcon />}
+        <SidebarButton onClick={pausePlay}>
+          {isPlaying ? <PauseIcon /> : <PlayIcon />}
         </SidebarButton>
       ) : null}
       <SidebarButton onClick={bookmark}>
         {bookmarkedState ? <BookmarkIconFilled /> : <BookmarkIconUnfilled />}
       </SidebarButton>
-      <AudioManager />
+      <AudioManager
+        src={audioSrc}
+        paused={!isPlaying}
+        start={audioStart}
+        end={audioEnd}
+      />
     </Flex>
   )
 }
