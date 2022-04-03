@@ -72,7 +72,7 @@ const Wrapper = ({ config, quizOpen, setQuizOpen }) => {
       setAudioSrc(
         `https://words-and-definitons.s3.amazonaws.com/words/${word.charAt(
           0
-        )}/${definition.key}.mp3`
+        )}/${cleanedWord(word)}.mp3`
       )
       setTimeoutState(setTimeout(unsetWord, 3000))
     }
