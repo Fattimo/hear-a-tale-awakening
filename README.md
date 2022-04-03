@@ -69,18 +69,25 @@ There is a pipeline in place that automatically deploys to Vercel. Vercel deploy
 
 ### New Features
 
-* Audio for definitions can now be cued
-* Bookmarks screen created
+* Definition Audio: The reader can now cue the audio for any definition by clicking on the headphones icon in the definition popup.
+* Audiobook: The reader can now listen to the audio for the book while reading. The audio can be played starting from any page by clicking on the headphones icon in the sidebar of the reading screen. The reader can also choose to begin reading with audio or without audio from the home screen. Audio can be toggled on/off and can be paused/played using the icons on the sidebar.
+* Bookmarks Screen: There is now a screen containing all of the reader's bookmarks, which enables the reader to set as many bookmarks as they like and access them from this screen. The reader has the option to continue reading with or without audio from any bookmark on this screen.
 
 ### Improvements
-* Icons updated for bookmarking and quiz taking
+* Quiz Screen: The design for the quiz screen has been updated to increase the size of the text and minimize unused whitespace. A sound has been added for when the reader selects the wrong answer choice. Related words no longer show up in the question on the quiz screen.
+* Definitions: All of the definitions are now available for the reader to cue when reading. All of the audio for these definitions is also available. The size of the definition popup window and the text within it has been increased. The icon for cueing a quiz from this popup has been redesigned.
+* Audio: All of the audio for individual words is now available.
+* Reading Screen: Removed the red margin around the pages. Added chapter headings at the beginning of each chapter. Removed settings icon and replaced it with a new icon that will enable the reader to skip around the audio for a page (not implemented yet). The short stories after the end of the book that were contained in the original text have been removed.
+* Home Screen: The third bookmark icon has been redesigned and now brings the reader to the new bookmarks screen when clicked.
 
 ### Bug fixes
-* Fixed bug that progress would never make it to 100% for chapters that ended on even numbered pages
+* Fixed bug that progress would never make it to 100% for chapters that ended on even numbered pages.
 
 ### Known Bugs
-* Errors are thrown in console when the reader tries to cue audio that we don't have files for
-* User interface on mobile (vertical) needs improvement
+* Errors are thrown in console when the reader tries to cue audio that we don't have files for.
+* User interface on mobile (vertical) needs improvement.
+* Audio does not retain it's position when paused and then resumed.
+* Definition audio persists after closing the definition popup.
 
 ## Version 0.3.0
 
