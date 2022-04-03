@@ -69,7 +69,7 @@ const BookmarkRow = ({ page, chapter }) => {
           <Text ml={4}>Chapter {chapter}</Text>
         </Flex>
       </GridItem>
-      <NextLink href={`/page/${page}`} passHref>
+      <NextLink href={`/page/${page}?play`} passHref>
         <Link h={'full'}>
           <Flex
             h={'full'}

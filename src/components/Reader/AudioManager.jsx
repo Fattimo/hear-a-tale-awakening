@@ -13,11 +13,14 @@ const AudioManager = ({ src = {}, paused = false, start = 0, end = -1 }) => {
     } else {
       player.current.removeAttribute('src')
     }
-  }, [src])
+  }, [paused, src, start])
 
   useEffect(() => {
     if (paused) player.current.pause()
-    else player.current.play()
+    else {
+      const playPromise = player.current.play()
+      playPromise.then(() => {}).catch(() => {})
+    }
   }, [paused])
 
   const checkPause = () => {

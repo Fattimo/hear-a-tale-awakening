@@ -15,7 +15,7 @@ const Panel = ({ maxPage, chapter, config, ...rest }) => {
     if (!localStorage.chapterProgress) localStorage.chapterProgress = {}
     localStorage.chapterProgress[chapter] = {
       progress: Math.min(Math.trunc((page + 1 / pages) * 100), 100),
-      page: router.query.page
+      page: router.query.page,
     }
     window.localStorage.setItem('awakening', JSON.stringify(localStorage))
   }, [config.book, config.pages, router.query])

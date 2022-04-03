@@ -1,4 +1,5 @@
 import { Flex, Link } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
 import NextLink from 'next/link'
 import React, { useCallback, useEffect, useState } from 'react'
 import {
@@ -54,6 +55,7 @@ const ReaderSidebar = ({ page, config, ...rest }) => {
   const [audioSrc, setAudioSrc] = useState({ src: '' })
   const [audioStart, setAudioStart] = useState(0)
   const [audioEnd, setAudioEnd] = useState(-1)
+  const router = useRouter()
   const [isAudio, setIsAudio] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
   const setAudioStates = useCallback(() => {
@@ -70,7 +72,16 @@ const ReaderSidebar = ({ page, config, ...rest }) => {
     setAudioEnd(endTs)
   }, [config.pages, isDoublePaged, page])
 
-  useEffect(() => setAudioStates(), [page, setAudioStates])
+  useEffect(() => {
+    setAudioStates()
+  }, [page, setAudioStates])
+
+  useEffect(() => {
+    if (router.query.play !== undefined) {
+      setIsAudio(true)
+      setIsPlaying(true)
+    }
+  }, [router.query.play, setAudioStates])
 
   const toggleAudio = () => {
     setIsAudio(!isAudio)

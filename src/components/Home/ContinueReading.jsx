@@ -25,17 +25,21 @@ const ContinueReading = ({ chapter, page }) => {
               <Text>page {page}</Text>
             </Box>
             <Flex>
-              <Flex
-                bgColor={'white'}
-                color={'black'}
-                w={12}
-                h={12}
-                borderRadius={'50%'}
-                align={'center'}
-                justify={'center'}
-              >
-                <HeadphonesIcon />
-              </Flex>
+              <NextLink href={`/page/${page}?play`} passHref>
+                <Link>
+                  <Flex
+                    bgColor={'white'}
+                    color={'black'}
+                    w={12}
+                    h={12}
+                    borderRadius={'50%'}
+                    align={'center'}
+                    justify={'center'}
+                  >
+                    <HeadphonesIcon />
+                  </Flex>
+                </Link>
+              </NextLink>
               <Flex
                 bgColor={'white'}
                 color={'black'}
