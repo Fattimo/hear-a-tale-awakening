@@ -1,7 +1,7 @@
 import { Box, Text } from '@chakra-ui/react'
 import React, { useEffect, useRef } from 'react'
 
-const Page = ({ text, clickWord, selected, pageId, ...props }) => {
+const Page = ({ text, clickWord, selected, pageId, chapter, ...props }) => {
   const NO_INDENT_MARKER = '&ni;'
   const JUSTIFY_LAST_MARKER = '&jl;'
   const whitespace = /\s/
@@ -24,6 +24,14 @@ const Page = ({ text, clickWord, selected, pageId, ...props }) => {
       ref={overflowBox}
       {...props}
     >
+      {chapter ? (
+        <Text
+          textAlign={'center'}
+          fontSize={{ base: '24px', md: '3vw', xl: '2vw' }}
+        >
+          {chapter}
+        </Text>
+      ) : null}
       {words.map((paragraph, i) => {
         const justifyLast =
           paragraph[paragraph.length - 1] === JUSTIFY_LAST_MARKER
