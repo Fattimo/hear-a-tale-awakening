@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 
-const AudioManager = ({ src }) => {
+const AudioManager = ({ src = {} }) => {
   const player = useRef()
 
   useEffect(() => {

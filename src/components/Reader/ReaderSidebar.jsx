@@ -1,4 +1,3 @@
-import { SettingsIcon } from '@chakra-ui/icons'
 import { Flex, Link } from '@chakra-ui/react'
 import NextLink from 'next/link'
 import React, { useEffect, useState } from 'react'
@@ -7,8 +6,12 @@ import {
   BookmarkIconUnfilled,
   HeadphonesIcon,
   HomeIcon,
+  NoIcon,
+  PauseIcon,
   PlayIcon,
+  TouchIcon,
 } from '../Icons'
+import AudioManager from './AudioManager'
 import SidebarButton from './SidebarButton'
 
 const ReaderSidebar = ({ page, ...rest }) => {
@@ -40,6 +43,14 @@ const ReaderSidebar = ({ page, ...rest }) => {
     setBookmarked(!bookmarkedState)
     setLocalStorage(localStorage)
   }
+
+  const [isAudio, setIsAudio] = useState(false)
+  const [isPlaying, setIsPlaying] = useState(false)
+  const toggleAudio = () => {
+    setIsAudio(!isAudio)
+    setIsPlaying(!isAudio)
+  }
+
   return (
     <Flex
       direction="column"
@@ -57,17 +68,21 @@ const ReaderSidebar = ({ page, ...rest }) => {
         </Link>
       </NextLink>
       <SidebarButton>
-        <SettingsIcon />
+        <TouchIcon />
       </SidebarButton>
-      <SidebarButton>
+      <SidebarButton onClick={toggleAudio}>
         <HeadphonesIcon />
+        {isAudio ? null : <NoIcon position={'absolute'} w={6} h={6} />}
       </SidebarButton>
-      <SidebarButton>
-        <PlayIcon />
-      </SidebarButton>
+      {isAudio ? (
+        <SidebarButton>
+          {isPlaying ?  <PauseIcon /> : <PlayIcon />}
+        </SidebarButton>
+      ) : null}
       <SidebarButton onClick={bookmark}>
         {bookmarkedState ? <BookmarkIconFilled /> : <BookmarkIconUnfilled />}
       </SidebarButton>
+      <AudioManager />
     </Flex>
   )
 }
