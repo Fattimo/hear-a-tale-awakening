@@ -1,7 +1,7 @@
 import { Box, Flex, Link, Text } from '@chakra-ui/react'
 import NextLink from 'next/link'
 import React from 'react'
-import { HeadphonesIcon } from '../Icons'
+import { HeadphonesIcon, NoIcon } from '../Icons'
 
 const ContinueReading = ({ chapter, page }) => {
   return (
@@ -25,17 +25,21 @@ const ContinueReading = ({ chapter, page }) => {
               <Text>page {page}</Text>
             </Box>
             <Flex>
-              <Flex
-                bgColor={'white'}
-                color={'black'}
-                w={12}
-                h={12}
-                borderRadius={'50%'}
-                align={'center'}
-                justify={'center'}
-              >
-                <HeadphonesIcon />
-              </Flex>
+              <NextLink href={`/page/${page}?play`} passHref>
+                <Link>
+                  <Flex
+                    bgColor={'white'}
+                    color={'black'}
+                    w={12}
+                    h={12}
+                    borderRadius={'50%'}
+                    align={'center'}
+                    justify={'center'}
+                  >
+                    <HeadphonesIcon />
+                  </Flex>
+                </Link>
+              </NextLink>
               <Flex
                 bgColor={'white'}
                 color={'black'}
@@ -47,6 +51,7 @@ const ContinueReading = ({ chapter, page }) => {
                 ml={4}
               >
                 <HeadphonesIcon />
+                <NoIcon position={'absolute'} w={8} h={8} />
               </Flex>
             </Flex>
           </Flex>
