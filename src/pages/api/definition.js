@@ -20,7 +20,11 @@ const handler = async (req, res) => {
     res.status(400).send('Word Definition Not Found.')
     return
   }
-  res.send(document.definition)
+  res.json({
+    definition: document.definition,
+    key: document.words[0],
+    related: document.related,
+  })
 }
 
 export default handler

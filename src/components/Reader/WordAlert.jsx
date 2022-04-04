@@ -12,10 +12,18 @@ import SidebarButton from './SidebarButton'
 
 const WordAlert = ({
   word,
-  definition = 'Definition',
+  definition = { definition: 'Definition', key: '' },
   closeAlert,
   openQuiz,
+  setAudioSrc,
 }) => {
+  const playDefinitionAudio = () =>
+    setAudioSrc(
+      `https://brainy-literacy-assets.s3.amazonaws.com/audio/defs/${word
+        .charAt(0)
+        .toUpperCase()}/${definition.key}%2B.mp3`
+    )
+
   return (
     <Alert
       position={'absolute'}
@@ -39,15 +47,15 @@ const WordAlert = ({
         <Flex direction={'column'} justify={'center'} h={'full'}>
           <AlertTitle mb={4}>{word}</AlertTitle>
           <AlertDescription lineHeight={{ base: 6, md: 8, lg: 10 }}>
-            {definition}
+            {definition.definition} {definition.related ?? ''}
           </AlertDescription>
         </Flex>
         <Flex>
           <SidebarButton mx={4} onClick={openQuiz} w={12} h={12}>
             <StarIcon w={6} h={6} />
           </SidebarButton>
-          <SidebarButton w={12} h={12}>
-            <HeadphonesIcon w={6} h={6} />
+          <SidebarButton>
+            <HeadphonesIcon onClick={playDefinitionAudio} />
           </SidebarButton>
         </Flex>
       </Flex>

@@ -46,6 +46,8 @@ const Wrapper = ({ config, quizOpen, setQuizOpen }) => {
     paragraph: -1,
     page: -1,
   }
+  const [audioSrc, setAudioSrcState] = useState({ src: '', i: 0 })
+  const setAudioSrc = (src) => setAudioSrcState({ src, i: audioSrc.i + 1 })
   const [currWord, setCurrWord] = useState(DEFAULT_CURR_WORD)
   const [timeout, setTimeoutState] = useState(null)
   const [showAlert, setShowAlert] = useState(false)
@@ -59,7 +61,7 @@ const Wrapper = ({ config, quizOpen, setQuizOpen }) => {
       index === currWord.index
     ) {
       fetch(`/api/definition?word=${cleanedWord(word)}`).then((res) =>
-        res.text().then((definition) => {
+        res.json().then((definition) => {
           setShowAlert(true)
           setDefinition(definition)
         })
@@ -67,12 +69,18 @@ const Wrapper = ({ config, quizOpen, setQuizOpen }) => {
     } else {
       setShowAlert(false)
       setCurrWord({ page, word, paragraph, index })
+      setAudioSrc(
+        `https://brainy-literacy-assets.s3.amazonaws.com/audio/words/${word.charAt(
+          0
+        )}/${cleanedWord(word)}.mp3`
+      )
       setTimeoutState(setTimeout(unsetWord, 3000))
     }
   }
   const unsetWord = () => {
     setCurrWord(DEFAULT_CURR_WORD)
     setShowAlert(false)
+    setAudioSrc('')
   }
 
   // Quiz Logic
@@ -120,7 +128,7 @@ const Wrapper = ({ config, quizOpen, setQuizOpen }) => {
           chapter={chapterHeading(pageNumber + 1)}
         />
         <Spacer>
-          <AudioManager word={cleanedWord()} />
+          <AudioManager src={audioSrc} />
         </Spacer>
       </Flex>
       {showAlert && (
@@ -129,9 +137,16 @@ const Wrapper = ({ config, quizOpen, setQuizOpen }) => {
           definition={definition}
           closeAlert={() => unsetWord()}
           openQuiz={openQuiz}
+          setAudioSrc={setAudioSrc}
         />
       )}
-      {quizOpen && <Quiz closeQuiz={closeQuiz} word={cleanedWord()} />}
+      {quizOpen && (
+        <Quiz
+          closeQuiz={closeQuiz}
+          word={definition.key}
+          setAudioSrc={setAudioSrc}
+        />
+      )}
     </Flex>
   )
 }
