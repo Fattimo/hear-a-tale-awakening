@@ -70,7 +70,7 @@ const Wrapper = ({ config, quizOpen, setQuizOpen }) => {
       setShowAlert(false)
       setCurrWord({ page, word, paragraph, index })
       setAudioSrc(
-        `https://words-and-definitons.s3.amazonaws.com/words/${word.charAt(
+        `https://brainy-literacy-assets.s3.amazonaws.com/audio/words/${word.charAt(
           0
         )}/${cleanedWord(word)}.mp3`
       )
