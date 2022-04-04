@@ -86,7 +86,6 @@ There is a pipeline in place that automatically deploys to Vercel. Vercel deploy
 ### Known Bugs
 * Errors are thrown in console when the reader tries to cue audio that we don't have files for.
 * User interface on mobile (vertical) needs improvement.
-* Audio does not retain it's position when paused and then resumed.
 * Definition audio persists after closing the definition popup.
 
 ## Version 0.3.0
