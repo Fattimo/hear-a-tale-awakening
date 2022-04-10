@@ -15,15 +15,8 @@ const WordAlert = ({
   definition = { definition: 'Definition', key: '' },
   closeAlert,
   openQuiz,
-  setAudioSrc,
+  playDefinitionAudio,
 }) => {
-  const playDefinitionAudio = () =>
-    setAudioSrc(
-      `https://brainy-literacy-assets.s3.amazonaws.com/audio/defs/${word
-        .charAt(0)
-        .toUpperCase()}/${definition.key}%2B.mp3`
-    )
-
   return (
     <Alert
       position={'absolute'}
@@ -54,8 +47,8 @@ const WordAlert = ({
           <SidebarButton mx={4} onClick={openQuiz} w={12} h={12}>
             <StarIcon w={6} h={6} />
           </SidebarButton>
-          <SidebarButton>
-            <HeadphonesIcon onClick={playDefinitionAudio} />
+          <SidebarButton w={12} h={12}>
+            <HeadphonesIcon onClick={playDefinitionAudio} w={6} h={6} />
           </SidebarButton>
         </Flex>
       </Flex>

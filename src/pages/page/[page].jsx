@@ -11,6 +11,7 @@ export async function getServerSideProps() {
 }
 
 const Page = ({ config = {} }) => {
+  const [isBookPlaying, setIsBookPlaying] = useState(false)
   const [quizOpen, setQuizOpen] = useState(false)
   const router = useRouter()
   const { page } = router.query
@@ -19,12 +20,13 @@ const Page = ({ config = {} }) => {
     return <Box>Invalid Page</Box>
   const pageData = config.pages[page]
   const chapterData = config.book[pageData ? pageData.chapter - 1 : 0]
-
   return (
     <Flex h="100%" w={'100%'}>
       <ReaderSidebar
         page={pageNumber}
         config={config}
+        isPlaying={isBookPlaying}
+        setIsPlaying={setIsBookPlaying}
         pointerEvents={quizOpen ? 'none' : null}
       />
       <Flex
@@ -39,6 +41,8 @@ const Page = ({ config = {} }) => {
           config={config}
           quizOpen={quizOpen}
           setQuizOpen={setQuizOpen}
+          isBookPlaying={isBookPlaying}
+          setIsBookPlaying={setIsBookPlaying}
         />
         <Panel
           maxPage={config.totalPages}

@@ -17,7 +17,9 @@ const handler = async (req, res) => {
     words: word.toLowerCase(),
   })
   if (!document) {
-    res.status(400).send('Word Definition Not Found.')
+    res.status(400).json({
+      definition: 'Word definition not found.',
+    })
     return
   }
   res.json({
