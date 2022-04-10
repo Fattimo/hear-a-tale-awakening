@@ -15,7 +15,7 @@ import {
 import AudioManager from './AudioManager'
 import SidebarButton from './SidebarButton'
 
-const ReaderSidebar = ({ page, config, ...rest }) => {
+const ReaderSidebar = ({ page, config, isPlaying, setIsPlaying, ...rest }) => {
   const [localStorage, setLocalStorage] = useState({})
   const [bookmarkedState, setBookmarked] = useState(false)
   const [isDoublePaged, setIsDoublePaged] = useState(false)
@@ -57,7 +57,6 @@ const ReaderSidebar = ({ page, config, ...rest }) => {
   const [audioEnd, setAudioEnd] = useState(-1)
   const router = useRouter()
   const [isAudio, setIsAudio] = useState(false)
-  const [isPlaying, setIsPlaying] = useState(false)
   const setAudioStates = useCallback(() => {
     const pageData = config.pages[page]
     setAudioSrc({

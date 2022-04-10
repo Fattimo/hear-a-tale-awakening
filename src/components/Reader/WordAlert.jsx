@@ -15,15 +15,8 @@ const WordAlert = ({
   definition = { definition: 'Definition', key: '' },
   closeAlert,
   openQuiz,
-  setAudioSrc,
+  playDefinitionAudio,
 }) => {
-  const playDefinitionAudio = () =>
-    setAudioSrc(
-      `https://brainy-literacy-assets.s3.amazonaws.com/audio/defs/${word
-        .charAt(0)
-        .toUpperCase()}/${definition.key}%2B.mp3`
-    )
-
   return (
     <Alert
       position={'absolute'}

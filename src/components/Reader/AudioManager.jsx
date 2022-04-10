@@ -4,12 +4,14 @@ const AudioManager = ({ src = {}, paused = false, start = 0, end = -1 }) => {
   const player = useRef()
 
   useEffect(() => {
+    console.log(src)
     if (src.src) {
       player.current.setAttribute('src', src.src)
       player.current.currentTime = start
       const playPromise = player.current.play()
       playPromise.then(() => {}).catch(() => {})
     } else {
+      player.current.pause()
       player.current.removeAttribute('src')
     }
   }, [src, start])

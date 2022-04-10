@@ -1,12 +1,18 @@
 import { Flex, Spacer } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import Quiz from '../modals/Quiz'
 import AudioManager from './AudioManager'
 import Page from './Page'
 import WordAlert from './WordAlert'
 
-const Wrapper = ({ config, quizOpen, setQuizOpen }) => {
+const Wrapper = ({
+  config,
+  quizOpen,
+  setQuizOpen,
+  isBookPlaying,
+  setIsBookPlaying,
+}) => {
   const router = useRouter()
 
   // Page Calculations
@@ -52,6 +58,14 @@ const Wrapper = ({ config, quizOpen, setQuizOpen }) => {
   const [timeout, setTimeoutState] = useState(null)
   const [showAlert, setShowAlert] = useState(false)
   const [definition, setDefinition] = useState('')
+
+  useEffect(() => {
+    if (isBookPlaying) {
+      setAudioSrcState({ src: '', i: -1 })
+      unsetWord()
+    }
+  }, [isBookPlaying, unsetWord])
+
   const clickWord = (page) => (word, paragraph, index) => () => {
     if (timeout) clearTimeout(timeout)
     if (
@@ -74,18 +88,34 @@ const Wrapper = ({ config, quizOpen, setQuizOpen }) => {
           0
         )}/${cleanedWord(word).toLowerCase()}.mp3`
       )
+      setIsBookPlaying(false)
       setTimeoutState(setTimeout(unsetWord, 3000))
     }
   }
-  const unsetWord = () => {
+
+  const unsetWord = useCallback(() => {
     setCurrWord(DEFAULT_CURR_WORD)
     setShowAlert(false)
     setAudioSrc('')
-  }
+  }, [DEFAULT_CURR_WORD, setAudioSrc])
 
+  const playDefinitionAudio = () => {
+    setAudioSrc(
+      `https://brainy-literacy-assets.s3.amazonaws.com/audio/defs/${cleanedWord()
+        .charAt(0)
+        .toUpperCase()}/${definition.key}%2B.mp3`
+    )
+    setIsBookPlaying(false)
+  }
   // Quiz Logic
-  const openQuiz = () => setQuizOpen(true)
-  const closeQuiz = () => setQuizOpen(false)
+  const openQuiz = () => {
+    setQuizOpen(true)
+    setAudioSrc('')
+  }
+  const closeQuiz = () => {
+    setQuizOpen(false)
+    setAudioSrc('')
+  }
 
   // Cleaned Word
   const cleanedWord = (word = currWord.word) => {
@@ -137,7 +167,7 @@ const Wrapper = ({ config, quizOpen, setQuizOpen }) => {
           definition={definition}
           closeAlert={() => unsetWord()}
           openQuiz={openQuiz}
-          setAudioSrc={setAudioSrc}
+          playDefinitionAudio={playDefinitionAudio}
         />
       )}
       {quizOpen && (
