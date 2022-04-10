@@ -54,8 +54,8 @@ const WordAlert = ({
           <SidebarButton mx={4} onClick={openQuiz} w={12} h={12}>
             <StarIcon w={6} h={6} />
           </SidebarButton>
-          <SidebarButton>
-            <HeadphonesIcon onClick={playDefinitionAudio} />
+          <SidebarButton w={12} h={12}>
+            <HeadphonesIcon onClick={playDefinitionAudio} w={6} h={6} />
           </SidebarButton>
         </Flex>
       </Flex>

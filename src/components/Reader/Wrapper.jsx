@@ -72,7 +72,7 @@ const Wrapper = ({ config, quizOpen, setQuizOpen }) => {
       setAudioSrc(
         `https://brainy-literacy-assets.s3.amazonaws.com/audio/words/${word.charAt(
           0
-        )}/${cleanedWord(word)}.mp3`
+        )}/${cleanedWord(word).toLowerCase()}.mp3`
       )
       setTimeoutState(setTimeout(unsetWord, 3000))
     }

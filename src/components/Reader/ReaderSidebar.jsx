@@ -122,12 +122,14 @@ const ReaderSidebar = ({ page, config, ...rest }) => {
       <SidebarButton onClick={bookmark}>
         {bookmarkedState ? <BookmarkIconFilled /> : <BookmarkIconUnfilled />}
       </SidebarButton>
-      <AudioManager
-        src={audioSrc}
-        paused={!isPlaying}
-        start={audioStart}
-        end={audioEnd}
-      />
+      {isAudio && (
+        <AudioManager
+          src={audioSrc}
+          paused={!isPlaying}
+          start={audioStart}
+          end={audioEnd}
+        />
+      )}
     </Flex>
   )
 }
