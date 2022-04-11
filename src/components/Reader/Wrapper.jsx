@@ -62,6 +62,12 @@ const Wrapper = ({
   const [showAlert, setShowAlert] = useState(false)
   const [definition, setDefinition] = useState('')
 
+  const unsetWord = useCallback(() => {
+    setCurrWord(DEFAULT_CURR_WORD)
+    setShowAlert(false)
+    setAudioSrc('')
+  }, [DEFAULT_CURR_WORD, setAudioSrc])
+
   useEffect(() => {
     if (isBookPlaying) {
       setAudioSrcState({ src: '', i: -1 })
@@ -103,12 +109,6 @@ const Wrapper = ({
         setTimeoutState(setTimeout(unsetWord, 3000))
       }
     }
-
-  const unsetWord = useCallback(() => {
-    setCurrWord(DEFAULT_CURR_WORD)
-    setShowAlert(false)
-    setAudioSrc('')
-  }, [DEFAULT_CURR_WORD, setAudioSrc])
 
   const playDefinitionAudio = () => {
     setAudioSrc(

@@ -97,10 +97,11 @@ const ReaderSidebar = ({
       setIsAudio(true)
       setIsPlaying(true)
     }
-  }, [router.query.play, setAudioStates])
+  }, [router.query.play, setIsPlaying])
 
   useEffect(() => {
     setAudioStates(Math.max(audioProgress, 0))
+    if (audioProgress === -1) return
     setIsAudio(true)
     setIsPlaying(true)
   }, [audioProgress, setAudioStates, setIsPlaying])

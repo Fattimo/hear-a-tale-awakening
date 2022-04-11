@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Wrapper from 'src/components/Reader/Wrapper'
 import { Box, Flex } from '@chakra-ui/react'
@@ -17,6 +17,9 @@ const Page = ({ config = {} }) => {
   const [isTouchingWord, setIsTouchingWord] = useState(false)
   const router = useRouter()
   const { page } = router.query
+  useEffect(() => {
+    setAudioProgress(-1)
+  }, [page])
   const pageNumber = parseInt(page)
   if (isNaN(pageNumber) || pageNumber < 1 || pageNumber > config.totalPages)
     return <Box>Invalid Page</Box>
