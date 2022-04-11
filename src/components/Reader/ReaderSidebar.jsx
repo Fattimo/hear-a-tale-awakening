@@ -15,7 +15,16 @@ import {
 import AudioManager from './AudioManager'
 import SidebarButton from './SidebarButton'
 
-const ReaderSidebar = ({ page, config, isPlaying, setIsPlaying, ...rest }) => {
+const ReaderSidebar = ({
+  page,
+  config,
+  isPlaying,
+  setIsPlaying,
+  isTouchingWord,
+  setIsTouchingWord,
+  audioProgress,
+  ...rest
+}) => {
   const [localStorage, setLocalStorage] = useState({})
   const [bookmarkedState, setBookmarked] = useState(false)
   const [isDoublePaged, setIsDoublePaged] = useState(false)
@@ -57,19 +66,27 @@ const ReaderSidebar = ({ page, config, isPlaying, setIsPlaying, ...rest }) => {
   const [audioEnd, setAudioEnd] = useState(-1)
   const router = useRouter()
   const [isAudio, setIsAudio] = useState(false)
-  const setAudioStates = useCallback(() => {
-    const pageData = config.pages[page]
-    setAudioSrc({
-      src: `https://brainy-literacy-assets.s3.amazonaws.com/audio/awa/awa_${pageData.chapter}.mp3`,
-    })
-    setAudioStart(pageData.ts)
-    let endTs = pageData.ts + pageData.duration
-    if (isDoublePaged) {
-      const nextPageData = config.pages[page + 1]
-      if (nextPageData) endTs = nextPageData.duration + endTs
-    }
-    setAudioEnd(endTs)
-  }, [config.pages, isDoublePaged, page])
+  const setAudioStates = useCallback(
+    (offset = 0) => {
+      const pageData = config.pages[page]
+      setAudioSrc({
+        src: `https://brainy-literacy-assets.s3.amazonaws.com/audio/awa/awa_${pageData.chapter}.mp3`,
+      })
+      let startTs = pageData.ts
+      let endTs = pageData.ts + pageData.duration
+      if (isDoublePaged) {
+        const nextPageData = config.pages[page + 1]
+        if (nextPageData) endTs = nextPageData.duration + endTs
+        if (offset > 1) {
+          offset %= 1
+          if (nextPageData) startTs = nextPageData.ts
+        }
+      }
+      setAudioStart(startTs + offset * pageData.duration)
+      setAudioEnd(endTs)
+    },
+    [config.pages, isDoublePaged, page]
+  )
 
   useEffect(() => {
     setAudioStates()
@@ -81,6 +98,12 @@ const ReaderSidebar = ({ page, config, isPlaying, setIsPlaying, ...rest }) => {
       setIsPlaying(true)
     }
   }, [router.query.play, setAudioStates])
+
+  useEffect(() => {
+    setAudioStates(Math.max(audioProgress, 0))
+    setIsAudio(true)
+    setIsPlaying(true)
+  }, [audioProgress, setAudioStates, setIsPlaying])
 
   const toggleAudio = () => {
     setIsAudio(!isAudio)
@@ -106,7 +129,10 @@ const ReaderSidebar = ({ page, config, isPlaying, setIsPlaying, ...rest }) => {
           </SidebarButton>
         </Link>
       </NextLink>
-      <SidebarButton>
+      <SidebarButton
+        onClick={() => setIsTouchingWord(!isTouchingWord)}
+        bgColor={isTouchingWord ? 'theme.faintpurple' : 'white'}
+      >
         <TouchIcon />
       </SidebarButton>
       <SidebarButton onClick={toggleAudio}>

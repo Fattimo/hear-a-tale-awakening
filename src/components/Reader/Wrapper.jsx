@@ -12,6 +12,9 @@ const Wrapper = ({
   setQuizOpen,
   isBookPlaying,
   setIsBookPlaying,
+  setAudioProgress,
+  isTouchingWord,
+  setIsTouchingWord,
 }) => {
   const router = useRouter()
 
@@ -66,32 +69,40 @@ const Wrapper = ({
     }
   }, [isBookPlaying, unsetWord])
 
-  const clickWord = (page) => (word, paragraph, index) => () => {
-    if (timeout) clearTimeout(timeout)
-    if (
-      page === currWord.page &&
-      word == currWord.word &&
-      paragraph === currWord.paragraph &&
-      index === currWord.index
-    ) {
-      fetch(`/api/definition?word=${cleanedWord(word)}`).then((res) =>
-        res.json().then((definition) => {
-          setShowAlert(true)
-          setDefinition(definition)
-        })
-      )
-    } else {
-      setShowAlert(false)
-      setCurrWord({ page, word, paragraph, index })
-      setAudioSrc(
-        `https://brainy-literacy-assets.s3.amazonaws.com/audio/words/${word.charAt(
-          0
-        )}/${cleanedWord(word).toLowerCase()}.mp3`
-      )
-      setIsBookPlaying(false)
-      setTimeoutState(setTimeout(unsetWord, 3000))
+  const clickWord =
+    (page) =>
+    (word, paragraph, index, progress = 0) =>
+    () => {
+      if (timeout) clearTimeout(timeout)
+      if (isTouchingWord) {
+        setAudioProgress(progress - 0.03 + page)
+        setIsTouchingWord(false)
+        return
+      }
+      if (
+        page === currWord.page &&
+        word == currWord.word &&
+        paragraph === currWord.paragraph &&
+        index === currWord.index
+      ) {
+        fetch(`/api/definition?word=${cleanedWord(word)}`).then((res) =>
+          res.json().then((definition) => {
+            setShowAlert(true)
+            setDefinition(definition)
+          })
+        )
+      } else {
+        setShowAlert(false)
+        setCurrWord({ page, word, paragraph, index })
+        setAudioSrc(
+          `https://brainy-literacy-assets.s3.amazonaws.com/audio/words/${word.charAt(
+            0
+          )}/${cleanedWord(word).toLowerCase()}.mp3`
+        )
+        setIsBookPlaying(false)
+        setTimeoutState(setTimeout(unsetWord, 3000))
+      }
     }
-  }
 
   const unsetWord = useCallback(() => {
     setCurrWord(DEFAULT_CURR_WORD)
@@ -157,10 +168,9 @@ const Wrapper = ({
           pageId={1}
           chapter={chapterHeading(pageNumber + 1)}
         />
-        <Spacer>
-          <AudioManager src={audioSrc} />
-        </Spacer>
+        <Spacer />
       </Flex>
+      <AudioManager src={audioSrc} />
       {showAlert && (
         <WordAlert
           word={cleanedWord()}
