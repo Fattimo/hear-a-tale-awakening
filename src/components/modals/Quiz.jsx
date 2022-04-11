@@ -1,11 +1,16 @@
 import { ArrowRightIcon, CloseIcon, StarIcon } from '@chakra-ui/icons'
 import { Box, Flex, Progress, Text, Loading } from '@chakra-ui/react'
 import React, { useCallback, useEffect, useState } from 'react'
-import { HeadphonesIcon } from '../Icons'
 import SidebarButton from '../Reader/SidebarButton'
 import style from './quiz.module.css'
 
-const Quiz = ({ closeQuiz, word = '', setAudioSrc }) => {
+const Quiz = ({
+  closeQuiz,
+  word = '',
+  setAudioSrc,
+  playWordAudio,
+  playDefinitionAudio,
+}) => {
   const [quiz, setQuiz] = useState({})
   const [correct, setCorrect] = useState(null)
   const [selectedIndex, setSelectedIndex] = useState(-1)
@@ -75,6 +80,7 @@ const Quiz = ({ closeQuiz, word = '', setAudioSrc }) => {
       zIndex={10}
       top={0}
       left={0}
+      overflow={'hidden'}
     >
       <Flex
         direction={'column'}
@@ -212,9 +218,48 @@ const Quiz = ({ closeQuiz, word = '', setAudioSrc }) => {
         <SidebarButton pos={'absolute'} top={12} left={16} onClick={closeQuiz}>
           <CloseIcon />
         </SidebarButton>
-        <SidebarButton pos={'absolute'} top={12} right={16} onClick={nextQuiz}>
-          {correct === true ? <ArrowRightIcon /> : <HeadphonesIcon />}
+        <SidebarButton
+          pos={'absolute'}
+          top={12}
+          right={16}
+          onClick={nextQuiz}
+          opacity={correct ? 1 : 0.3}
+          cursor={correct ? 'pointer' : null}
+        >
+          <ArrowRightIcon />
         </SidebarButton>
+        <Text
+          pos={'absolute'}
+          top={6}
+          left={40}
+          maxW={16}
+          p={2}
+          bgColor={'theme.lightpurple'}
+          textAlign={'center'}
+          color={'white'}
+          fontSize={'md'}
+          cursor={'pointer'}
+          borderRadius={'lg'}
+          onClick={() => playWordAudio(word)}
+        >
+          Hear Word
+        </Text>
+        <Text
+          pos={'absolute'}
+          top={6}
+          right={32}
+          maxW={24}
+          p={2}
+          bgColor={'theme.lightpurple'}
+          textAlign={'center'}
+          color={'white'}
+          borderRadius={'lg'}
+          fontSize={'md'}
+          cursor={'pointer'}
+          onClick={() => playDefinitionAudio()}
+        >
+          Hear Definition
+        </Text>
       </Flex>
     </Box>
   )

@@ -80,7 +80,7 @@ const ReaderSidebar = ({ page, config, isPlaying, setIsPlaying, ...rest }) => {
       setIsAudio(true)
       setIsPlaying(true)
     }
-  }, [router.query.play, setAudioStates])
+  }, [router.query.play, setAudioStates, setIsPlaying])
 
   const toggleAudio = () => {
     setIsAudio(!isAudio)

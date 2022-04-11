@@ -1,6 +1,6 @@
 import { Flex, Spacer } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import Quiz from '../modals/Quiz'
 import AudioManager from './AudioManager'
 import Page from './Page'
@@ -46,14 +46,19 @@ const Wrapper = ({
   }, [config.pages, pageNumber])
 
   // Audio Calculations
-  const DEFAULT_CURR_WORD = {
-    word: '',
-    index: -1,
-    paragraph: -1,
-    page: -1,
-  }
+  const DEFAULT_CURR_WORD = useMemo(() => {
+    return {
+      word: '',
+      index: -1,
+      paragraph: -1,
+      page: -1,
+    }
+  }, [])
   const [audioSrc, setAudioSrcState] = useState({ src: '', i: 0 })
-  const setAudioSrc = (src) => setAudioSrcState({ src, i: audioSrc.i + 1 })
+  const setAudioSrc = useCallback(
+    (src) => setAudioSrcState({ src, i: audioSrc.i + 1 }),
+    [audioSrc.i]
+  )
   const [currWord, setCurrWord] = useState(DEFAULT_CURR_WORD)
   const [timeout, setTimeoutState] = useState(null)
   const [showAlert, setShowAlert] = useState(false)
@@ -83,12 +88,7 @@ const Wrapper = ({
     } else {
       setShowAlert(false)
       setCurrWord({ page, word, paragraph, index })
-      setAudioSrc(
-        `https://brainy-literacy-assets.s3.amazonaws.com/audio/words/${word.charAt(
-          0
-        )}/${cleanedWord(word).toLowerCase()}.mp3`
-      )
-      setIsBookPlaying(false)
+      playWordAudio(word)
       setTimeoutState(setTimeout(unsetWord, 3000))
     }
   }
@@ -98,6 +98,15 @@ const Wrapper = ({
     setShowAlert(false)
     setAudioSrc('')
   }, [DEFAULT_CURR_WORD, setAudioSrc])
+
+  const playWordAudio = (word) => {
+    setAudioSrc(
+      `https://brainy-literacy-assets.s3.amazonaws.com/audio/words/${word.charAt(
+        0
+      )}/${cleanedWord(word).toLowerCase()}.mp3`
+    )
+    setIsBookPlaying(false)
+  }
 
   const playDefinitionAudio = () => {
     setAudioSrc(
@@ -175,6 +184,8 @@ const Wrapper = ({
           closeQuiz={closeQuiz}
           word={definition.key}
           setAudioSrc={setAudioSrc}
+          playWordAudio={playWordAudio}
+          playDefinitionAudio={playDefinitionAudio}
         />
       )}
     </Flex>
