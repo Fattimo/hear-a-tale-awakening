@@ -39,7 +39,7 @@ A running instance of MongoDB is required this project.
   3. In Security → Database Access: Add new database user
   4. In Data Storage → Clusters: Find your cluster and click `Connect` → `Connect your application` and copy the connection string, set the username and password, and set this as `MONGO_DB` in `.env.local`
 - Create the `nextjs` database. (or choose another name, but make sure to change it in `.env.local`)
-- It's very helpful to install MongoDB Compass to see your database contents
+- It's very helpful to install MongoDB Compass to see your database contents! Just input the connection string from above, and you will be able to visually observe the database.
 
 ### Node
 
@@ -55,17 +55,51 @@ To understand this code better, read the [Code Tour](/CODETOUR.md).
 
 1. Run `yarn`
 2. Run `yarn dev`
+3. Go to `localhost:3000` to see the app running!
 
 ### Production
 
+There is a pipeline in place that automatically deploys to Vercel. Vercel deploys for every PR/push into the main or production branches. Three GitHub deployment environments are used: Production (for pushes to production), Preview (for pushes to open PRs into main or production), and Development (for pushes to main). See the Installation Guide below for more information.
 
-There is a pipeline in place that automatically deploys to Vercel. Vercel deploys for every PR/push into the main or production branches. Three GitHub deployment environments are used: Production (for pushes to production), Preview (for pushes to open PRs into main or production), and Development (for pushes to main).
+## Installation Guide
+
+### Pre requisites
+
+### Dependent libraries
+
+### Download Instructions
+
+### Build Instructions
+
+### Installation of actual application: 
+
+### Run instructions
+
+### Troubleshooting
 
 ---
 
 # Release Notes
 
-## Version 0.4.0
+## Version 1.0.0
+
+### New Features
+
+* feature 1
+
+### Improvements?
+
+* optional section we've been including but not apart of the actual assignment
+
+### Bug Fixes
+
+* fix 1
+
+### Known Bugs
+
+* bug 1
+
+--- OLD CONTENT BELOW
 
 ### New Features
 
