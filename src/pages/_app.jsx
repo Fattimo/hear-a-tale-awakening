@@ -19,6 +19,7 @@ const theme = extendTheme({
     theme: {
       purple: '#666FC1',
       lightpurple: '#838CDF',
+      faintpurple: '#CBCFEF',
       gray: '#E6E9EF',
       progress: { 500: '#666FC1' },
     },

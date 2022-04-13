@@ -6,6 +6,17 @@ const Page = ({ text, clickWord, selected, pageId, chapter, ...props }) => {
   const JUSTIFY_LAST_MARKER = '&jl;'
   const whitespace = /\s/
   const words = text.split('\n').map((para) => para.split(whitespace))
+  const numWords = words.reduce(
+    (runningTot, para) => runningTot + para.length,
+    0
+  )
+  const getCumWords = (i, j) => {
+    return words.reduce((runningTot, para, currI) => {
+      if (currI < i) return runningTot + para.length
+      else if (currI == i) return runningTot + j
+      else return runningTot
+    }, 0)
+  } 
   const overflowBox = useRef(null)
   useEffect(
     () =>
@@ -55,7 +66,7 @@ const Page = ({ text, clickWord, selected, pageId, chapter, ...props }) => {
             {paragraph.map((word, j) => (
               <span key={j}>
                 <span
-                  onClick={clickWord(word, i, j)}
+                  onClick={clickWord(word, i, j, getCumWords(i, j) / numWords)}
                   style={{
                     backgroundColor:
                       selected.word === word &&
