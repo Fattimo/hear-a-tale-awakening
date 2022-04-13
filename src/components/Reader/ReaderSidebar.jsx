@@ -82,6 +82,8 @@ const ReaderSidebar = ({
           if (nextPageData) startTs = nextPageData.ts
         }
       }
+      // hard coding to set the startts to 0:08 on the first page whenever there is an offset
+      if (page === 1 && offset > 0) startTs = 8
       setAudioStart(startTs + offset * pageData.duration)
       setAudioEnd(endTs)
     },
@@ -100,7 +102,7 @@ const ReaderSidebar = ({
   }, [router.query.play, setIsPlaying])
 
   useEffect(() => {
-    setAudioStates(Math.max(audioProgress, 0))
+    setAudioStates(Math.max(audioProgress, 0.001))
     if (audioProgress === -1) return
     setIsAudio(true)
     setIsPlaying(true)
