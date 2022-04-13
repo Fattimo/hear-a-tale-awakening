@@ -231,8 +231,9 @@ const Quiz = ({
         <Text
           pos={'absolute'}
           top={6}
-          left={40}
-          maxW={16}
+          left={32}
+          w={24}
+          maxW={24}
           p={2}
           bgColor={'theme.lightpurple'}
           textAlign={'center'}
@@ -242,12 +243,15 @@ const Quiz = ({
           borderRadius={'lg'}
           onClick={() => playWordAudio(word)}
         >
-          Hear Word
+          Hear
+          <br />
+          Word
         </Text>
         <Text
           pos={'absolute'}
           top={6}
           right={32}
+          w={24}
           maxW={24}
           p={2}
           bgColor={'theme.lightpurple'}
