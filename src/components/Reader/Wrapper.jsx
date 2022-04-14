@@ -12,6 +12,9 @@ const Wrapper = ({
   setQuizOpen,
   isBookPlaying,
   setIsBookPlaying,
+  setAudioProgress,
+  isTouchingWord,
+  setIsTouchingWord,
 }) => {
   const router = useRouter()
 
@@ -64,6 +67,12 @@ const Wrapper = ({
   const [showAlert, setShowAlert] = useState(false)
   const [definition, setDefinition] = useState('')
 
+  const unsetWord = useCallback(() => {
+    setCurrWord(DEFAULT_CURR_WORD)
+    setShowAlert(false)
+    setAudioSrc('')
+  }, [DEFAULT_CURR_WORD, setAudioSrc])
+
   useEffect(() => {
     if (isBookPlaying) {
       setAudioSrcState({ src: '', i: -1 })
@@ -71,33 +80,36 @@ const Wrapper = ({
     }
   }, [isBookPlaying, unsetWord])
 
-  const clickWord = (page) => (word, paragraph, index) => () => {
-    if (timeout) clearTimeout(timeout)
-    if (
-      page === currWord.page &&
-      word == currWord.word &&
-      paragraph === currWord.paragraph &&
-      index === currWord.index
-    ) {
-      fetch(`/api/definition?word=${cleanedWord(word)}`).then((res) =>
-        res.json().then((definition) => {
-          setShowAlert(true)
-          setDefinition(definition)
-        })
-      )
-    } else {
-      setShowAlert(false)
-      setCurrWord({ page, word, paragraph, index })
-      playWordAudio(word)
-      setTimeoutState(setTimeout(unsetWord, 3000))
+  const clickWord =
+    (page) =>
+    (word, paragraph, index, progress = 0) =>
+    () => {
+      if (timeout) clearTimeout(timeout)
+      if (isTouchingWord) {
+        setAudioProgress(progress - 0.03 + page)
+        setIsTouchingWord(false)
+        return
+      }
+      if (
+        page === currWord.page &&
+        word == currWord.word &&
+        paragraph === currWord.paragraph &&
+        index === currWord.index
+      ) {
+        fetch(`/api/definition?word=${cleanedWord(word)}`).then((res) =>
+          res.json().then((definition) => {
+            setShowAlert(true)
+            setDefinition(definition)
+          })
+        )
+      } else {
+        setShowAlert(false)
+        setCurrWord({ page, word, paragraph, index })
+        playWordAudio(word)
+        setIsBookPlaying(false)
+        setTimeoutState(setTimeout(unsetWord, 3000))
+      }
     }
-  }
-
-  const unsetWord = useCallback(() => {
-    setCurrWord(DEFAULT_CURR_WORD)
-    setShowAlert(false)
-    setAudioSrc('')
-  }, [DEFAULT_CURR_WORD, setAudioSrc])
 
   const playWordAudio = (word) => {
     setAudioSrc(
@@ -166,10 +178,9 @@ const Wrapper = ({
           pageId={1}
           chapter={chapterHeading(pageNumber + 1)}
         />
-        <Spacer>
-          <AudioManager src={audioSrc} />
-        </Spacer>
+        <Spacer />
       </Flex>
+      <AudioManager src={audioSrc} />
       {showAlert && (
         <WordAlert
           word={cleanedWord()}

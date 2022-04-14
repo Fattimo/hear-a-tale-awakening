@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Wrapper from 'src/components/Reader/Wrapper'
 import { Box, Flex } from '@chakra-ui/react'
@@ -13,8 +13,13 @@ export async function getServerSideProps() {
 const Page = ({ config = {} }) => {
   const [isBookPlaying, setIsBookPlaying] = useState(false)
   const [quizOpen, setQuizOpen] = useState(false)
+  const [audioProgress, setAudioProgress] = useState(-1)
+  const [isTouchingWord, setIsTouchingWord] = useState(false)
   const router = useRouter()
   const { page } = router.query
+  useEffect(() => {
+    setAudioProgress(-1)
+  }, [page])
   const pageNumber = parseInt(page)
   if (isNaN(pageNumber) || pageNumber < 1 || pageNumber > config.totalPages)
     return <Box>Invalid Page</Box>
@@ -27,6 +32,9 @@ const Page = ({ config = {} }) => {
         config={config}
         isPlaying={isBookPlaying}
         setIsPlaying={setIsBookPlaying}
+        isTouchingWord={isTouchingWord}
+        setIsTouchingWord={setIsTouchingWord}
+        audioProgress={audioProgress}
         pointerEvents={quizOpen ? 'none' : null}
       />
       <Flex
@@ -43,6 +51,9 @@ const Page = ({ config = {} }) => {
           setQuizOpen={setQuizOpen}
           isBookPlaying={isBookPlaying}
           setIsBookPlaying={setIsBookPlaying}
+          setAudioProgress={setAudioProgress}
+          isTouchingWord={isTouchingWord}
+          setIsTouchingWord={setIsTouchingWord}
         />
         <Panel
           maxPage={config.totalPages}
