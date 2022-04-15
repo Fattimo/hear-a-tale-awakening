@@ -78,6 +78,16 @@ with open("rawdefinitions/definitions1.txt", 'r', encoding='utf8') as defs:#Word
                 p2 = l.index("(")
                 doc["definition"] = l[pos+1:p2].strip()#Do not include leading or trailing spaces
                 doc["related"] = l[p2-1:] #Include trailing space as these will be concatenated for display
+                smpos = len(l)
+                if ';' in l[p2+1:]:
+                    smpos = l[p2+1:].index(';')#We do not want to associate words after semicolon
+                    
+                for w2 in l[p2+1:p2+1+smpos].split(","): #Associate with words in parentheses
+                    w2 = w2.replace(')', '')
+                    w2 = w2.strip()
+                    if w2 != "" and w2 not in s:
+                        doc["words"].append(w2)
+                        s.add(w2)
             else:
                 doc["definition"] = l[pos+1:].strip()#Do not include leading spaces
                 doc["related"] = ""
