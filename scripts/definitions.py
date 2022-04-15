@@ -1,5 +1,7 @@
 import pymongo
 import sys
+import french
+from french import findandformatfrench
 
 testDB = "mongodb://localhost:27017/"
 DB = testDB
@@ -81,7 +83,7 @@ with open("rawdefinitions/definitions1.txt", 'r', encoding='utf8') as defs:#Word
                 smpos = len(l)
                 if ';' in l[p2+1:]:
                     smpos = l[p2+1:].index(';')#We do not want to associate words after semicolon
-                    
+
                 for w2 in l[p2+1:p2+1+smpos].split(","): #Associate with words in parentheses
                     w2 = w2.replace(')', '')
                     w2 = w2.strip()
@@ -100,6 +102,7 @@ with open("rawdefinitions/definitions1.txt", 'r', encoding='utf8') as defs:#Word
                 
     dupcheck(doc)
 
+frenchphrases = []
 with open("rawdefinitions/french.txt", 'r', encoding='utf8') as defs:#Words
     lines = defs.readlines()
     doc = {}
@@ -119,6 +122,7 @@ with open("rawdefinitions/french.txt", 'r', encoding='utf8') as defs:#Words
             if word not in s:# Some words are listed twice in definition - Don't add twice
                 doc["words"].append(word)
                 s.add(word)
+                frenchphrases.append(word)
             doc["definition"] = l[pos+2:]
                 
     dupcheck(doc)
@@ -126,3 +130,5 @@ with open("rawdefinitions/french.txt", 'r', encoding='utf8') as defs:#Words
 col.insert_many(docs)
 col.create_index([("first_letter", pymongo.ASCENDING)])
 col.create_index([("words", pymongo.ASCENDING)])
+
+findandformatfrench(frenchphrases)
