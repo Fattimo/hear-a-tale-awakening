@@ -37,6 +37,7 @@ position = {}#Maps each word to index in docs of its document
 #Check if document is duplicate of words already defined
 #If it is, delete the old definition and use this one
 #Otherwise add normally to docs
+#This is responsible for adding a document to output, so don't remove
 def dupcheck(doc):
     if doc != {}:
         exists = False
@@ -69,16 +70,16 @@ with open("rawdefinitions/definitions1.txt", 'r', encoding='utf8') as defs:#Word
 
             doc = {"words": [], "definition": "", "first_letter": ""}
             pos = l.index('=')
-            word = l[:pos-1].lower()# Do not include '=' or space in definition
+            word = l[:pos-1].strip().lower()# Do not include '=' or space in definition
             if word not in s:# Some words are listed twice in definition - Don't add twice
                 doc["words"].append(word)
                 s.add(word)
             if "(" in l:#Are there words in parentheses at the end?
                 p2 = l.index("(")
-                doc["definition"] = l[pos+2:p2 - 1]#Do not include leading or trailing spaces
+                doc["definition"] = l[pos+1:p2].strip()#Do not include leading or trailing spaces
                 doc["related"] = l[p2-1:] #Include trailing space as these will be concatenated for display
             else:
-                doc["definition"] = l[pos+2:]#Do not include leading spaces
+                doc["definition"] = l[pos+1:].strip()#Do not include leading spaces
                 doc["related"] = ""
             doc["first_letter"] = l[0].lower()
         else:#Equivalent word listed on the next line
@@ -89,6 +90,28 @@ with open("rawdefinitions/definitions1.txt", 'r', encoding='utf8') as defs:#Word
                 
     dupcheck(doc)
 
+with open("rawdefinitions/french.txt", 'r', encoding='utf8') as defs:#Words
+    lines = defs.readlines()
+    doc = {}
+    s = set()
+    for line in lines:
+        l = line.strip()
+        if l == "":
+            continue
+
+        if '=' in l:#Definition found
+            s = set()
+            dupcheck(doc) #Only check on a new document
+
+            doc = {"words": [], "definition": "", "french": True}
+            pos = l.index('=')
+            word = l[:pos].strip().lower()# Do not include '=' or space in definition
+            if word not in s:# Some words are listed twice in definition - Don't add twice
+                doc["words"].append(word)
+                s.add(word)
+            doc["definition"] = l[pos+2:]
+                
+    dupcheck(doc)
         
 col.insert_many(docs)
 col.create_index([("first_letter", pymongo.ASCENDING)])
