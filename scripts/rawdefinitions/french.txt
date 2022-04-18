@@ -1,0 +1,381 @@
+allez = go 
+
+adieu = goodbye 
+
+Au revoir = goodbye 
+
+ayez = have 
+
+bébé = baby 
+
+bellissime = handsome 
+
+bête = beast 
+
+bien = good 
+
+blagueur = joker 
+
+bon = good 
+
+bonne = good 
+
+brune = brown 
+
+ca = that 
+
+ce = this 
+
+centre = center 
+
+chambres = rooms 
+
+chatte = cat 
+
+chère = dear 
+
+chéri = dear 
+
+chérie = dearest 
+
+cochon = pig 
+
+corbeille = crow 
+
+côte = coast 
+
+coton = cotton 
+
+crèpe = pancake 
+
+croquignoles = cookies 
+
+dieu = god 
+
+donc = then 
+
+elle = she  
+
+entre-mets = sidedish 
+
+esprit = spirit 
+
+exemple = example 
+
+farceur = joker 
+
+faut = must 
+
+foi = faith 
+
+folle = craziness 
+
+folles = craziness 
+
+français = French 
+
+friandises = delicacies 
+
+griffe = claw 
+
+guerre = war  
+
+idee = idea 
+
+jalouse = jealous 
+
+jalousies = jealousies 
+
+jeudi = Thursday 
+
+joyeuse = happy 
+
+la = there 
+
+lait = milk 
+
+les = the 
+
+li’le = little  
+
+ma’ame = madam 
+
+mademoiselle = miss 
+
+maître = master 
+
+mam’selle = miss 
+
+marron = chestnut 
+
+ménage = household 
+
+mets = food 
+
+moi = me 
+
+mon = my 
+
+mo’ning = morning 
+
+monsieur = mister 
+
+montée = mounted 
+
+n’est = isn’t 
+
+negligé = nightgown 
+
+nom = name 
+
+Non = no 
+
+nuit = night 
+
+où = where 
+
+oui = yes 
+
+p’tit = small 
+
+par = by 
+
+pas = not 
+
+pauvre = poor 
+
+peignoir = nightgown 
+
+petite = small 
+
+pitié = pity 
+
+porte = door 
+
+porte-monnaie = purse 
+
+poudre = powder  
+
+pouponne = baby 
+
+reine = queen 
+
+revoir = goodbye 
+
+savais = know  
+
+secours = help  
+
+sence = since 
+
+si = yes 
+
+sombre = dark 
+
+souffrante = suffering 
+
+tan’tante = auntie 
+
+tante = aunt 
+
+terre = earth 
+
+tes = your 
+
+tête = head 
+
+tignon = headdress 
+
+tu = you 
+
+va = go 
+
+vingt-et-un = 21 
+
+yair = here 
+
+yeux = eyes 
+
+yonda = yonder 
+
+à jeudi = till Thursday 
+
+à point = perfectly cooked 
+
+Ah! si tu savais = Ah!  If you knew 
+
+Allez vous-en! Allez vous-en! Sapristi! = Go on, go on, good heavens! 
+
+Allez vous-en! Sapristi! = go on, good heavens! 
+
+batture = floodplain; low land which sometimes floods 
+
+bien souffrante = really suffering 
+
+Blagueur—farceur—gros bête, va! = joker—trickster, big beast, go on! 
+
+Bon Dieu =  Good God 
+
+Bon Dieu, ayez pitié La Folle! Bon Dieu, ayez pitié moi! = Good God, have pity on the madwoman!  Good God, pity me! 
+
+bon garçon = good boy 
+
+bonfils = good son 
+
+Bonne nuit, ma reine; soyez sage. = Good night, my queen; be good. 
+
+Ce que tes yeux me dissent = What your eyes tell me 
+
+chambres garnies = furnished rooms 
+
+chênière  =  on a beach a sandy or shelly ridge between muddy areas 
+
+chère amie = dear friend 
+
+cochère = carriage entrance 
+
+cochon de lait = suckling pig 
+
+convenances = manners; conformity; suitability; decency; decorum 
+
+coup d’état = a takeover; an illegal change of government   
+
+coupé = cut; or can mean a kind of coach a four-wheeled enclosed carriage for two passengers and a driver 
+
+crème-frappée = whipped creme 
+
+Don’t cry, mon bébé, mon bébé, mon Chéri! = My baby, my baby, my dear! 
+
+en bon ami = like a good friend 
+
+en bonne ménagère = like a good housewife 
+
+ennui = boredom or annoyance 
+
+faire = to do, or to make 
+
+faire mal a Pauline = mistreat Pauline 
+
+fort = very much 
+
+forte = very much 
+
+garçon = boy, or waiter 
+
+glacé  = frozen, or glazed with sugar 
+
+gouvernail = rudder, helm, or steering wheel 
+
+grande = grand or great 
+
+gros = big or fat 
+
+Il ne faut pas faire mal à Pauline = Don’t mistreat Pauline. 
+
+l’abri = safe place 
+
+la belle dame = the lovely lady 
+
+Lafirme = a name 
+
+Laforcé = a name 
+
+Lidie’s = a name	 
+
+ma belle = my beauty 
+
+ma chère = my dear 
+
+ma foi! = Good gracious! 
+
+ma reine = my queen 
+
+mais = but; or can sometimes mean corn or maize 
+
+Mais ce n’est pas mal! Elle s’y connait, elle a de la force, oui = But that’s not bad!  She’ll learn, she’s capable, yes.  
+
+Mais si, Madame = But yes, madame. 
+
+mal = bad, evil, or hurt 
+
+marron glacé = glazed chestnuts 
+
+Mayblunt = a name 
+
+ménagère = housewife, homemaker, or housekeeper 
+
+mulatresse = woman of mixed race 
+
+ne = no or not 
+
+négrillon = African-American child 
+
+nom de guerre = alias or nickname 
+
+Oh, P’tit Maître! P’tit Maître! Venez donc! Au secours! Au secours! = Oh, little master!  Little master!  Come quick! Help!  Help! 
+
+Par exemple! = For example! 
+
+parbleu = a pretend swear word 
+
+passez = to go, pass, or proceed 
+
+Passez! Adieu! Allez vous-en! = Leave!  Goodbye!  Go on! 
+
+patés = meat or fish pie; can mean a block of houses or clump of trees; can mean a blot or blob of something 
+
+Pauvre chérie = poor dear 
+
+pension = an allowance; can mean a hotel, boarding house, or boarding school 
+
+perdido = a Spanish word for lost 
+
+Pillier = a name 
+
+Pillier’s = a name 
+
+porte cochère = carriage entrance 
+
+poudre de riz = face powder 
+
+régime = regime; a form of government or of administration 
+
+ricaneuse = laughing woman 
+
+Santien = a name 
+
+sapristi = good heavens! 
+
+seigneur = sir, lord; an important man 
+
+Sesoeur = a name 
+
+Sèvres = fine porcelain 
+
+soirée = evening; can mean evening party 
+
+soirée musicale = musical evening 
+
+soirées = evenings; can mean evening parties 
+
+soirées musicales = musical evenings 
+
+soyez = take care 
+
+taint = it ain’t 
+
+tête montée = worked up, excited, have a head full of steam 
+
+tête-à-tête = face to face 
+
+tiens = well; then; surely; can mean yours 
+
+tisane = a kind of herbal tea 
+
+venez = come or go 
+
+voilà = look; there is; there are; so there! 
+
+Voilà que Madame Ratignolle est jalouse! = See how jealous Madame Ratignolle is!	 
+
+vous-en  = get out 
