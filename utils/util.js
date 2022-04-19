@@ -1,6 +1,9 @@
 // Cleaned Word
 const cleanedWord = (word) => {
-  const punctuationless = word.replace(/[.,/#!$%^&*;:{}=_`~()“”]/g, '')
+  const regex = word.includes(' ')
+    ? /[.,/#$%^&*;:{}=_`~()“”]/g
+    : /[.,/#!$%^&*;:{}=_`~()“”]/g
+  const punctuationless = word.replace(regex, '')
   return punctuationless.replace(/\s{2,}/g, ' ')
 }
 
