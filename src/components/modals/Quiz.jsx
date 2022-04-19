@@ -36,6 +36,9 @@ const Quiz = ({
       setCorrect(true)
       setCurrCorrect(currCorrect + 1)
       setMaxCorrect(Math.max(maxCorrect, currCorrect + 1))
+      setAudioSrc(
+        'https://brainy-literacy-assets.s3.amazonaws.com/audio/correct_quiz_answer_sound.mp3'
+      )
     } else {
       setCorrect(false)
       setCurrCorrect(0)
