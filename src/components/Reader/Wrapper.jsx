@@ -140,7 +140,7 @@ const Wrapper = ({
 
   // Cleaned Word
   const cleanedWord = (word = currWord.word) => {
-    const punctuationless = word.replace(/[.,/#!$%^&*;:{}=_`~()]/g, '')
+    const punctuationless = word.replace(/[.,/#!$%^&*;:{}=_`~()“”]/g, '')
     return punctuationless.replace(/\s{2,}/g, ' ')
   }
 

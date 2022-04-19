@@ -26,6 +26,7 @@ const handler = async (req, res) => {
     definition: document.definition,
     key: document.words[0],
     related: document.related,
+    french: document.french ?? false
   })
 }
 
