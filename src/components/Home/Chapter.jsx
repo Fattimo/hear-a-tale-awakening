@@ -7,9 +7,11 @@ const Chapter = ({ number = 1, chapterProgress, chapter }) => {
   const [href, setHref] = useState('/page/1')
   useEffect(() => {
     if (chapterProgress) {
+      console.log('hi')
       setProgress(chapterProgress.progress ?? 0)
       setHref(`/page/${chapterProgress.page ?? chapter.startPage}`)
     } else {
+      setProgress(0)
       setHref(`/page/${chapter.startPage ?? 1}`)
     }
   }, [chapter.startPage, chapterProgress])
