@@ -14,6 +14,9 @@ import {
 } from '../Icons'
 import AudioManager from './AudioManager'
 import SidebarButton from './SidebarButton'
+import { useSession } from 'next-auth/react'
+import { updateBookData } from 'src/actions/bookData'
+import { getAwakeningData, setAwakeningField } from 'utils/localstorage'
 
 const ReaderSidebar = ({
   page,
@@ -25,6 +28,7 @@ const ReaderSidebar = ({
   audioProgress,
   ...rest
 }) => {
+  const session = useSession()
   const [localStorage, setLocalStorage] = useState({})
   const [bookmarkedState, setBookmarked] = useState(false)
   const [isDoublePaged, setIsDoublePaged] = useState(false)
@@ -34,12 +38,7 @@ const ReaderSidebar = ({
     }
     window.addEventListener('resize', handleResize)
     handleResize()
-    //TODO: replace with real user tied data
-    const data =
-      typeof window !== 'undefined'
-        ? JSON.parse(window.localStorage.getItem('awakening')) ?? {}
-        : {}
-    setLocalStorage(data)
+    setLocalStorage(getAwakeningData())
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
@@ -55,8 +54,8 @@ const ReaderSidebar = ({
       const i = localStorage.bookmarks.indexOf(page)
       if (i >= 0) localStorage.bookmarks.splice(i, 1)
     }
-    // TODO: This is a race condition with the other local storage set item in Panel.jsx. Will be resolved when this system isnt tied to localstorage.
-    window.localStorage.setItem('awakening', JSON.stringify(localStorage))
+    setAwakeningField('bookmarks', localStorage.bookmarks)
+    if (session.status === 'authenticated') updateBookData(localStorage)
     setBookmarked(!bookmarkedState)
     setLocalStorage(localStorage)
   }

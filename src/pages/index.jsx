@@ -2,10 +2,12 @@ import { Button, Flex, Grid, GridItem, Link, Text } from '@chakra-ui/react'
 import { useSession, signOut } from 'next-auth/react'
 import NextLink from 'next/link'
 import React, { useEffect, useState } from 'react'
+import { getBookData } from 'src/actions/bookData'
 import BookmarksPreview from 'src/components/Home/BookmarksPreview'
 import ChapterList from 'src/components/Home/ChapterList'
 import ContinueReading from 'src/components/Home/ContinueReading'
 import Sidebar from 'src/components/Home/Sidebar'
+import { getAwakeningData } from 'utils/localstorage'
 
 const Index = ({ config = {} }) => {
   const session = useSession()
@@ -22,14 +24,18 @@ const Index = ({ config = {} }) => {
      *  },
      *  bookmarks: [numbers]
      * }
-     * TODO: replace with real user tied data
      */
-    const data =
-      typeof window !== 'undefined'
-        ? JSON.parse(window.localStorage.getItem('awakening')) ?? {}
-        : {}
-    setLocalStorage(data)
-  }, [])
+    const getUserData = async () => {
+      const { bookData } = await getBookData()
+      setLocalStorage(bookData)
+      window.localStorage.setItem('awakening', JSON.stringify(bookData))
+    }
+    if (isAuthed) getUserData()
+    else {
+      const data = getAwakeningData()
+      setLocalStorage(data)
+    }
+  }, [isAuthed])
   const { chapter } = config.pages[localStorage.currPage ?? 1]
   return (
     <Flex h="100%">
