@@ -5,6 +5,7 @@ import { createBreakpoints } from '@chakra-ui/theme-tools'
 import 'focus-visible/dist/focus-visible.min.js'
 import 'normalize.css'
 import 'public/static/styles/App.css'
+import { SessionProvider } from 'next-auth/react'
 
 const breakpoints = createBreakpoints({
   sm: '320px',
@@ -28,17 +29,19 @@ const theme = extendTheme({
   breakpoints,
 })
 
-const MyApp = ({ Component, pageProps }) => (
-  <ChakraProvider theme={theme}>
-    <Head>
-      <title>The Awakening</title>
-    </Head>
-    <div className="App">
-      <Box className="Content" bgColor="theme.gray">
-        <Component {...pageProps} />
-      </Box>
-    </div>
-  </ChakraProvider>
+const MyApp = ({ Component, pageProps: { session, ...pageProps } }) => (
+  <SessionProvider session={session}>
+    <ChakraProvider theme={theme}>
+      <Head>
+        <title>The Awakening</title>
+      </Head>
+      <div className="App">
+        <Box className="Content" bgColor="theme.gray">
+          <Component {...pageProps} />
+        </Box>
+      </div>
+    </ChakraProvider>
+  </SessionProvider>
 )
 
 export default MyApp

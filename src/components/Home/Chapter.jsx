@@ -10,6 +10,7 @@ const Chapter = ({ number = 1, chapterProgress, chapter }) => {
       setProgress(chapterProgress.progress ?? 0)
       setHref(`/page/${chapterProgress.page ?? chapter.startPage}`)
     } else {
+      setProgress(0)
       setHref(`/page/${chapter.startPage ?? 1}`)
     }
   }, [chapter.startPage, chapterProgress])

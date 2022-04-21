@@ -17,6 +17,7 @@ const WordAlert = ({
   openQuiz,
   playDefinitionAudio,
 }) => {
+  const notAvailable = definition.definition === 'Word definition not found.'
   return (
     <Alert
       position={'absolute'}
@@ -43,16 +44,19 @@ const WordAlert = ({
             {definition.definition} {definition.related ?? ''}
           </AlertDescription>
         </Flex>
-        <Flex>
-          {!definition.french && (
-            <SidebarButton mx={4} onClick={openQuiz} w={12} h={12}>
-              <StarIcon w={6} h={6} />
+        {!notAvailable && (
+          <Flex>
+            {!definition.french && (
+              <SidebarButton mx={4} onClick={openQuiz} w={12} h={12}>
+                <StarIcon w={6} h={6} />
+              </SidebarButton>
+            )}
+
+            <SidebarButton w={12} h={12}>
+              <HeadphonesIcon onClick={playDefinitionAudio} w={6} h={6} />
             </SidebarButton>
-          )}
-          <SidebarButton w={12} h={12}>
-            <HeadphonesIcon onClick={playDefinitionAudio} w={6} h={6} />
-          </SidebarButton>
-        </Flex>
+          </Flex>
+        )}
       </Flex>
       <CloseButton
         onClick={closeAlert}
