@@ -27,7 +27,6 @@ export default NextAuth({
         let client = new MongoClient(process.env.MONGO_DB)
         client = await client.connect()
         const users = client.db('awakening').collection('users')
-        console.log(credentials)
         const result = await users.findOne({ email: credentials.email })
         if (!result) {
           throw new Error('no user found with email')
@@ -41,6 +40,7 @@ export default NextAuth({
         }
         return {
           email: result.email,
+          name: result.name || 'No Name',
         }
       },
     }),

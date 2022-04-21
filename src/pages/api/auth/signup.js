@@ -4,7 +4,7 @@ async function handler(req, res) {
   //Only POST mothod is accepted
   if (req.method === 'POST') {
     //Getting email and password from body
-    const { email, password } = req.body
+    const { email, password, name } = req.body
     //Validate
     // if (!email || !email.includes('@') || !password) {
     //   res.status(422).json({ message: 'Invalid Data' })
@@ -23,6 +23,7 @@ async function handler(req, res) {
     }
     //Hash password
     const status = await db.collection('users').insertOne({
+      name,
       email,
       password: await hash(password, 12),
     })
