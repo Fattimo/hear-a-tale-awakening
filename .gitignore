@@ -258,3 +258,4 @@ $RECYCLE.BIN/
 .vercel
 .env.local
 CHARACTERS.txt
+scripts/__pycache__/
