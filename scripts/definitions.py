@@ -123,7 +123,12 @@ with open("rawdefinitions/french.txt", 'r', encoding='utf8') as defs:#Words
                 doc["words"].append(word)
                 s.add(word)
                 frenchphrases.append(word)
-            doc["definition"] = l[pos+2:]
+            if '=' in l[pos+1:]: #This definition has associated audio
+                pos2 = l[pos+1:].index('=')
+                doc["definition"] = l[pos+1:pos+1+pos2].strip()
+                doc["audio"] = l[pos+pos2+2:].strip()
+            else:
+                doc["definition"] = l[pos+1:].strip()
                 
     dupcheck(doc)
         

@@ -14,7 +14,7 @@ bête = beast
 
 bien = good 
 
-blagueur = joker 
+blagueur = joker = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/blagueur.mp3
 
 bon = good 
 
@@ -198,184 +198,184 @@ yeux = eyes
 
 yonda = yonder 
 
-à jeudi = till Thursday 
+à jeudi = till Thursday = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/a_jeudi.mp3
 
-à point = perfectly cooked 
+à point = perfectly cooked = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/a_point.mp3
 
-Ah! si tu savais = Ah!  If you knew 
+Ah! si tu savais = Ah!  If you knew = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/ah_si_tu.mp3
 
-Allez vous-en! = Go on!
+Allez vous-en! = Go on! = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/allez_vous-en.mp3
 
 Sapristi! = Good heavens! 
 
-batture = floodplain; low land which sometimes floods 
+batture = floodplain; low land which sometimes floods = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/batture.mp3
 
-bien souffrante = really suffering 
+bien souffrante = really suffering = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/bien_souffrante.mp3
 
 Blagueur—farceur—gros bête, va! = joker—trickster, big beast, go on! 
 
-Bon Dieu =  Good God 
+Bon Dieu =  Good God = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/bon_dieu.mp3
 
-Bon Dieu, ayez pitié La Folle! Bon Dieu, ayez pitié moi! = Good God, have pity on the madwoman!  Good God, pity me! 
+Bon Dieu, ayez pitié La Folle! Bon Dieu, ayez pitié moi! = Good God, have pity on the madwoman!  Good God, pity me! = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/ayez_pitie.mp3
 
-bon garçon = good boy 
+bon garçon = good boy = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/bon_garcon.mp3
 
-bonfils = good son 
+bonfils = good son = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/bonfils.mp3
 
-Bonne nuit, ma reine; soyez sage. = Good night, my queen; be good. 
+Bonne nuit, ma reine; soyez sage. = Good night, my queen; be good. = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/bonne_nuit.mp3
 
-Ce que tes yeux me dissent = What your eyes tell me 
+Ce que tes yeux me dissent = What your eyes tell me = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/ce_que_tes_yeaux.mp3
 
-chambres garnies = furnished rooms 
+chambres garnies = furnished rooms = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/chambres_garnies.mp3
 
-chênière  =  on a beach a sandy or shelly ridge between muddy areas 
+chênière  =  on a beach a sandy or shelly ridge between muddy areas = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/cheniere.mp3
 
-chère amie = dear friend 
+chère amie = dear friend = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/chere_amie.mp3
 
-cochère = carriage entrance 
+cochère = carriage entrance = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/cochere.mp3
 
-cochon de lait = suckling pig 
+cochon de lait = suckling pig = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/cochon_de_lait.mp3
 
-convenances = manners; conformity; suitability; decency; decorum 
+convenances = manners; conformity; suitability; decency; decorum = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/convenances.mp3
 
-coup d’état = a takeover; an illegal change of government   
+coup d’état = a takeover; an illegal change of government = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/coup_detat.mp3  
 
-coupé = cut; or can mean a kind of coach a four-wheeled enclosed carriage for two passengers and a driver 
+coupé = cut; or can mean a kind of coach a four-wheeled enclosed carriage for two passengers and a driver = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/coupe.mp3
 
-crème-frappée = whipped creme 
+crème-frappée = whipped creme = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/creme-frappee.mp3
 
-Don’t cry, mon bébé, mon bébé, mon Chéri! = My baby, my baby, my dear! 
+Don’t cry, mon bébé, mon bébé, mon Chéri! = My baby, my baby, my dear! = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/mon_bebe.mp3
 
-en bon ami = like a good friend 
+en bon ami = like a good friend = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/en_bon_ami.mp3
 
-en bonne ménagère = like a good housewife 
+en bonne ménagère = like a good housewife = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/en_bonne_menagere.mp3
 
-ennui = boredom or annoyance 
+ennui = boredom or annoyance = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/ennui.mp3
 
-faire = to do, or to make 
+faire = to do, or to make = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/faire.mp3 
 
-faire mal a Pauline = mistreat Pauline 
+faire mal a Pauline = mistreat Pauline = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/faire_mal.mp3
 
 fort = very much 
 
-forte = very much 
+forte = very much = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/forte.mp3
 
-garçon = boy, or waiter 
+garçon = boy, or waiter = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/garcon.mp3
 
-glacé  = frozen, or glazed with sugar 
+glacé  = frozen, or glazed with sugar = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/glace.mp3
 
-gouvernail = rudder, helm, or steering wheel 
+gouvernail = rudder, helm, or steering wheel = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/gouvernail.mp3
 
-grande = grand or great 
+grande = grand or great = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/grande.mp3
 
-gros = big or fat 
+gros = big or fat = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/gros.mp3
 
-Il ne faut pas faire mal à Pauline = Don’t mistreat Pauline. 
+Il ne faut pas faire mal à Pauline = Don’t mistreat Pauline. = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/Il_ne_faut.mp3
 
-l’abri = safe place 
+l’abri = safe place = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/l'abri.mp3
 
-la belle dame = the lovely lady 
+la belle dame = the lovely lady = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/la_belle_dame.mp3
 
-Lafirme = a name 
+Lafirme = a name = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/Lafirme.mp3
 
-Laforcé = a name 
+Laforcé = a name = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/Laforce.mp3
 
-Lidie’s = a name	 
+Lidie’s = a name = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/Lidie's.mp3
 
-ma belle = my beauty 
+ma belle = my beauty = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/ma_belle.mp3
 
-ma chère = my dear 
+ma chère = my dear = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/ma_chere.mp3
 
-ma foi! = Good gracious! 
+ma foi! = Good gracious! = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/ma_foi.mp3
 
-ma reine = my queen 
+ma reine = my queen = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/ma_reine.mp3
 
-mais = but; or can sometimes mean corn or maize 
+mais = but; or can sometimes mean corn or maize = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/mais.mp3
 
-Mais ce n’est pas mal! Elle s’y connait, elle a de la force, oui = But that’s not bad!  She’ll learn, she’s capable, yes.  
+Mais ce n’est pas mal! Elle s’y connait, elle a de la force, oui = But that’s not bad!  She’ll learn, she’s capable, yes. = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/mais_ce.mp3
 
-Mais si, Madame = But yes, madame. 
+Mais si, Madame = But yes, madame. = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/mais_si.mp3
 
-mal = bad, evil, or hurt 
+mal = bad, evil, or hurt = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/mal.mp3
 
-marron glacé = glazed chestnuts 
+marron glacé = glazed chestnuts = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/marron_glace.mp3
 
-Mayblunt = a name 
+Mayblunt = a name = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/Mayblunt.mp3
 
-ménagère = housewife, homemaker, or housekeeper 
+ménagère = housewife, homemaker, or housekeeper = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/menagere.mp3
 
-mulatresse = woman of mixed race 
+mulatresse = woman of mixed race = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/mulatresse.mp3
 
 ne = no or not 
 
-négrillon = African-American child 
+négrillon = African-American child = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/negrillon.mp3
 
-nom de guerre = alias or nickname 
+nom de guerre = alias or nickname = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/nom_de_guerre.mp3
 
-Oh, P’tit Maître! P’tit Maître! Venez donc! Au secours! Au secours! = Oh, little master!  Little master!  Come quick! Help!  Help! 
+Oh, P’tit Maître! P’tit Maître! Venez donc! Au secours! Au secours! = Oh, little master!  Little master!  Come quick! Help!  Help! = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/p'tit_maitre.mp3
 
-Par exemple! = For example! 
+Par exemple! = For example! = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/par_exemple!.mp3
 
-parbleu = a pretend swear word 
+parbleu = a pretend swear word = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/parbleu.mp3
 
-passez = to go, pass, or proceed 
+passez = to go, pass, or proceed = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/passez.mp3
 
-Passez! Adieu! Allez vous-en! = Leave!  Goodbye!  Go on! 
+Passez! Adieu! Allez vous-en! = Leave!  Goodbye!  Go on! = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/passez_adieu.mp3
 
-patés = meat or fish pie; can mean a block of houses or clump of trees; can mean a blot or blob of something 
+patés = meat or fish pie; can mean a block of houses or clump of trees; can mean a blot or blob of something = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/pates.mp3
 
-Pauvre chérie = poor dear 
+Pauvre chérie = poor dear = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/pauvre_cherie.mp3
 
-pension = an allowance; can mean a hotel, boarding house, or boarding school 
+pension = an allowance; can mean a hotel, boarding house, or boarding school = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/pension.mp3
 
-perdido = a Spanish word for lost 
+perdido = a Spanish word for lost = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/perdido.mp3
 
-Pillier = a name 
+Pillier = a name = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/Pillier.mp3
 
-Pillier’s = a name 
+Pillier’s = a name = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/Pillier's.mp3
 
-porte cochère = carriage entrance 
+porte cochère = carriage entrance = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/porte_cochere.mp3
 
-poudre de riz = face powder 
+poudre de riz = face powder = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/poudre_de_riz.mp3
 
-régime = regime; a form of government or of administration 
+régime = regime; a form of government or of administration = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/regime.mp3
 
-ricaneuse = laughing woman 
+ricaneuse = laughing woman = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/ricaneuse.mp3
 
-Santien = a name 
+Santien = a name = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/Santien.mp3
 
-sapristi = good heavens! 
+sapristi = good heavens! = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/sapristi.mp3
 
-seigneur = sir, lord; an important man 
+seigneur = sir, lord; an important man = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/seigneur.mp3
 
-Sesoeur = a name 
+Sesoeur = a name = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/Sesoeur.mp3
 
-Sèvres = fine porcelain 
+Sèvres = fine porcelain = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/sevres.mp3
 
-soirée = evening; can mean evening party 
+soirée = evening; can mean evening party = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/soiree.mp3
 
-soirée musicale = musical evening 
+soirée musicale = musical evening = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/soiree_musicale.mp3
 
-soirées = evenings; can mean evening parties 
+soirées = evenings; can mean evening parties = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/soirees.mp3
 
-soirées musicales = musical evenings 
+soirées musicales = musical evenings = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/soirees_musicales.mp3
 
-soyez = take care 
+soyez = take care = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/soyez.mp3
 
-taint = it ain’t 
+taint = it ain’t = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/taint.mp3
 
-tête montée = worked up, excited, have a head full of steam 
+tête montée = worked up, excited, have a head full of steam = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/tete_montee.mp3
 
 tête-à-tête = face to face 
 
-tiens = well; then; surely; can mean yours 
+tiens = well; then; surely; can mean yours = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/tiens.mp3
 
-tisane = a kind of herbal tea 
+tisane = a kind of herbal tea = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/tisane.mp3
 
-venez = come or go 
+venez = come or go = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/venez.mp3
 
-voilà = look; there is; there are; so there! 
+voilà = look; there is; there are; so there! = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/voila.mp3
 
-Voilà que Madame Ratignolle est jalouse! = See how jealous Madame Ratignolle is!	 
+Voilà que Madame Ratignolle est jalouse! = See how jealous Madame Ratignolle is! = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/voila_que.mp3
 
-vous-en  = get out 
+vous-en  = get out = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/vous-en.mp3
