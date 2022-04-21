@@ -29,14 +29,14 @@ export default NextAuth({
         const users = client.db('awakening').collection('users')
         const result = await users.findOne({ email: credentials.email })
         if (!result) {
-          throw new Error('no user found with email')
+          throw new Error('No user found with that email!')
         }
         const checkPassword = await compare(
           credentials.password,
           result.password
         )
         if (!checkPassword) {
-          throw new Error('password does not match')
+          throw new Error('Password does not match!')
         }
         return {
           email: result.email,

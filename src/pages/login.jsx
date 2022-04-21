@@ -17,6 +17,7 @@ const Login = () => {
   const isSignUp = router.query.sign_up !== undefined
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
+  const [error, setError] = useState('')
   const [password, setPassword] = useState('')
   const submit = () => {
     if (isSignUp)
@@ -31,7 +32,14 @@ const Login = () => {
           'Content-Type': 'application/json',
         },
       }).then(() => router.push('/login'))
-    else signIn('credentials', { email, password, callbackUrl: '/' })
+    else {
+      signIn('credentials', { email, password, redirect: false }).then(
+        ({ error }) => {
+          if (error) setError(error)
+          else router.push('/')
+        }
+      )
+    }
   }
 
   return (
@@ -65,18 +73,15 @@ const Login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <Button mt={4} onClick={submit} type="submit">
+        <Text mt={1} visibility={error ? 'visible' : 'hidden'}>
+          {error || 'spooky'}
+        </Text>
+        <Button onClick={submit} type="submit">
           {isSignUp ? 'Sign Up' : 'Login'}
         </Button>
         <NextLink passHref href={'/'}>
           <Link>
-            <Button
-              bgColor={'#FD4747'}
-              color={'white'}
-              _hover={{}}
-              mt={4}
-              mx={2}
-            >
+            <Button bgColor={'#FD4747'} color={'white'} _hover={{}} mx={2}>
               Home
             </Button>
           </Link>
