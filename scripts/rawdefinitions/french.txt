@@ -224,7 +224,7 @@ bonfils = good son = https://brainy-literacy-assets.s3.amazonaws.com/audio/frenc
 
 Bonne nuit, ma reine; soyez sage. = Good night, my queen; be good. = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/bonne_nuit.mp3
 
-Ce que tes yeux me dissent = What your eyes tell me = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/ce_que_tes_yeaux.mp3
+Ce que tes yeux me disent = What your eyes tell me = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/ce_que_tes_yeaux.mp3
 
 chambres garnies = furnished rooms = https://brainy-literacy-assets.s3.amazonaws.com/audio/french/chambres_garnies.mp3
 
