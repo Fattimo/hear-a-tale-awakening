@@ -14,7 +14,7 @@ const handler = async (req, res) => {
   const client = await clientPromise
   const definitions = client.db('awakening').collection('definitions')
   const document = await definitions.findOne({
-    words: word.toLowerCase(),
+    words: decodeURI(word).toLowerCase(),
   })
   if (!document) {
     res.status(400).json({
