@@ -16,7 +16,7 @@ const Page = ({ text, clickWord, selected, pageId, chapter, ...props }) => {
       else if (currI == i) return runningTot + j
       else return runningTot
     }, 0)
-  } 
+  }
   const overflowBox = useRef(null)
   useEffect(
     () =>
