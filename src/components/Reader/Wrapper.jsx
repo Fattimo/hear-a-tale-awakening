@@ -72,15 +72,16 @@ const Wrapper = ({
   const unsetWord = useCallback(() => {
     setCurrWord(DEFAULT_CURR_WORD)
     setShowAlert(false)
-    setAudioSrc('')
-  }, [DEFAULT_CURR_WORD, setAudioSrc])
+    // setAudioSrc('')
+  }, [DEFAULT_CURR_WORD])
 
   useEffect(() => {
     if (isBookPlaying) {
       setAudioSrcState({ src: '', i: -1 })
       unsetWord()
+      setAudioSrc('')
     }
-  }, [isBookPlaying, unsetWord])
+  }, [isBookPlaying, setAudioSrc, unsetWord])
 
   const clickWord =
     (page) =>
@@ -114,15 +115,23 @@ const Wrapper = ({
     }
 
   const playWordAudio = (word) => {
-    setAudioSrc(
-      `https://brainy-literacy-assets.s3.amazonaws.com/audio/words/${word.charAt(
-        0
-      )}/${cleanedWord(word).toLowerCase()}.mp3`,
-      `https://brainy-literacy-assets.s3.amazonaws.com/audio/french/${cleanedFrenchWord(
-        word
-      ).toLowerCase()}.mp3`
-    )
-    setIsBookPlaying(false)
+    const defaultUrl = `https://brainy-literacy-assets.s3.amazonaws.com/audio/words/${word.charAt(
+      0
+    )}/${cleanedWord(word).toLowerCase()}.mp3`
+    const fallbackUrl = `https://brainy-literacy-assets.s3.amazonaws.com/audio/french/${cleanedFrenchWord(
+      word
+    ).toLowerCase()}.mp3`
+    if (word.includes(' ')) {
+      fetch(`/api/definition?word=${cleanedWord(word)}`).then((res) =>
+        res.json().then((definition) => {
+          setAudioSrc(defaultUrl, definition.audio ?? fallbackUrl)
+          setIsBookPlaying(false)
+        })
+      )
+    } else {
+      setAudioSrc(defaultUrl, fallbackUrl)
+      setIsBookPlaying(false)
+    }
   }
 
   const playDefinitionAudio = () => {
@@ -189,7 +198,10 @@ const Wrapper = ({
         <WordAlert
           word={cleanedWord(currWord.word)}
           definition={definition}
-          closeAlert={() => unsetWord()}
+          closeAlert={() => {
+            unsetWord()
+            setAudioSrc('')
+          }}
           openQuiz={openQuiz}
           playDefinitionAudio={playDefinitionAudio}
         />
