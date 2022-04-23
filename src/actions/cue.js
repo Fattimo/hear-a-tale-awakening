@@ -18,4 +18,10 @@ const quizWord = (word, score, correct) => {
   })
 }
 
-export { cueWord, quizWord }
+const getReviewData = async () => {
+  const res = await fetch('api/cue')
+  const data = await res.json()
+  return data
+}
+
+export { cueWord, quizWord, getReviewData }

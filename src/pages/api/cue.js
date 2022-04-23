@@ -66,8 +66,16 @@ const handler = async (req, res) => {
     )
     res.status(200).json({ word })
   } else if (req.method === 'GET') {
+    const results = await cues
+      .find({ user: currUser._id }, { projection: { _id: 0, user: 0 } })
+      .sort('word', 'asc')
+    const data = await results.toArray()
     res.status(200).json({
-      data: 'haha todo!',
+      data: {
+        totCorrect: currUser.correct,
+        totIncorrect: currUser.incorrect,
+        words: data,
+      },
     })
   } else {
     res.status(400).send('Method not recognized')
