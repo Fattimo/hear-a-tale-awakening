@@ -8,11 +8,19 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { getSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import Sidebar from 'src/components/Home/Sidebar'
+import Quiz from 'src/components/modals/Quiz'
+import AudioManager from 'src/components/Reader/AudioManager'
 import clientPromise from 'utils/mongodb'
 
 const Review = ({ authed, correct, incorrect, words }) => {
+  const router = useRouter()
+  const [reviewWord, setReviewWord] = useState('')
+  const [showQuiz, setShowQuiz] = useState(false)
+  const [audioSrc, setAudioSrcState] = useState({ src: '', i: 0 })
+  const setAudioSrc = (src) => setAudioSrcState({ src, i: audioSrc.i + 1 })
   if (!authed) {
     return (
       <Flex h={'full'}>
@@ -24,11 +32,17 @@ const Review = ({ authed, correct, incorrect, words }) => {
     )
   }
 
-  console.log(words)
+  // word list
   let topScore = 0
+  const reviewWordAction = (word) => {
+    setShowQuiz(true)
+    setReviewWord(word)
+  }
   const wordsComponents = words.map((word) => {
     if (word.score && word.score > topScore) topScore = word.score
-    return <CuedWord key={word.word} data={word} />
+    return (
+      <CuedWord key={word.word} data={word} reviewWord={reviewWordAction} />
+    )
   })
   const percentCorrect = (correct / (correct + incorrect)) * 100
   return (
@@ -85,13 +99,21 @@ const Review = ({ authed, correct, incorrect, words }) => {
           <Box overflow={'auto'}>{wordsComponents}</Box>
         </Flex>
       </Flex>
+      {showQuiz && (
+        <Quiz
+          closeQuiz={() => router.reload()}
+          word={reviewWord}
+          setAudioSrc={setAudioSrc}
+        />
+      )}
+      <AudioManager src={audioSrc} />
     </Flex>
   )
 }
 
-const CuedWord = ({ data = {} }) => {
+const CuedWord = ({ data = {}, reviewWord }) => {
   const [expanded, setExpanded] = useState(false)
-  const { word, score, count, correct, incorrect } = data
+  const { word = '', score = 0, count = 0, correct = 0, incorrect = 0 } = data
   const isQuiz = score !== undefined
 
   return (
@@ -148,6 +170,19 @@ const CuedWord = ({ data = {} }) => {
                 stroke={i < score ? 'yellow.300' : 'gray.300'}
               />
             ))}
+          </Flex>
+          <Flex
+            bgColor={'theme.lightpurple'}
+            color={'white'}
+            borderRadius={8}
+            px={3}
+            h={5}
+            minW={8}
+            align={'center'}
+            cursor={'pointer'}
+            onClick={() => reviewWord(word)}
+          >
+            Review
           </Flex>
         </Flex>
       )}

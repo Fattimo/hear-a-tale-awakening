@@ -213,7 +213,7 @@ const Wrapper = ({
       {quizOpen && (
         <Quiz
           closeQuiz={closeQuiz}
-          word={definition.key}
+          word={cleanedWord(currWord.word)}
           setAudioSrc={setAudioSrc}
           playWordAudio={playWordAudio}
           playDefinitionAudio={playDefinitionAudio}
