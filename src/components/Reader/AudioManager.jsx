@@ -9,7 +9,16 @@ const AudioManager = ({ src = {}, paused = false, start = 0, end = -1 }) => {
       player.current.currentTime = start
       if (paused) return
       const playPromise = player.current.play()
-      playPromise.then(() => {}).catch(() => {})
+      playPromise
+        .then(() => {})
+        .catch(() => {
+          if (src.fallback) {
+            player.current.setAttribute('src', src.fallback)
+            player.current.currentTime = start
+            const playPromise = player.current.play()
+            playPromise.then(() => {}).catch(() => {})
+          }
+        })
     } else {
       player.current.pause()
       player.current.removeAttribute('src')

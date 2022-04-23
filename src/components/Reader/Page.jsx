@@ -16,7 +16,7 @@ const Page = ({ text, clickWord, selected, pageId, chapter, ...props }) => {
       else if (currI == i) return runningTot + j
       else return runningTot
     }, 0)
-  } 
+  }
   const overflowBox = useRef(null)
   useEffect(
     () =>
@@ -63,24 +63,33 @@ const Page = ({ text, clickWord, selected, pageId, chapter, ...props }) => {
               textIndent: noIndent ? '' : '1em',
             }}
           >
-            {paragraph.map((word, j) => (
-              <span key={j}>
-                <span
-                  onClick={clickWord(word, i, j, getCumWords(i, j) / numWords)}
-                  style={{
-                    backgroundColor:
-                      selected.word === word &&
-                      selected.paragraph === i &&
-                      selected.index === j &&
-                      selected.page === pageId
-                        ? 'yellow'
-                        : '',
-                  }}
-                >
-                  {word}
-                </span>{' '}
-              </span>
-            ))}
+            {paragraph.map((word, j) => {
+              const regex = /&fr/g
+              word = word.replace(regex, ' ')
+              return (
+                <span key={j}>
+                  <span
+                    onClick={clickWord(
+                      word,
+                      i,
+                      j,
+                      getCumWords(i, j) / numWords
+                    )}
+                    style={{
+                      backgroundColor:
+                        selected.word === word &&
+                        selected.paragraph === i &&
+                        selected.index === j &&
+                        selected.page === pageId
+                          ? 'yellow'
+                          : '',
+                    }}
+                  >
+                    {word}
+                  </span>{' '}
+                </span>
+              )
+            })}
           </Text>
         )
       })}

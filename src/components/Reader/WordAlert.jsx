@@ -27,7 +27,7 @@ const WordAlert = ({
       bottom={30}
       zIndex={10}
       borderRadius={'3xl'}
-      bgColor={'theme.purple'}
+      bgColor={definition.french ? 'theme.red' : 'theme.purple'}
       color={'white'}
     >
       <Flex
@@ -46,9 +46,12 @@ const WordAlert = ({
         </Flex>
         {!notAvailable && (
           <Flex>
-            <SidebarButton mx={4} onClick={openQuiz} w={12} h={12}>
-              <StarIcon w={6} h={6} />
-            </SidebarButton>
+            {!definition.french && (
+              <SidebarButton mx={4} onClick={openQuiz} w={12} h={12}>
+                <StarIcon w={6} h={6} />
+              </SidebarButton>
+            )}
+
             <SidebarButton w={12} h={12}>
               <HeadphonesIcon onClick={playDefinitionAudio} w={6} h={6} />
             </SidebarButton>
