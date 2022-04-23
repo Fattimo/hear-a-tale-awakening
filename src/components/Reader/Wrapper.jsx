@@ -3,6 +3,7 @@ import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { cueWord } from 'src/actions/cue'
+import { cleanedFrenchWord, cleanedWord } from 'utils/util'
 import Quiz from '../modals/Quiz'
 import AudioManager from './AudioManager'
 import Page from './Page'
@@ -62,7 +63,8 @@ const Wrapper = ({
   }, [])
   const [audioSrc, setAudioSrcState] = useState({ src: '', i: 0 })
   const setAudioSrc = useCallback(
-    (src) => setAudioSrcState({ src, i: audioSrc.i + 1 }),
+    (src, fallback = '') =>
+      setAudioSrcState({ src, fallback, i: audioSrc.i + 1 }),
     [audioSrc.i]
   )
   const [currWord, setCurrWord] = useState(DEFAULT_CURR_WORD)
@@ -73,15 +75,16 @@ const Wrapper = ({
   const unsetWord = useCallback(() => {
     setCurrWord(DEFAULT_CURR_WORD)
     setShowAlert(false)
-    setAudioSrc('')
-  }, [DEFAULT_CURR_WORD, setAudioSrc])
+    // setAudioSrc('')
+  }, [DEFAULT_CURR_WORD])
 
   useEffect(() => {
     if (isBookPlaying) {
       setAudioSrcState({ src: '', i: -1 })
       unsetWord()
+      setAudioSrc('')
     }
-  }, [isBookPlaying, unsetWord])
+  }, [isBookPlaying, setAudioSrc, unsetWord])
 
   const clickWord =
     (page) =>
@@ -116,19 +119,35 @@ const Wrapper = ({
     }
 
   const playWordAudio = (word) => {
-    setAudioSrc(
-      `https://brainy-literacy-assets.s3.amazonaws.com/audio/words/${word.charAt(
-        0
-      )}/${cleanedWord(word).toLowerCase()}.mp3`
-    )
-    setIsBookPlaying(false)
+    const defaultUrl = `https://brainy-literacy-assets.s3.amazonaws.com/audio/words/${word.charAt(
+      0
+    )}/${cleanedWord(word).toLowerCase()}.mp3`
+    const fallbackUrl = `https://brainy-literacy-assets.s3.amazonaws.com/audio/french/${cleanedFrenchWord(
+      word
+    ).toLowerCase()}.mp3`
+    if (word.includes(' ')) {
+      fetch(`/api/definition?word=${cleanedWord(word)}`).then((res) =>
+        res.json().then((definition) => {
+          setAudioSrc(defaultUrl, definition.audio ?? fallbackUrl)
+          setIsBookPlaying(false)
+        })
+      )
+    } else {
+      setAudioSrc(defaultUrl, fallbackUrl)
+      setIsBookPlaying(false)
+    }
   }
 
   const playDefinitionAudio = () => {
     setAudioSrc(
-      `https://brainy-literacy-assets.s3.amazonaws.com/audio/defs/${cleanedWord()
+      `https://brainy-literacy-assets.s3.amazonaws.com/audio/defs/${cleanedWord(
+        currWord.word
+      )
         .charAt(0)
-        .toUpperCase()}/${definition.key}%2B.mp3`
+        .toUpperCase()}/${definition.key}%2B.mp3`,
+      `https://brainy-literacy-assets.s3.amazonaws.com/audio/french/${cleanedFrenchWord(
+        currWord.word
+      ).toLowerCase()}.mp3`
     )
     setIsBookPlaying(false)
   }
@@ -140,12 +159,6 @@ const Wrapper = ({
   const closeQuiz = () => {
     setQuizOpen(false)
     setAudioSrc('')
-  }
-
-  // Cleaned Word
-  const cleanedWord = (word = currWord.word) => {
-    const punctuationless = word.replace(/[.,/#!$%^&*;:{}=_`~()]/g, '')
-    return punctuationless.replace(/\s{2,}/g, ' ')
   }
 
   const chapterHeading = (page = pageNumber) => {
@@ -187,9 +200,12 @@ const Wrapper = ({
       <AudioManager src={audioSrc} />
       {showAlert && (
         <WordAlert
-          word={cleanedWord()}
+          word={cleanedWord(currWord.word)}
           definition={definition}
-          closeAlert={() => unsetWord()}
+          closeAlert={() => {
+            unsetWord()
+            setAudioSrc('')
+          }}
           openQuiz={openQuiz}
           playDefinitionAudio={playDefinitionAudio}
         />

@@ -36,6 +36,9 @@ const Bookmarks = ({ config = {} }) => {
         <Text fontSize={'xl'} fontWeight={'bold'}>
           Your Bookmarks
         </Text>
+        <Text>
+          <span style={{ fontWeight: 'bold' }}>Key |</span> Chapter : Page
+        </Text>
         <Flex overflow={'hidden'}>
           <Box overflow={'auto'} w={'full'}>
             {bookmarks.map((b, i) => (
@@ -65,8 +68,9 @@ const BookmarkRow = ({ page, chapter }) => {
           borderRadius={'2xl'}
           px={8}
         >
-          <Text fontWeight={'semibold'}>Page {page}</Text>
-          <Text ml={4}>Chapter {chapter}</Text>
+          <Text fontWeight={'semibold'}>
+            {chapter} : {page}
+          </Text>
         </Flex>
       </GridItem>
       <NextLink href={`/page/${page}?play`} passHref>

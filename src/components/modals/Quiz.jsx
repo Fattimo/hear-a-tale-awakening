@@ -63,23 +63,24 @@ const Quiz = ({
       closeQuiz()
       return
     }
-    reshuffleQuiz()
+    fetchQuiz()
   }
 
-  const reshuffleQuiz = () => {
-    if (!quiz.choices) return
-    // https://stackoverflow.com/a/12646864
-    function shuffleArray(array) {
-      for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1))
-        ;[array[i], array[j]] = [array[j], array[i]]
-      }
-    }
-    const correctAnswer = quiz.choices[quiz.correctIndex]
-    shuffleArray(quiz.choices)
-    quiz.correctIndex = quiz.choices.indexOf(correctAnswer)
-    setQuiz(quiz)
-  }
+  // redundant due to changing client asks
+  // const reshuffleQuiz = () => {
+  //   if (!quiz.choices) return
+  //   // https://stackoverflow.com/a/12646864
+  //   function shuffleArray(array) {
+  //     for (let i = array.length - 1; i > 0; i--) {
+  //       const j = Math.floor(Math.random() * (i + 1))
+  //       ;[array[i], array[j]] = [array[j], array[i]]
+  //     }
+  //   }
+  //   const correctAnswer = quiz.choices[quiz.correctIndex]
+  //   shuffleArray(quiz.choices)
+  //   quiz.correctIndex = quiz.choices.indexOf(correctAnswer)
+  //   setQuiz(quiz)
+  // }
 
   return (
     <Box
@@ -98,7 +99,7 @@ const Quiz = ({
         align={'center'}
         h={'full'}
         w={'full'}
-        fontSize={'xl'}
+        fontSize={'lg'}
       >
         <Flex mt={6}>
           {[...Array(5).keys()].map((i) => (
@@ -180,12 +181,15 @@ const Quiz = ({
               <Text mt={4} px={16}>
                 {quiz.definition}
               </Text>
-              <Text color={correct ? 'green.400' : 'red.400'}>
+              <Text
+                color={correct ? 'green.400' : 'red.400'}
+                visibility={correct === null ? 'hidden' : 'visible'}
+              >
                 {correct !== null
                   ? correct
                     ? 'Correct'
                     : 'Incorrect, try again!'
-                  : ''}
+                  : 'spooky'}
               </Text>
               <Flex
                 justifyContent={'space-between'}
