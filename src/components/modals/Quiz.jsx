@@ -1,6 +1,8 @@
 import { ArrowRightIcon, CloseIcon, StarIcon } from '@chakra-ui/icons'
 import { Box, Flex, Progress, Text, Loading } from '@chakra-ui/react'
+import { useSession } from 'next-auth/react'
 import React, { useCallback, useEffect, useState } from 'react'
+import { quizWord } from 'src/actions/cue'
 import SidebarButton from '../Reader/SidebarButton'
 import style from './quiz.module.css'
 
@@ -11,6 +13,8 @@ const Quiz = ({
   playWordAudio,
   playDefinitionAudio,
 }) => {
+  const session = useSession()
+
   const [quiz, setQuiz] = useState({})
   const [correct, setCorrect] = useState(null)
   const [selectedIndex, setSelectedIndex] = useState(-1)
@@ -39,12 +43,15 @@ const Quiz = ({
       setAudioSrc(
         'https://brainy-literacy-assets.s3.amazonaws.com/audio/correct_quiz_answer_sound.mp3'
       )
+      if (session.status === 'authenticated')
+        quizWord(word, currCorrect + 1, true)
     } else {
       setCorrect(false)
       setCurrCorrect(0)
       setAudioSrc(
         'https://brainy-literacy-assets.s3.amazonaws.com/audio/incorrect_answer_sound.mp3'
       )
+      if (session.status === 'authenticated') quizWord(word, currCorrect, false)
     }
   }
 

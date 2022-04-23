@@ -1,6 +1,8 @@
 import { Flex, Spacer } from '@chakra-ui/react'
+import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import { cueWord } from 'src/actions/cue'
 import Quiz from '../modals/Quiz'
 import AudioManager from './AudioManager'
 import Page from './Page'
@@ -16,6 +18,7 @@ const Wrapper = ({
   isTouchingWord,
   setIsTouchingWord,
 }) => {
+  const session = useSession()
   const router = useRouter()
 
   // Page Calculations
@@ -107,6 +110,7 @@ const Wrapper = ({
         setCurrWord({ page, word, paragraph, index })
         playWordAudio(word)
         setIsBookPlaying(false)
+        if (session.status === 'authenticated') cueWord(cleanedWord(word))
         setTimeoutState(setTimeout(unsetWord, 3000))
       }
     }
