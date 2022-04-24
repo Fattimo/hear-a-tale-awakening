@@ -19,7 +19,7 @@ const quizWord = (word, score, correct) => {
 }
 
 const getReviewData = async (word) => {
-  const res = await fetch(`api/cue?word=${word}`)
+  const res = await fetch(`/api/cue?word=${word}`)
   const data = await res.json()
   return data
 }
