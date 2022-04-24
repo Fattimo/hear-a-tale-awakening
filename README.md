@@ -12,7 +12,7 @@
 - eslint: Automatically identifying and fixing code errors
 - prettier: Setting a common code style and fixing any issues. If you would like to adjust any prettier settings like quote style or include semicolons, look in `.prettierrc`
 
-- PyMongo: modify MongoDB from python
+- PyMongo: Modify MongoDB from python
 
 ## Setup
 
@@ -92,7 +92,7 @@ At this point, the project is already built. Now we need to add our environment 
 2. Go to Settings -> Environment Variables
 3. For Vercel, only 3 env variables are needed: `DB_NAME`, `MONGO_DB`, and `NEXTAUTH_SECRET`. For `DB_NAME`, we recommend calling it `awakening`. For `MONGO_DB`, input the connection string to your MongoDB database. For `NEXTAUTH_SECRET`, add any random string of characters.
 
-Now populate the database by navigating to the scripts/ directory and running `python definitions.py -prod`.
+Populate the database by navigating to the scripts/ directory and running `python definitions.py -prod`.
 
 To future proof your application and automatically update on code changes, follow the steps below:
 
