@@ -33,7 +33,6 @@ else:
 
 db = client["awakening"]
 col = db["definitions"]
-col.delete_many({})#Clear database
 
 docs = [] #List of documents
 with open("rawdefinitions/names.txt", 'r', encoding='utf8') as names: #Name definitions
@@ -140,6 +139,7 @@ with open("rawdefinitions/french.txt", 'r', encoding='utf8') as defs:#Words
                 
     dupcheck(doc)
         
+col.delete_many({})#Clear database
 col.insert_many(docs)
 col.create_index([("first_letter", pymongo.ASCENDING)])
 col.create_index([("words", pymongo.ASCENDING)])
