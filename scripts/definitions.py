@@ -2,6 +2,7 @@ import pymongo
 import sys
 import french
 from french import findandformatfrench
+import os
 
 testDB = "mongodb://localhost:27017/"
 DB = testDB
@@ -13,7 +14,14 @@ if len(sys.argv) >= 2:
             prod = True
 if prod:
     print("Production")
-    with open("../.env", 'r') as env:
+    env = None
+    if os.path.exists("../.env.local"):
+        env = "../.env.local"
+    elif os.path.exists("../.env"):
+        env = "../.env"
+    else:
+        sys.exit(".env not found")
+    with open(env, 'r') as env:
         lines = env.readlines()
         for line in lines:
             if line[:8] == "MONGO_DB":
