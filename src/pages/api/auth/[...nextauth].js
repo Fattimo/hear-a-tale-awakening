@@ -38,6 +38,17 @@ export default NextAuth({
         if (!checkPassword) {
           throw new Error('Password does not match!')
         }
+        users.findOneAndUpdate(
+          { _id: result._id },
+          {
+            $push: {
+              ts: {
+                $each: [new Date()],
+                $slice: -3,
+              },
+            },
+          }
+        )
         return {
           email: result.email,
           name: result.name || 'No Name',

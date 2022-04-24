@@ -1,6 +1,9 @@
 import { ArrowRightIcon, CloseIcon, StarIcon } from '@chakra-ui/icons'
 import { Box, Flex, Progress, Text, Loading } from '@chakra-ui/react'
+import { useSession } from 'next-auth/react'
 import React, { useCallback, useEffect, useState } from 'react'
+import { getReviewData, quizWord } from 'src/actions/cue'
+import { cleanedWord } from 'utils/util'
 import SidebarButton from '../Reader/SidebarButton'
 import style from './quiz.module.css'
 
@@ -11,6 +14,30 @@ const Quiz = ({
   playWordAudio,
   playDefinitionAudio,
 }) => {
+  const session = useSession()
+  if (playWordAudio === undefined)
+    playWordAudio = () =>
+      setAudioSrc(
+        `https://brainy-literacy-assets.s3.amazonaws.com/audio/words/${word.charAt(
+          0
+        )}/${cleanedWord(word).toLowerCase()}.mp3`
+      )
+
+  if (playDefinitionAudio === undefined)
+    playDefinitionAudio = () => {
+      fetch(`/api/definition?word=${cleanedWord(word)}`).then((res) =>
+        res.json().then((definition) => {
+          setAudioSrc(
+            `https://brainy-literacy-assets.s3.amazonaws.com/audio/defs/${cleanedWord(
+              word
+            )
+              .charAt(0)
+              .toUpperCase()}/${definition.key}%2B.mp3`
+          )
+        })
+      )
+    }
+
   const [quiz, setQuiz] = useState({})
   const [correct, setCorrect] = useState(null)
   const [selectedIndex, setSelectedIndex] = useState(-1)
@@ -19,7 +46,9 @@ const Quiz = ({
   const fetchQuiz = useCallback(
     () =>
       fetch(`/api/quiz?word=${word}`).then((res) =>
-        res.json().then((quiz) => setQuiz(quiz))
+        res.json().then((quiz) => {
+          setQuiz(quiz)
+        })
       ),
     [word]
   )
@@ -27,7 +56,10 @@ const Quiz = ({
   useEffect(() => {
     if (word === '') return
     fetchQuiz()
-  }, [fetchQuiz, word])
+    if (session.status === 'authenticated') {
+      getReviewData(word).then((res) => setMaxCorrect(res.data.score))
+    }
+  }, [fetchQuiz, session.status, word])
 
   const selectAnswer = (i) => {
     if (correct) return
@@ -39,12 +71,15 @@ const Quiz = ({
       setAudioSrc(
         'https://brainy-literacy-assets.s3.amazonaws.com/audio/correct_quiz_answer_sound.mp3'
       )
+      if (session.status === 'authenticated')
+        quizWord(word, currCorrect + 1, true)
     } else {
       setCorrect(false)
       setCurrCorrect(0)
       setAudioSrc(
         'https://brainy-literacy-assets.s3.amazonaws.com/audio/incorrect_answer_sound.mp3'
       )
+      if (session.status === 'authenticated') quizWord(word, currCorrect, false)
     }
   }
 

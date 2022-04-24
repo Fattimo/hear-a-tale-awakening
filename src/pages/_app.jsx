@@ -22,6 +22,7 @@ const theme = extendTheme({
       lightpurple: '#838CDF',
       faintpurple: '#CBCFEF',
       gray: '#E6E9EF',
+      faintgray: 'rgba(230, 233, 239, .49)',
       red: '#FD4747',
       progress: { 500: '#666FC1' },
     },
