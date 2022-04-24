@@ -16,12 +16,13 @@
 
 ### Initializing Env Vars
 
-- If you are an EM setting up a project for the first time, read [the Bitwarden guide here](https://gtbitsofgood.notion.site/Secrets-Passwords-Bitwarden-74c4806a1f29485b8fb85ea29f273ab9) before continuing forward.
-- Run `npm run secrets:[windows/linux]` to sync development secrets from Bitwarden and save them to a local `.env.local` file, based on your platform. Contact Matt Chen for the Bitwarden password.
+- To make it easy to pull secrets across team members, we have implemented commands that use the Bitwarden CLI to update environment variables on your local device.
+- Run `npm run secrets:[windows/linux]` to sync development secrets from Bitwarden and save them to a local `.env.local` file, based on your platform. Contact Matt Chen for the Bitwarden password for this repo.
+- If you are setting the repo up external to this team, replace the email and item id within the `package.json` scripts with your own.
 
 ### Updating Env Vars
 
-- For dev, update `.env.local` and `next.config.js`
+- For dev, update `.env.local` and `next.config.js`. See `.env.local.example` for the format of the file, with annotations on what each variable represent.
 - For production, add the env vars to your host, **NEVER** commit `.env` to your version control system.
 
 ### MongoDB
@@ -64,18 +65,50 @@ There is a pipeline in place that automatically deploys to Vercel. Vercel deploy
 ## Installation Guide
 
 ### Pre requisites
+- [Vercel](https://vercel.com/) account
+- [MongoDB](https://www.mongodb.com/cloud/atlas/register2) database.
+- [Git](https://git-scm.com/downloads)
+- [Node](https://nodejs.org/en/download/)
+- yarn: run `npm install --global yarn` in terminal after installing node
 
-### Dependent libraries
+If you are choosing not to deploy on Vercel (NOT RECOMMENDED), then an equivalent web server service (e.g. DigitalOcean) or web server that is able to run node commands is necessary. Essentially, a server is needed to run the `next start` command, which may require other setup.
 
-### Download Instructions
+As this is a web based application no dependent libraries must be installed locally, unless you are planning on developing the application locally. If that is the case, see above for dependent library installation. Otherwise, Vercel will handle installation of dependent packages for you. If you are choosing not to use Vercel, run the `yarn` command within this project's directory to install all of the dependent node modules. Node 14.x is expected for this project. The rest of this install guide will be for Vercel only.
 
-### Build Instructions
+### Download/Build Instructions
 
-### Installation of actual application: 
+Again, as this is a web based application, nothing needs to be downloaded. In order to build the application, we recommend using the production pipeline as detailed above. To enable the production pipeline, follow these steps:
+
+1. Clone the repository locally using `git clone [https or ssh url]`
+2. Run `yarn` in the repository
+3. Run `npx vercel`. Follow the Vercel prompts to create a deployment for your local project. 
+
+At this point, the project is already built. Now we need to add our environment variables into the deployment to finalize installing our actual application.
+
+1. Log into Vercel and navigate to your new project.
+2. Go to Settings -> Environment Variables
+3. For Vercel, only 3 env variables are needed: `DB_NAME`, `MONGO_DB`, and `NEXTAUTH_SECRET`. For `DB_NAME`, we recommend calling it `awakening`. For `MONGO_DB`, input the connection string to your MongoDB database. For `NEXTAUTH_SECRET`, add any random string of characters.
+
+To future proof your application and automatically update on code changes, follow the steps below:
+
+1. A `.vercel` folder should have appeared within your repository after running `npx vercel`. Note down the `orgId` and `projectId` within the `project.json` file in this folder.
+2. In GitHub, go to Settings -> Secrets -> Actions
+3. Fill in two secrets, `ORG_ID` and `PROJECT_ID` with the corresponding values of `project.json` within the Vercel folder
+4. Log into your Vercel account within your browser. Click your profile icon -> Settings -> Tokens, and generate a new token.
+5. Copy this value into another secret as `VERCEL_TOKEN`
+
+At this point, your pipeline should be set up. Future pushes to the `production` branch should update the Production Vercel deployment.
 
 ### Run instructions
 
+To run the application, visit the deployment of the app. This can be found in a multitude of places. On Vercel, navigate to the home of your app deployment and click on the app itself to visit the production deployment. Alternatively, navigate to your GitHub project and select the production deployment from the environments on the side, if you have set up continuous integration (final section of previous step) already.
+
 ### Troubleshooting
+
+- Check to see if environment variables are copied properly
+- Check to see if yarn is installed and you have runned the `yarn` command to install all of the packages
+- Ensure you have node installed
+- Ensure your MongoDB database instance is open to all IP addresses and the connection string is read and write
 
 ---
 
