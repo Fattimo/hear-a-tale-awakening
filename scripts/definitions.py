@@ -2,6 +2,7 @@ import pymongo
 import sys
 import french
 from french import findandformatfrench
+import os
 
 testDB = "mongodb://localhost:27017/"
 DB = testDB
@@ -13,7 +14,14 @@ if len(sys.argv) >= 2:
             prod = True
 if prod:
     print("Production")
-    with open("../.env", 'r') as env:
+    env = None
+    if os.path.exists("../.env.local"):
+        env = "../.env.local"
+    elif os.path.exists("../.env"):
+        env = "../.env"
+    else:
+        sys.exit(".env not found")
+    with open(env, 'r') as env:
         lines = env.readlines()
         for line in lines:
             if line[:8] == "MONGO_DB":
@@ -25,7 +33,6 @@ else:
 
 db = client["awakening"]
 col = db["definitions"]
-col.delete_many({})#Clear database
 
 docs = [] #List of documents
 with open("rawdefinitions/names.txt", 'r', encoding='utf8') as names: #Name definitions
@@ -132,6 +139,7 @@ with open("rawdefinitions/french.txt", 'r', encoding='utf8') as defs:#Words
                 
     dupcheck(doc)
         
+col.delete_many({})#Clear database
 col.insert_many(docs)
 col.create_index([("first_letter", pymongo.ASCENDING)])
 col.create_index([("words", pymongo.ASCENDING)])
