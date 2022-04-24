@@ -12,7 +12,7 @@
 - eslint: Automatically identifying and fixing code errors
 - prettier: Setting a common code style and fixing any issues. If you would like to adjust any prettier settings like quote style or include semicolons, look in `.prettierrc`
 
-- Python @joe
+- PyMongo: modify MongoDB from python
 
 ## Setup
 
@@ -50,8 +50,6 @@ A running instance of MongoDB is required this project.
 2. Navigate to this project in terminal and enter `yarn`
 3. Rename `example.env.local` to `.env.local` and fill it out with the dev config
 
-### Python @joe maybe
-
 ## Running
 
 ### Development
@@ -74,7 +72,7 @@ There is a pipeline in place that automatically deploys to Vercel. Vercel deploy
 - [Git](https://git-scm.com/downloads)
 - [Node](https://nodejs.org/en/download/)
 - yarn: run `npm install --global yarn` in terminal after installing node
-- @joe python
+- Python 3+ with [PyMongo](https://pymongo.readthedocs.io/en/stable/installation.html)
 
 If you are choosing not to deploy on Vercel (NOT RECOMMENDED), then an equivalent web server service (e.g. DigitalOcean) or web server that is able to run node commands is necessary. Essentially, a server is needed to run the `next start` command, which may require other setup.
 
@@ -87,13 +85,14 @@ Again, as this is a web based application, nothing needs to be downloaded. In or
 1. Clone the repository locally using `git clone [https or ssh url]`
 2. Run `yarn` in the repository
 3. Run `npx vercel`. Follow the Vercel prompts to create a deployment for your local project.
-4. To set up the database, @joe python scripts
 
 At this point, the project is already built. Now we need to add our environment variables into the deployment to finalize installing our actual application.
 
 1. Log into Vercel and navigate to your new project.
 2. Go to Settings -> Environment Variables
 3. For Vercel, only 3 env variables are needed: `DB_NAME`, `MONGO_DB`, and `NEXTAUTH_SECRET`. For `DB_NAME`, we recommend calling it `awakening`. For `MONGO_DB`, input the connection string to your MongoDB database. For `NEXTAUTH_SECRET`, add any random string of characters.
+
+Now populate the database by navigating to the scripts/ directory and running `python definitions.py -prod`.
 
 To future proof your application and automatically update on code changes, follow the steps below:
 
