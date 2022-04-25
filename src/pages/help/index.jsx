@@ -27,9 +27,9 @@ const Help = () => {
           fontWeight={'semibold'}
         >
           <HelpSelect slug={'Reading'} />
-          <HelpSelect slug={'Reading'} />
-          <HelpSelect slug={'Reading'} />
-          <HelpSelect slug={'Reading'} />
+          <HelpSelect slug={'Quizzing'} />
+          <HelpSelect slug={'Reviewing'} />
+          <HelpSelect slug={'Bookmarking'} />
         </Grid>
       </Flex>
     </Flex>
