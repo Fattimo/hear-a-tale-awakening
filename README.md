@@ -101,6 +101,7 @@ To future proof your application and automatically update on code changes, follo
 3. Fill in two secrets, `ORG_ID` and `PROJECT_ID` with the corresponding values of `project.json` within the Vercel folder
 4. Log into your Vercel account within your browser. Click your profile icon -> Settings -> Tokens, and generate a new token.
 5. Copy this value into another secret as `VERCEL_TOKEN`
+6. Create one final secret named `APP_URL`. This should be the domain for the application.
 
 At this point, your pipeline should be set up. Future pushes to the `production` branch should update the Production Vercel deployment.
 
