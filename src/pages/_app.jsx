@@ -25,6 +25,7 @@ const theme = extendTheme({
       faintgray: 'rgba(230, 233, 239, .49)',
       red: '#FD4747',
       progress: { 500: '#666FC1' },
+      subtitle: 'rgba(24, 27, 58, 0.55)',
     },
   },
   breakpoints,
