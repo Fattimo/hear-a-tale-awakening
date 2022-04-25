@@ -124,29 +124,32 @@ To run the application, visit the deployment of the app. This can be found in a 
 
 ### New Features
 
-* Reader: The reader is able to view the book consistently on all screen sizes
-* Definitions: When the reader clicks on a word after it is cued, a popup displays the definition for that word
-* Quizzes: When the definition popup is displayed, the reader can click the exclamation point icon to take a quiz on that word
-* Bookmarks: The reader can click on the bookmark icon on the sidebar while reading to save a bookmark that can be accessed on the home screen
-* Help Screen: The reader can access a tutorial from the home page by clicking on the "Help" option on the sidebar.
+* Reading Screen: The reader is able to view the book consistently on all screen sizes.
+* Definitions: When the reader clicks on a word after it has been cued, a popup displays the definition for that word along with some examples of related words.
+* Quizzes: When the definition popup is displayed, the reader can click the star icon to take a quiz on that word. The quiz tests their ability to identify the word outside of context. Every consecutive correct answer on the quiz awards the reader with a gold star; an incorrect answer will cause the user to lose their gold stars, but they will remain filled in with silver so that can see what they have accomplished previously.
+* Bookmarks: The reader can click on the bookmark icon on the sidebar while reading the book to save a bookmark that can be accessed directly via the home screen.
+* Help Screen: The reader can access tutorials for different sections of the app by clicking on the "Help" option on the home screen's sidebar.
 * Progress: The reader can click on the "Continue Reading" button on the home screen to start reading from the last page they accessed. On the right side of the home screen, the reader can see their progress through each chapter; clicking on a chapter brings the reader to the most recent page they accessed in that chapter.
-* Review Screen: Design mockup for the review screen has been added to the application.
-* Definition Audio: The reader can now cue the audio for any definition by clicking on the headphones icon in the definition popup.
-* Audiobook: The reader can now listen to the audio for the book while reading. The audio can be played starting from any page by clicking on the headphones icon in the sidebar of the reading screen. The reader can also choose to begin reading with audio or without audio from the home screen. Audio can be toggled on/off and can be paused/played using the icons on the sidebar.
-* Bookmarks Screen: There is now a screen containing all of the reader's bookmarks, which enables the reader to set as many bookmarks as they like and access them from this screen. The reader has the option to continue reading with or without audio from any bookmark on this screen.
+* Review Screen: The reader can see all of their quiz results and history of interacting with words by clicking on the "Review" option on the sidebar of the home screen.
+* Definition Audio: The reader can cue the audio for any definition by clicking on the headphones icon in the definition popup.
+* Audiobook: The reader can listen to the audio for the book while reading. The audio can be played starting from any page by clicking on the headphones icon in the sidebar of the reading screen. The reader can also choose to begin reading with audio or without audio from the home screen. Audio can be toggled on/off and can be paused/played using the icons on the sidebar. The reader can also select the touch icon on the sidebar of the homescreen to select a place in the text that they would like to skip the audio to.
+* Bookmarks Screen: There is a screen containing a list of all of the reader's bookmarks, which enables the reader to set as many bookmarks as they like. The reader has the option to continue reading with or without audio from any bookmark on this screen.
+* Background Screen: The reader can learn more about Kate Chopin and view pictures of the setting of the novel by clicking on the "Background" option on the left sidebar of the home screen.
 
 ### Improvements
 
-* Background Screen: The font weight for the author bio has been increased and the images are now larger.
-* Reading Screen: The pages of the book have been adjusted to look more like a physical book and to have fixed lines regardless of the window size
-* Quiz Screen: The design for the quiz screen has been updated to increase the size of the text and minimize unused whitespace. A sound has been added for when the reader selects the wrong answer choice. Related words no longer show up in the question on the quiz screen.
+* Background Screen: The font weight and image size for the background page have been optimized.
+* Reading Screen: The pages of the book have formatted to look like a physical book and to have fixed lines regardless of the window size.
+* Quiz Screen: The design for the quiz screen has been updated to minimize unused whitespace. Sound effects have been added for when the reader answers questions correctly and incorrectly. Related words no longer show up in the question on the quiz screen.
 * Definitions: All of the definitions are now available for the reader to cue when reading. All of the audio for these definitions is also available. The size of the definition popup window and the text within it has been increased. The icon for cueing a quiz from this popup has been redesigned.
 * Audio: All of the audio for individual words is now available.
-* Reading Screen: Removed the red margin around the pages. Added chapter headings at the beginning of each chapter. Removed settings icon and replaced it with a new icon that will enable the reader to skip around the audio for a page (not implemented yet). The short stories after the end of the book that were contained in the original text have been removed.
-* Home Screen: The third bookmark icon has been redesigned and now brings the reader to the new bookmarks screen when clicked.
+* Reading Screen: Removed the red margin around the pages. Added chapter headings at the beginning of each chapter. Removed the settings icon and replaced it with a touch icon that will enable the reader to skip around the audio for a page. The short stories after the end of the book that were contained in the original text have been removed.
+* Home Screen: The third bookmark icon has been redesigned and now brings the reader to the bookmarks screen when clicked.
 
 ### Bug Fixes
 
+* Fixed bug where taking a quiz on a word would sometimes cue a quiz for a different word
+* Fixed bug where silver stars were not appearing on the quiz screen
 * Fixed a 404 error on page 404 of the book
 * Fixed bug where the audio for a word didn't play if the reader tried to cue it more than once in a row.
 * Fixed bug where the word highlighting persisted after a definition was cued
@@ -156,5 +159,5 @@ To run the application, visit the deployment of the app. This can be found in a 
 
 ### Known Bugs
 
-* User interface on mobile (vertical) needs improvement.
-* Help screen images are low resolution
+* User interface on mobile in portrait mode needs improvement.
+* Images on tutorial screens are low resolution
